@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+*.pyd
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Results and Generated Data
+# Uncomment these if you don't want to track results/data in git:
+results/
+data/generated/
+data/runs/
+
+# Keep structure files but ignore data
+*.parquet
+*.jsonl
+
+# Model files and cache
+.cache/
+*.sav
+*.pkl
+*.pickle
+*.h5
+*.pt
+*.pth
+*.ckpt
+
+# Environment variables
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+

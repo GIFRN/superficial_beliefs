@@ -1,0 +1,19 @@
+name: "candidates"
+entities:
+  - "Candidate A"
+  - "Candidate B"
+objective: "hiring decision for long-term success"
+attributes:
+  E:
+    name: "X"
+    label: "Experience"
+  A:
+    name: "C"
+    label: "Culture Fit"
+  S:
+    name: "S"
+    label: "Skills"
+  D:
+    name: "L"
+    label: "Leadership"
+

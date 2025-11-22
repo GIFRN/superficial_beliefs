@@ -1,0 +1,19 @@
+name: "restaurants"
+entities:
+  - "Restaurant A"
+  - "Restaurant B"
+objective: "overall customer satisfaction"
+attributes:
+  E:
+    name: "Q"
+    label: "Food Quality"
+  A:
+    name: "P"
+    label: "Price"
+  S:
+    name: "S"
+    label: "Service"
+  D:
+    name: "A"
+    label: "Ambiance"
+
