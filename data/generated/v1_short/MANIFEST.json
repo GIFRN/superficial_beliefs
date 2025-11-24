@@ -1,0 +1,11 @@
+{
+  "n_trials": 500,
+  "n_configs": 273,
+  "target_total": 500,
+  "actual_total": 500,
+  "blocks": {
+    "B3": 292,
+    "B2": 136,
+    "B1": 72
+  }
+}

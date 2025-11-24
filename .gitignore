@@ -29,11 +29,16 @@ env/
 # Results and Generated Data
 # Uncomment these if you don't want to track results/data in git:
 results/
-data/generated/
 data/runs/
 
-# Keep structure files but ignore data
+# Ignore generated data except v1_short
+data/generated/*
+!data/generated/v1_short/
+!data/generated/v1_short/**
+
+# Keep structure files but ignore data (except v1_short)
 *.parquet
+!data/generated/v1_short/*.parquet
 *.jsonl
 
 # Model files and cache
