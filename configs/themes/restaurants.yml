@@ -8,8 +8,8 @@ attributes:
     name: "Q"
     label: "Food Quality"
   A:
-    name: "P"
-    label: "Price"
+    name: "V"
+    label: "Value for Money"
   S:
     name: "S"
     label: "Service"

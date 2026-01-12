@@ -134,7 +134,7 @@ RESTAURANTS_THEME = ThemeConfig(
     objective="overall customer satisfaction",
     attributes={
         "E": AttributeMapping(name="Q", label="Food Quality"),
-        "A": AttributeMapping(name="P", label="Price"),
+        "A": AttributeMapping(name="V", label="Value for Money"),
         "S": AttributeMapping(name="S", label="Service"),
         "D": AttributeMapping(name="A", label="Ambiance"),
     }
@@ -146,9 +146,9 @@ CANDIDATES_THEME = ThemeConfig(
     objective="hiring decision for long-term success",
     attributes={
         "E": AttributeMapping(name="X", label="Experience"),
-        "A": AttributeMapping(name="C", label="Culture Fit"),
-        "S": AttributeMapping(name="S", label="Skills"),
-        "D": AttributeMapping(name="L", label="Leadership"),
+        "A": AttributeMapping(name="F", label="Culture Fit"),
+        "S": AttributeMapping(name="S", label="Technical Skills"),
+        "D": AttributeMapping(name="C", label="Communication"),
     }
 )
 

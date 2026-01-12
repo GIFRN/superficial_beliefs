@@ -163,12 +163,45 @@ def run_trial(
 
 
 def parse_choice(text: str) -> dict[str, Any]:
+    """
+    Parse choice from model response. Supports various formats:
+    - "A" or "B" at start
+    - "Drug A" or "Drug B"
+    - "<Option A>" or "<Option B>"
+    - "<Drug A>" or "<Drug B>"
+    - "**Option A.**" (with markdown)
+    - Any text containing "Option A/B" or "Drug A/B"
+    """
     cleaned = text.strip().upper()
     if not cleaned:
         return {"ok": False, "choice": None}
+    
+    # Try strict match at start first: "Drug A" or just "A"
     match = re.match(r'^(?:DRUG\s+)?([AB])\b', cleaned)
     if match:
         return {"ok": True, "choice": match.group(1)}
+    
+    # Try matching common patterns with prefixes/brackets
+    # Matches: <Option A>, <Drug A>, **Option A**, Option A, Drug A
+    patterns = [
+        r'<\s*(?:OPTION|DRUG)\s*>\s*(?:DRUG\s+)?([AB])\b',  # <Option>Drug A or <Option>A
+        r'<\s*(?:OPTION|DRUG)\s+([AB])\s*>',  # <Option A> or <Drug A>
+        r'\*\*\s*(?:OPTION|DRUG)\s+([AB])\b',  # **Option A or **Drug A
+        r'\b(?:OPTION|DRUG)\s+([AB])\b',  # Option A or Drug A anywhere
+    ]
+    
+    for pattern in patterns:
+        match = re.search(pattern, cleaned)
+        if match:
+            return {"ok": True, "choice": match.group(1)}
+    
+    # Last resort: find any standalone A or B near the start (first 50 chars)
+    # This catches edge cases but avoids matching A/B in the middle of explanations
+    start_section = cleaned[:50] if len(cleaned) > 50 else cleaned
+    match = re.search(r'\b([AB])\b', start_section)
+    if match:
+        return {"ok": True, "choice": match.group(1)}
+    
     return {"ok": False, "choice": None}
 
 

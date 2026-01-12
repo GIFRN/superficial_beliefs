@@ -21,40 +21,145 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 
+from src.llm.harness import LLMBackend
 from src.llm.backends.openai import OpenAIBackend
+from src.llm.backends.anthropic import AnthropicBackend
+from src.llm.backends.qwen3 import Qwen3Backend
 from src.llm.types import ConversationPlan, ConversationStep, TrialSpec
 from src.data.schema import ATTR_LABELS
 from src.data.paraphrases import render_profile
+from src.data.themes import ThemeConfig, theme_from_dict, DRUGS_THEME
 from src.analysis.stageA import build_design_matrix, fit_glm_clustered, compute_ames_and_weights
 from src.analysis.stageB import alignment_metrics
 from src.analysis.features import aggregate_choices
 from src.utils.io import ensure_dir, write_json
 
 
+# Backend factory for multi-backend support
+def create_backend(
+    backend_type: str,
+    model: str,
+    effort: str,
+    temperature: float = 1.0,
+    max_tokens: int = 4000,
+    debug: bool = False,
+) -> LLMBackend:
+    """
+    Create appropriate backend based on type and reasoning effort level.
+    
+    Args:
+        backend_type: One of "openai", "anthropic", "qwen3"
+        model: Model name/path
+        effort: Reasoning effort level ("minimal", "low", "medium", "high")
+        temperature: Sampling temperature
+        max_tokens: Maximum tokens to generate
+        debug: Enable debug output
+        
+    Returns:
+        Configured LLMBackend instance
+    """
+    if backend_type == "openai":
+        # OpenAI uses native reasoning_effort parameter for GPT-5 models
+        return OpenAIBackend(
+            model=model,
+            reasoning_effort=effort,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            debug=debug,
+        )
+    
+    elif backend_type == "anthropic":
+        # Anthropic uses extended thinking with budget_tokens for Claude 4.5 models
+        # Effort levels map to thinking budget tokens:
+        # - minimal: No extended thinking
+        # - low: 1024 tokens
+        # - medium: 4096 tokens  
+        # - high: 8192 tokens
+        # See: https://platform.claude.com/docs/en/build-with-claude/extended-thinking
+        return AnthropicBackend(
+            model=model,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            effort=effort,
+            debug=debug,
+        )
+    
+    elif backend_type == "qwen3":
+        # Qwen3: Map effort levels to enable_thinking and max_tokens
+        # - minimal: No thinking, short output
+        # - low: Thinking enabled, moderate output
+        # - medium: Thinking enabled, standard output
+        # - high: Thinking enabled, long output
+        effort_config = {
+            "minimal": {"enable_thinking": False, "max_tokens": 512},
+            "low": {"enable_thinking": True, "max_tokens": 1024},
+            "medium": {"enable_thinking": True, "max_tokens": 2048},
+            "high": {"enable_thinking": True, "max_tokens": 4096},
+        }
+        config = effort_config.get(effort, effort_config["medium"])
+        
+        return Qwen3Backend(
+            model=model,
+            temperature=temperature,
+            max_tokens=config["max_tokens"],
+            enable_thinking=config["enable_thinking"],
+            return_thinking=False,  # Only return final content
+            debug=debug,
+        )
+    
+    else:
+        raise ValueError(f"Unknown backend type: {backend_type}. Choose from: openai, anthropic, qwen3")
+
+
+# Default models for each backend type
+DEFAULT_MODELS = {
+    "openai": "gpt-5-nano",
+    "anthropic": "claude-3-haiku-20240307",
+    "qwen3": "Qwen/Qwen3-8B",
+}
+
+
 # Streamlined prompting (remove "repeat" step)
-def streamlined_conversation_plan(trial: TrialSpec) -> ConversationPlan:
+def streamlined_conversation_plan(trial: TrialSpec, theme_config: ThemeConfig | None = None) -> ConversationPlan:
     """Simplified conversation plan without redundant repeat step."""
-    system_prompt = "You are an expert clinical decision assistant. Follow instructions exactly."
+    # Use provided theme or default to drugs theme
+    if theme_config is None:
+        theme_config = DRUGS_THEME
     
-    # Build attribute labels
-    attr_labels = " | ".join(ATTR_LABELS.values())
+    # Build system prompt based on theme
+    if theme_config.name == "drugs":
+        system_prompt = "You are an expert clinical decision assistant. Follow instructions exactly."
+    elif theme_config.name == "restaurants":
+        system_prompt = "You are an expert restaurant reviewer. Follow instructions exactly."
+    elif theme_config.name == "candidates":
+        system_prompt = "You are an expert hiring manager. Follow instructions exactly."
+    else:
+        system_prompt = "You are an expert decision maker. Follow instructions exactly."
     
-    # Profile rendering
+    # Build attribute labels using theme
+    if theme_config:
+        attr_labels = " | ".join([theme_config.get_attribute_label(attr) for attr in theme_config.get_mapped_attributes()])
+    else:
+        attr_labels = " | ".join(ATTR_LABELS.values())
+    
+    # Profile rendering with theme
     profile_a_text = render_profile(
         trial.profile_a, 
         trial.paraphrase_id, 
         trial.order_a, 
-        "Drug A"
+        theme_config.entity_a,
+        theme_config=theme_config
     )
     profile_b_text = render_profile(
         trial.profile_b, 
         trial.paraphrase_id, 
         trial.order_b, 
-        "Drug B"
+        theme_config.entity_b,
+        theme_config=theme_config
     )
     
-    # Main prompt
-    main_prompt = f"""You are optimizing 5-year overall patient outcome.
+    # Main prompt with theme objective
+    main_prompt = f"""You are optimizing {theme_config.objective}.
 State the option you choose and explain the single most important factor for your choice in ≤12 words.
 Format: <Option>. <Brief reason>.
 
@@ -76,17 +181,18 @@ PremiseText = '<8-12 words>'"""
 
 def run_trial_streamlined(
     trial: TrialSpec,
-    backend: OpenAIBackend,
+    backend: LLMBackend,
     S: int,
     seed: int,
     counterbalance: bool = True,
+    theme_config: ThemeConfig | None = None,
 ) -> dict[str, Any]:
     """Run a single trial with streamlined prompting.
     
     If counterbalance=True, runs S/2 replicates with original orientation
-    (Drug A = profile_a, Drug B = profile_b) and S/2 with reversed orientation
-    (Drug A = profile_b, Drug B = profile_a). This controls for position bias
-    while maintaining consistent prompt order (Drug A always mentioned first).
+    (entity_a = profile_a, entity_b = profile_b) and S/2 with reversed orientation
+    (entity_a = profile_b, entity_b = profile_a). This controls for position bias
+    while maintaining consistent prompt order (entity_a always mentioned first).
     """
     from src.llm.harness import _parse_step
     
@@ -106,8 +212,8 @@ def run_trial_streamlined(
                 block=trial.block,
                 manipulation=trial.manipulation,
                 variant=trial.variant,
-                profile_a=trial.profile_b,  # Swap: Drug A now gets profile_b
-                profile_b=trial.profile_a,  # Swap: Drug B now gets profile_a
+                profile_a=trial.profile_b,  # Swap: entity_a now gets profile_b
+                profile_b=trial.profile_a,  # Swap: entity_b now gets profile_a
                 order_a=trial.order_b,
                 order_b=trial.order_a,
                 paraphrase_id=trial.paraphrase_id,
@@ -122,7 +228,7 @@ def run_trial_streamlined(
     
     # Run replicates for each orientation
     for orientation_name, trial_spec, n_reps in orientations:
-        plan = streamlined_conversation_plan(trial_spec)
+        plan = streamlined_conversation_plan(trial_spec, theme_config=theme_config)
         
         for rep_idx in range(n_reps):
             system_message = {"role": "system", "content": plan.system_prompt}
@@ -142,7 +248,7 @@ def run_trial_streamlined(
                     response = backend.complete(
                         history, 
                         temperature=1.0, 
-                        max_tokens=4000, 
+                        max_tokens=16000, 
                         seed=step_seed
                     )
                 except Exception as e:
@@ -177,6 +283,24 @@ def run_trial_streamlined(
         "variant": trial.variant,
         "responses": runs
     }
+
+
+def load_theme_from_dataset(dataset_dir: Path) -> ThemeConfig | None:
+    """Load theme configuration from dataset's MANIFEST.json."""
+    manifest_path = dataset_dir / "MANIFEST.json"
+    if not manifest_path.exists():
+        return None
+    
+    try:
+        with manifest_path.open("r") as f:
+            manifest = json.load(f)
+        
+        if "theme" in manifest:
+            return theme_from_dict(manifest["theme"])
+        return None
+    except Exception as e:
+        print(f"  ⚠️  Warning: Could not load theme from MANIFEST: {e}")
+        return None
 
 
 def sample_b3_trials(dataset_dir: Path, n_samples: int = 100, seed: int = 42, n_test: int = 0, b2_fraction: float = 0.0, exclude_trial_ids: set[str] = None) -> tuple[list[dict], list[dict]]:
@@ -316,7 +440,7 @@ def analyze_test_results(responses: list[dict], trials_df: pd.DataFrame, trained
                 raw_choice = choice_step["parsed"]["choice"]
                 
                 # CRITICAL FIX: Flip choice for reversed orientation
-                # In reversed orientation, "Drug A" in the prompt corresponds to profile_b in the dataset
+                # In reversed orientation, entity_a in the prompt corresponds to profile_b in the dataset
                 # We need to record choices relative to the dataset's profile_a/profile_b
                 if orientation == "reversed":
                     adjusted_choice = "B" if raw_choice == "A" else "A"
@@ -356,6 +480,18 @@ def analyze_test_results(responses: list[dict], trials_df: pd.DataFrame, trained
     test_data["successes"] = test_data["successes"].fillna(0)
     test_data["trials"] = test_data["trials"].fillna(0)
     
+    # Filter to only trials with valid responses (trials > 0)
+    # This prevents dimension mismatch when some trials have no valid responses
+    valid_mask = test_data["trials"] > 0
+    n_valid = valid_mask.sum()
+    n_total = len(test_data)
+    if n_valid < n_total:
+        print(f"  ⚠️  {n_total - n_valid} trials have no valid responses, excluding from analysis")
+    test_data = test_data[valid_mask].copy()
+    
+    if len(test_data) == 0:
+        return {"error": "No trials with valid responses", "split": split_name}
+    
     # Make predictions using trained model
     try:
         design = build_design_matrix(
@@ -371,17 +507,17 @@ def analyze_test_results(responses: list[dict], trials_df: pd.DataFrame, trained
         linear_pred = X @ beta
         pred_probs = 1 / (1 + np.exp(-linear_pred))
         
-        # Compute prediction metrics
+        # Compute prediction metrics (now both arrays have same length)
         actual_probs = test_data["successes"] / test_data["trials"]
-        mae = np.abs(pred_probs - actual_probs).mean()
-        rmse = np.sqrt(((pred_probs - actual_probs) ** 2).mean())
+        mae = np.abs(pred_probs - actual_probs.values).mean()
+        rmse = np.sqrt(((pred_probs - actual_probs.values) ** 2).mean())
         
         # Correlation between predicted and actual
-        pred_corr = np.corrcoef(pred_probs, actual_probs)[0, 1] if len(pred_probs) > 1 else np.nan
+        pred_corr = np.corrcoef(pred_probs, actual_probs.values)[0, 1] if len(pred_probs) > 1 else np.nan
         
         # Accuracy for discrete predictions (>0.5 → A)
         pred_choices = (pred_probs > 0.5).astype(int)
-        actual_choices = (actual_probs > 0.5).astype(int)
+        actual_choices = (actual_probs.values > 0.5).astype(int)
         accuracy = (pred_choices == actual_choices).mean()
         
         # Compute weights from trained model
@@ -406,6 +542,8 @@ def analyze_test_results(responses: list[dict], trials_df: pd.DataFrame, trained
                 "accuracy": float(accuracy),
             },
             "n_trials": len(test_data),
+            "n_trials_total": int(n_total),
+            "n_trials_valid": int(n_valid),
             "n_responses": len(choices_df),
         }
     
@@ -432,7 +570,7 @@ def analyze_results(responses: list[dict], trials_df: pd.DataFrame) -> dict[str,
                 raw_choice = choice_step["parsed"]["choice"]
                 
                 # CRITICAL FIX: Flip choice for reversed orientation
-                # In reversed orientation, "Drug A" in the prompt corresponds to profile_b in the dataset
+                # In reversed orientation, entity_a in the prompt corresponds to profile_b in the dataset
                 # We need to record choices relative to the dataset's profile_a/profile_b
                 if orientation == "reversed":
                     adjusted_choice = "B" if raw_choice == "A" else "A"
@@ -682,7 +820,12 @@ def print_test_results(effort: str, results: dict[str, Any]):
         return
     
     print(f"\n📊 Data Collection:")
-    print(f"  Trials: {results['n_trials']}")
+    n_valid = results.get('n_trials_valid', results['n_trials'])
+    n_total = results.get('n_trials_total', results['n_trials'])
+    if n_valid < n_total:
+        print(f"  Trials: {n_valid}/{n_total} (⚠️ {n_total - n_valid} had no valid responses)")
+    else:
+        print(f"  Trials: {results['n_trials']}")
     print(f"  Responses: {results['n_responses']}")
     
     print(f"\n🎯 Prediction Performance:")
@@ -758,18 +901,24 @@ def check_icloud_issues(out_dir: Path, model_name: str, effort_levels: list[str]
 
 def main():
     parser = argparse.ArgumentParser(description="Compare reasoning effort levels")
-    parser.add_argument("--dataset", default="data/generated/v1_short", help="Dataset directory")
+    parser.add_argument("--dataset", default="data/generated/candidates", help="Dataset directory")
     parser.add_argument("--n-train", type=int, default=200, help="Number of training trials")
-    parser.add_argument("--n-test", type=int, default=50, help="Number of held-out test trials (0 = no split)")
+    parser.add_argument("--n-test", type=int, default=75, help="Number of held-out test trials (0 = no split)")
     parser.add_argument("--b2-fraction", type=float, default=0.2, help="Fraction of training trials from B2 (rest from B3)")
     parser.add_argument("--replicates", type=int, default=6, help="Replicates per trial (must be even if counterbalancing)")
-    parser.add_argument("--model", default="gpt-5-mini", help="Model name")
+    parser.add_argument("--backend", choices=["openai", "anthropic", "qwen3"], default="openai",
+                        help="Backend type (default: openai)")
+    parser.add_argument("--model", default="gpt-5-mini", help="Model name (default depends on backend)")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
-    parser.add_argument("--out", default="results/reasoning_effort_comparison", help="Output directory")
+    parser.add_argument("--out", default="results/reasoning_effort_comparison", help="Base output directory")
     parser.add_argument("--no-counterbalance", action="store_true", help="Disable counterbalancing (not recommended)")
     parser.add_argument("--force", action="store_true", help="Force rerun even if results exist")
     parser.add_argument("--continue-from-existing", action="store_true", help="Continue by adding more samples to existing dataset")
     args = parser.parse_args()
+    
+    # Extract dataset name from path and incorporate into output directory
+    dataset_name = Path(args.dataset).name
+    args.out = str(Path(args.out) / dataset_name)
     
     # Validate replicates if counterbalancing
     if not args.no_counterbalance and args.replicates % 2 != 0:
@@ -777,9 +926,14 @@ def main():
         print("   Either use an even number or add --no-counterbalance flag")
         sys.exit(1)
     
+    # Set default model based on backend type if not specified
+    if args.model is None:
+        args.model = DEFAULT_MODELS[args.backend]
+    
     print("="*80)
     print("REASONING EFFORT COMPARISON")
     print("="*80)
+    print(f"Backend: {args.backend}")
     print(f"Model: {args.model}")
     print(f"Training samples: {args.n_train} ({int(args.n_train * args.b2_fraction)} from B2, {args.n_train - int(args.n_train * args.b2_fraction)} from B3)")
     if args.n_test > 0:
@@ -803,6 +957,16 @@ def main():
     # Sample trials
     print(f"\n📦 Sampling trials...")
     dataset_dir = Path(args.dataset)
+    
+    # Load theme from dataset
+    theme_config = load_theme_from_dataset(dataset_dir)
+    if theme_config:
+        print(f"✅ Loaded theme: {theme_config.name}")
+        print(f"   Entities: {theme_config.entity_a} and {theme_config.entity_b}")
+        print(f"   Objective: {theme_config.objective}")
+    else:
+        print(f"⚠️  No theme found in dataset, using default (drugs)")
+        theme_config = DRUGS_THEME
     
     # NOTE: We do NOT exclude existing trial IDs when sampling.
     # We rely on the seed to deterministically reproduce the same sequence of trials.
@@ -868,12 +1032,13 @@ def main():
         print(f"RUNNING: {effort.upper()} REASONING EFFORT")
         print(f"{'='*80}")
         
-        # Initialize backend
-        backend = OpenAIBackend(
+        # Initialize backend with appropriate effort level mapping
+        backend = create_backend(
+            backend_type=args.backend,
             model=args.model,
-            reasoning_effort=effort,
+            effort=effort,
             temperature=1.0,
-            max_tokens=4000
+            max_tokens=4000,
         )
         
         # TRAINING PHASE
@@ -923,6 +1088,7 @@ def main():
                             S=args.replicates,
                             seed=args.seed,
                             counterbalance=not args.no_counterbalance,
+                            theme_config=theme_config,
                         )
                         train_responses.append(result)
                         # Save incrementally after each trial
@@ -1038,6 +1204,7 @@ def main():
                                 S=args.replicates,
                                 seed=args.seed,
                                 counterbalance=not args.no_counterbalance,
+                                theme_config=theme_config,
                             )
                             test_responses.append(result)
                             # Save incrementally after each trial
@@ -1072,10 +1239,15 @@ def main():
                     if existing_test_results.get("n_test_samples") == n_test_actual:
                         # Check if training sample count also matches
                         if existing_test_results.get("n_train_samples_used") == n_train_actual:
-                            print(f"  ✅ Sample counts match (test={n_test_actual}, train={n_train_actual}), loading existing analysis...")
-                            test_results = existing_test_results
-                            all_test_results[effort] = test_results
-                            need_test_analysis = False
+                            # Check if previous analysis succeeded (no error)
+                            if "error" in existing_test_results:
+                                print(f"  ⚠️  Previous analysis failed with error: {existing_test_results['error'][:80]}...")
+                                print(f"  🔄 Re-analyzing test set...")
+                            else:
+                                print(f"  ✅ Sample counts match (test={n_test_actual}, train={n_train_actual}), loading existing analysis...")
+                                test_results = existing_test_results
+                                all_test_results[effort] = test_results
+                                need_test_analysis = False
                         else:
                             print(f"  🔄 Training data changed, re-analyzing test set...")
                     else:
@@ -1193,6 +1365,7 @@ def main():
         "b2_fraction": args.b2_fraction,
         "replicates": args.replicates,
         "counterbalanced": not args.no_counterbalance,
+        "backend": args.backend,
         "model": args.model,
     }
     write_json(comparison, out_dir / "comparison_summary.json")
