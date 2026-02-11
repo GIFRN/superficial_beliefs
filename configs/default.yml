@@ -23,14 +23,17 @@ manipulations:
     short_reason: 0.5
     split_reason: 0.2
     premise_first: 0.2
-    redact: 0.1
+    redact: 0.0
     neutralize: 0.0
     inject: 0.0
+    occlude_drop: 0.0
+    occlude_equalize: 0.0
+    occlude_swap: 0.0
   injection:
     attribute: A
     offset: 1
 replicates:
-  S: 1
+  S: 3
   temperature: 1.0
 dominance_items:
   n: 6

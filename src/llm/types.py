@@ -38,6 +38,7 @@ class ConversationStep:
     prompt: Prompt
     expects: str
     reset_context: bool = False
+    stop_on_fail: bool = True
 
 
 @dataclass

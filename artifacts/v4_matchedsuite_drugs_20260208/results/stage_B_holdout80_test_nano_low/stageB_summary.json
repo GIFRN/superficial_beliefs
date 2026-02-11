@@ -1,0 +1,14 @@
+{
+  "alignment": {
+    "ECRB_top1_driver": 0.791578947368421,
+    "ECRB_top1_weights": 0.2631578947368421,
+    "rank_corr": 0.0
+  },
+  "eval_dataset": "artifacts/v4_matchedsuite_drugs_20260208/splits/holdout80/test",
+  "include_interactions": false,
+  "model": "openai_gpt5nano",
+  "probes": {
+    "note": "Skipped probe refits to avoid test-set leakage; run on train split for probes."
+  },
+  "reasoning_effort": "low"
+}

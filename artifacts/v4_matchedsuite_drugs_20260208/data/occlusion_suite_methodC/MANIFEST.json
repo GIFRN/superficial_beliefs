@@ -1,0 +1,72 @@
+{
+  "actual_total": 8100,
+  "blocks": {
+    "B3": 8100
+  },
+  "n_configs": 450,
+  "n_trials": 8100,
+  "suite": {
+    "attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "base_trials": 1144,
+    "baseline_manipulation": "short_reason",
+    "include_dom": false,
+    "include_swap": false,
+    "note": "Baseline and occlusions share order_id_A/B, paraphrase_id, and seed within each base_trial_id.",
+    "occlusion_manipulations": [
+      "occlude_equalize",
+      "occlude_drop"
+    ],
+    "paired_key": "base_trial_id",
+    "type": "occlusion_suite",
+    "variants_per_base_dom": 1,
+    "variants_per_base_non_dom": 9
+  },
+  "target_total": 8100,
+  "theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Durability",
+        "name": "D"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs",
+    "objective": "5-year overall patient outcome"
+  },
+  "source_dataset": "artifacts/v4_matchedsuite_drugs_20260208/data/occlusion_suite_raw",
+  "filter": {
+    "type": "matched_tradeoff_families",
+    "block": "B3",
+    "baseline_manipulation": "short_reason",
+    "tradeoff_rule": "any(delta_*)>0 AND any(delta_*)<0",
+    "base_limit": 0,
+    "paired_key": "base_trial_id",
+    "allowed_manipulations": [
+      "occlude_drop",
+      "occlude_equalize",
+      "occlude_swap",
+      "short_reason"
+    ],
+    "seed": 13
+  }
+}

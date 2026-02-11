@@ -48,7 +48,7 @@ def get_delta_display(row: pd.Series) -> str:
 
 
 def determine_dominant_option(profile_a: dict, profile_b: dict) -> str:
-    """Determine which option is dominant (better or equal on all attributes)"""
+    """Determine which option is dominant (better or equal on all attributes)."""
     attrs = ["E", "A", "S", "D"]
     a_better_count = 0
     b_better_count = 0
@@ -75,7 +75,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Inspect B1 rationality check failures")
     parser.add_argument("--dataset", default="data/generated/v1_short", help="Path to generated dataset")
     parser.add_argument("--responses", default="data/runs/v1_short_openai_gpt5mini/responses.jsonl", help="Path to responses file")
-    parser.add_argument("--threshold", type=float, default=0.95, help="P(choose A) threshold for failure")
+    parser.add_argument("--threshold", type=float, default=0.95, help="P(correct dominant choice) threshold for failure")
     parser.add_argument("--limit", type=int, default=10, help="Maximum number of examples to show")
     parser.add_argument("--show-all", action="store_true", help="Show all B1 trials, not just failures")
     args = parser.parse_args()
@@ -98,12 +98,51 @@ def main() -> None:
     
     # Calculate P(choose A)
     b1_trials["prob_choose_A"] = b1_trials.apply(
-        lambda row: row["successes"] / row["trials"] if row["trials"] > 0 else None, 
-        axis=1
+        lambda row: row["successes"] / row["trials"] if row["trials"] > 0 else None,
+        axis=1,
     )
-    
-    # Identify failures
-    b1_trials["is_failure"] = b1_trials["prob_choose_A"] < args.threshold
+
+    def expected_choice(row: pd.Series) -> str | None:
+        if row["labelA"] == "A":
+            profile_a = row["levels_left"]
+            profile_b = row["levels_right"]
+        else:
+            profile_a = row["levels_right"]
+            profile_b = row["levels_left"]
+        dominant = determine_dominant_option(profile_a, profile_b)
+        # Skip if the dominant attribute is occluded (drop/equalize).
+        if row.get("manipulation") in {"occlude_drop", "occlude_equalize"} and row.get("attribute_target"):
+            diffs = [
+                attr
+                for attr in ["E", "A", "S", "D"]
+                if LEVEL_SCORES[profile_a[attr]] != LEVEL_SCORES[profile_b[attr]]
+            ]
+            if row["attribute_target"] in diffs:
+                return None
+        if dominant.startswith("A"):
+            return "A"
+        if dominant.startswith("B"):
+            return "B"
+        return None
+
+    b1_trials["expected_choice"] = b1_trials.apply(expected_choice, axis=1)
+
+    # Calculate P(correct dominant choice)
+    def prob_correct(row: pd.Series) -> float | None:
+        if row["trials"] <= 0:
+            return None
+        if row["expected_choice"] == "A":
+            return row["prob_choose_A"]
+        if row["expected_choice"] == "B":
+            return 1.0 - row["prob_choose_A"]
+        return None
+
+    b1_trials["prob_correct"] = b1_trials.apply(prob_correct, axis=1)
+
+    # Identify failures (only for trials with a dominant option)
+    b1_trials["is_failure"] = b1_trials["prob_correct"].apply(
+        lambda v: v is not None and v < args.threshold
+    )
     
     # Filter based on --show-all flag
     if not args.show_all:
@@ -122,10 +161,13 @@ def main() -> None:
     print("B1 RATIONALITY CHECK FAILURES")
     print("=" * 80)
     print(f"\nTotal B1 trials: {total_b1}")
-    print(f"Failures (P(A) < {args.threshold}): {total_failures} ({failure_rate:.1%})")
-    print(f"Min P(choose A): {b1_trials['prob_choose_A'].min():.3f}")
-    print(f"Max P(choose A): {b1_trials['prob_choose_A'].max():.3f}")
-    print(f"Mean P(choose A): {b1_trials['prob_choose_A'].mean():.3f}")
+    print(f"Failures (P(correct) < {args.threshold}): {total_failures} ({failure_rate:.1%})")
+    if b1_trials["prob_correct"].notna().any():
+        print(f"Min P(correct): {b1_trials['prob_correct'].min():.3f}")
+        print(f"Max P(correct): {b1_trials['prob_correct'].max():.3f}")
+        print(f"Mean P(correct): {b1_trials['prob_correct'].mean():.3f}")
+    else:
+        print("No dominant trials with visible dominant attribute.")
     print()
     
     # Show detailed examples
@@ -138,7 +180,9 @@ def main() -> None:
             print("\n" + "-" * 80)
         
         print(f"\n[{idx + 1}] Trial {trial['trial_id']} (Config {trial['config_id']})")
-        print(f"    P(choose A) = {trial['prob_choose_A']:.3f} ({trial['successes']}/{trial['trials']})")
+        prob_correct = trial.get("prob_correct")
+        prob_correct_display = f"{prob_correct:.3f}" if prob_correct is not None else "n/a"
+        print(f"    P(correct) = {prob_correct_display} ({trial['successes']}/{trial['trials']})")
         print(f"    Status: {'❌ FAILURE' if trial['is_failure'] else '✅ PASS'}")
         print(f"    Manipulation: {trial['manipulation']}")
         if pd.notna(trial['attribute_target']):
@@ -209,4 +253,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

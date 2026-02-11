@@ -26,20 +26,30 @@ env/
 # Jupyter Notebook
 .ipynb_checkpoints/
 
+# Old / archived directories
+data_old/
+results_old/
+
+# Junk files
+DDDDDD
+
 # Results and Generated Data
-# Uncomment these if you don't want to track results/data in git:
-results/
+/results/
 data/runs/
+data/generated/
 
-# Ignore generated data except v1_short
-data/generated/*
-!data/generated/v1_short/
-!data/generated/v1_short/**
-
-# Keep structure files but ignore data (except v1_short)
+# Binary data formats (global)
 *.parquet
-!data/generated/v1_short/*.parquet
 *.jsonl
+
+# Allow all data in artifacts/ (versioned experiment snapshots)
+!artifacts/**/*.parquet
+!artifacts/**/*.jsonl
+!artifacts/**/*.log
+
+# Allow binary data in data/splits/ (holdout splits for reproducibility)
+!data/splits/**/*.parquet
+!data/splits/**/*.jsonl
 
 # Model files and cache
 .cache/

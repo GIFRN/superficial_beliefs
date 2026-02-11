@@ -1,0 +1,40 @@
+{
+  "agreement": {
+    "tau_vs_choice": 0.6064
+  },
+  "alignment": {
+    "pair_driver_vs_premise": NaN,
+    "tau_driver_vs_premise": 0.4027038099139697
+  },
+  "behavioral_attribution": {},
+  "include_interactions": false,
+  "model": "openai_gpt5nano",
+  "pairwise_ok_rate": 0.0,
+  "reasoning_effort": "minimal",
+  "stageA_weights": {
+    "A": 0.1666376935879851,
+    "D": 0.2752184207298464,
+    "E": 0.34662377007955825,
+    "S": 0.21152011560261022
+  },
+  "tau_ok_rate": 0.9764,
+  "tau_stability": {
+    "A": {
+      "mean_std": 0.16881247740294061,
+      "median_std": 0.19095728078229174
+    },
+    "D": {
+      "mean_std": 0.19598150845047776,
+      "median_std": 0.21908902300206645
+    },
+    "E": {
+      "mean_std": 0.17169065772400716,
+      "median_std": 0.22360679774997896
+    },
+    "S": {
+      "mean_std": 0.1776517657226969,
+      "median_std": 0.18907670401189036
+    }
+  },
+  "tau_weight_correlation": 0.19999999999999998
+}

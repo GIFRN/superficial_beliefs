@@ -51,3 +51,10 @@ def test_split_reason_plan():
     plan = conversation_plan(make_trial("split_reason", "split_reason"))
     assert plan.steps[0].name == "choice"
     assert plan.steps[1].reset_context
+
+
+def test_short_reason_judge_scores_joint_plan():
+    plan = conversation_plan(make_trial("short_reason__judge_scores_joint", "short_reason"))
+    assert len(plan.steps) > 3
+    assert plan.steps[-1].expects == "scores4"
+    assert plan.steps[-1].reset_context

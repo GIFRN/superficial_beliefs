@@ -14,6 +14,12 @@ def load_responses(path: str | Path) -> pd.DataFrame:
         for line in fh:
             payload = json.loads(line)
             for response in payload.get("responses", []):
+                tau_values = {"E": None, "A": None, "S": None, "D": None}
+                tau_ok = False
+                tau_missing: list[str] = []
+                pair_values = {"EA": None, "ES": None, "ED": None, "AS": None, "AD": None, "SD": None}
+                pairwise_ok = False
+                pairwise_missing: list[str] = []
                 record = {
                     "trial_id": payload.get("trial_id"),
                     "config_id": payload.get("config_id"),
@@ -22,7 +28,8 @@ def load_responses(path: str | Path) -> pd.DataFrame:
                     "variant": payload.get("variant"),
                     "seed": response.get("seed"),
                 }
-                steps = {step["name"]: step for step in response.get("steps", [])}
+                steps_list = response.get("steps", [])
+                steps = {step["name"]: step for step in steps_list}
                 choice_step = steps.get("choice")
                 premise_step = steps.get("premise")
                 sentence_step = steps.get("sentence")
@@ -53,6 +60,50 @@ def load_responses(path: str | Path) -> pd.DataFrame:
                 else:
                     record["sentence_ok"] = False
                     record["sentence_text"] = ""
+
+                for step in steps_list:
+                    name = step.get("name", "")
+                    parsed = step.get("parsed", {})
+                    if "tau" in parsed:
+                        tau_ok = tau_ok or bool(parsed.get("ok", False))
+                        tau_payload = parsed.get("tau")
+                        if isinstance(tau_payload, dict):
+                            for key, value in tau_payload.items():
+                                if key in tau_values:
+                                    tau_values[key] = value
+                            for missing in parsed.get("missing", []):
+                                if missing not in tau_missing:
+                                    tau_missing.append(missing)
+                        else:
+                            match = None
+                            if name.startswith("judge_score_") and len(name) >= len("judge_score_E"):
+                                match = name.split("judge_score_", 1)[-1]
+                            if match in tau_values:
+                                tau_values[match] = tau_payload
+                    if "pairs" in parsed:
+                        pairwise_ok = pairwise_ok or bool(parsed.get("ok", False))
+                        pairs = parsed.get("pairs", {})
+                        if isinstance(pairs, dict):
+                            for key, value in pairs.items():
+                                if key in pair_values:
+                                    pair_values[key] = value
+                        for missing in parsed.get("missing", []):
+                            if missing not in pairwise_missing:
+                                pairwise_missing.append(missing)
+                    if "winner" in parsed and name.startswith("judge_pair_"):
+                        pairwise_ok = pairwise_ok or bool(parsed.get("ok", False))
+                        pair = name.split("judge_pair_", 1)[-1]
+                        if pair in pair_values:
+                            pair_values[pair] = parsed.get("winner")
+
+                for attr, value in tau_values.items():
+                    record[f"tau_{attr}"] = value
+                record["tau_ok"] = tau_ok
+                record["tau_missing"] = tau_missing
+                for pair, value in pair_values.items():
+                    record[f"pair_{pair}"] = value
+                record["pairwise_ok"] = pairwise_ok
+                record["pairwise_missing"] = pairwise_missing
                 records.append(record)
     return pd.DataFrame(records)
 

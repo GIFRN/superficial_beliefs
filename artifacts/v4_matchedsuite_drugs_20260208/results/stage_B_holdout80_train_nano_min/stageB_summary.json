@@ -1,0 +1,13 @@
+{
+  "alignment": {
+    "ECRB_top1_driver": 0.6573157315731574,
+    "ECRB_top1_weights": 0.37403740374037403,
+    "rank_corr": 0.6000000000000001
+  },
+  "include_interactions": false,
+  "model": "openai_gpt5nano",
+  "probes": {
+    "note": "Skipped probe refits to avoid test-set leakage; run on train split for probes."
+  },
+  "reasoning_effort": "minimal"
+}

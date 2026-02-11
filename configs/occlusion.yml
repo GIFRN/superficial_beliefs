@@ -1,0 +1,56 @@
+seed_global: 13
+blocks:
+  B1:
+    enable: true
+    R: 3
+    purpose: "rationality_check"
+    expected_probability: 1.0
+    tolerance: 0.05
+  B2:
+    enable: true
+    R: 4
+  B3:
+    enable: true
+    candidates_per_batch: 465
+    max_batches: 200
+    randomization_factor: 0.3  # Fraction of random patterns for diversity
+orders:
+  balance_pairwise_precedence: true
+paraphrases:
+  n: 3
+manipulations:
+  share:
+    short_reason: 0.5
+    split_reason: 0.0
+    premise_first: 0.0
+    redact: 0.0
+    neutralize: 0.0
+    inject: 0.0
+    occlude_drop: 0.25
+    occlude_equalize: 0.25
+    occlude_swap: 0.0
+  injection:
+    attribute: A
+    offset: 1
+replicates:
+  S: 1
+  temperature: 1.0
+dominance_items:
+  n: 6
+profiles:
+  attributes: [E, A, S, D]
+  levels: [Low, Medium, High]
+  level_scores:
+    Low: -1
+    Medium: 0
+    High: 1
+orders_permutations:
+  - [E, S, D, A]
+  - [S, E, A, D]
+  - [A, D, E, S]
+  - [D, A, S, E]
+probe_targets: [E, A, S, D]
+paths:
+  generated_dir: data/generated
+  runs_dir: data/runs
+  reports_dir: data/reports

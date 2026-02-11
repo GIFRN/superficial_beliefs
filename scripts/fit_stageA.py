@@ -34,6 +34,7 @@ def main() -> None:
     parser.add_argument("--responses", default="data/runs/v1_short_openai_gpt5mini_high/responses.jsonl", help="Path to responses JSONL file")
     parser.add_argument("--out", default=None, help="Output directory for Stage A fit (auto-generated if not specified)")
     parser.add_argument("--interactions", action="store_true", help="Include pairwise interactions")
+    parser.add_argument("--no-fit", action="store_true", help="Do not fit a model; just materialize stageA_design.parquet")
     args = parser.parse_args()
 
     cfg = load_config(args.config)
@@ -91,39 +92,55 @@ def main() -> None:
         print("✅ B1 probes are effective")
     
     # Use the new validation function
-    stageA_result = fit_stageA_with_validation(trials_df, choice_agg, include_interactions=args.interactions)
-    
-    model = stageA_result["model"]
-    design = stageA_result["design_matrix"]
-    weights_info = stageA_result["ames_weights"]
-    contributions = stageA_result["contributions"]
-    stageA_df = stageA_result["stageA_data"]
-    
-    cv_metrics = cross_validate_design(design)
-    eval_metrics = evaluate_model(model, design)
-
-    contributions = contributions.reset_index().rename(columns={"index": "trial_id"})
-    predictions = model.predict(design.X)
-    stageA_df = stageA_df.copy()
-    stageA_df["predicted_prob"] = predictions
-
     out_dir = ensure_dir(args.out)
-    contributions_path = out_dir / "stageA_contributions.parquet"
     stageA_path = out_dir / "stageA_design.parquet"
-    contributions.to_parquet(contributions_path, index=False)
-    stageA_df.to_parquet(stageA_path, index=False)
+    if args.no_fit:
+        stageA_df = prepare_stageA_data(trials_df, choice_agg)
+        stageA_df.to_parquet(stageA_path, index=False)
+        summary = {
+            "model": model_name,
+            "include_interactions": args.interactions,
+            "b1_validation": b1_validation,
+            "b1_probes": b1_probes,
+            "note": "no_fit=True: stageA_design.parquet materialized without fitting.",
+        }
+    else:
+        stageA_result = fit_stageA_with_validation(trials_df, choice_agg, include_interactions=args.interactions)
 
-    summary = {
-        "model": model_name,
-        "include_interactions": args.interactions,
-        "weights": weights_info["weights"],
-        "beta": weights_info["beta"],
-        "AME": weights_info["AME"],
-        "cv": cv_metrics,
-        "evaluation": eval_metrics,
-        "b1_validation": b1_validation,
-        "b1_probes": b1_probes,
-    }
+        model = stageA_result["model"]
+        design = stageA_result["design_matrix"]
+        weights_info = stageA_result["ames_weights"]
+        contributions = stageA_result["contributions"]
+        stageA_df = stageA_result["stageA_data"]
+
+        cv_metrics = cross_validate_design(design)
+        eval_metrics = evaluate_model(model, design)
+
+        contributions = contributions.reset_index().rename(columns={"index": "trial_id"})
+        predictions = model.predict(design.X)
+        stageA_df = stageA_df.copy()
+        stageA_df["predicted_prob"] = predictions
+
+        contributions_path = out_dir / "stageA_contributions.parquet"
+        contributions.to_parquet(contributions_path, index=False)
+        stageA_df.to_parquet(stageA_path, index=False)
+
+        summary = {
+            "model": model_name,
+            "include_interactions": args.interactions,
+            "weights": weights_info["weights"],
+            "beta": weights_info["beta"],
+            "AME": weights_info["AME"],
+            "cv": cv_metrics,
+            "evaluation": eval_metrics,
+            "b1_validation": b1_validation,
+            "b1_probes": b1_probes,
+            # Persist model parameters so Stage B can evaluate on held-out splits without refitting.
+            "model_params": {k: float(v) for k, v in model.params.items()},
+            "model_bse": {k: float(v) for k, v in model.bse.items()},
+            "feature_columns": list(design.X.columns),
+            "feature_info": design.feature_info,
+        }
     
     # Add reasoning_effort to summary if present
     if reasoning_effort:

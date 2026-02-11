@@ -1,0 +1,47 @@
+{
+  "S": 5,
+  "backend": "openai_gpt5mini",
+  "completed_at_unix": 1770475373.0047894,
+  "config": "configs/default.yml",
+  "dataset": "artifacts/v2_tradeoff500_drugs_20260205/data/baseline_tradeoff500",
+  "models": "configs/models_gpt5mini_low.yml",
+  "n_trials_already_completed": 169,
+  "n_trials_completed_this_run": 331,
+  "n_trials_completed_total": 500,
+  "n_trials_remaining": 331,
+  "n_trials_total": 500,
+  "reasoning_effort": "low",
+  "responses_path": "artifacts/v2_tradeoff500_drugs_20260205/runs/b_t500_mini_low_joint__openai_gpt5mini_low_var-short_reason__judge_scores_joint_mt1024/responses.jsonl",
+  "resume_mode": "any",
+  "seed": 17,
+  "started_at_unix": 1770452863.6728373,
+  "status": "completed",
+  "stopped_reason": null,
+  "theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Durability",
+        "name": "D"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs",
+    "objective": "5-year overall patient outcome"
+  },
+  "variant_override": "short_reason__judge_scores_joint"
+}

@@ -1,0 +1,23 @@
+{
+  "agreement": {
+    "tau_vs_choice": NaN
+  },
+  "alignment": {
+    "pair_driver_vs_premise": NaN,
+    "tau_driver_vs_premise": NaN
+  },
+  "behavioral_attribution": {},
+  "include_interactions": false,
+  "model": "openai_gpt5nano",
+  "pairwise_ok_rate": 0.0,
+  "reasoning_effort": "minimal",
+  "stageA_weights": {
+    "A": 0.17805684623967508,
+    "D": 0.24866551361633363,
+    "E": 0.3855303950567859,
+    "S": 0.18774724508720536
+  },
+  "tau_ok_rate": 0.0,
+  "tau_stability": {},
+  "tau_weight_correlation": NaN
+}

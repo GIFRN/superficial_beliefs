@@ -108,11 +108,17 @@ def fit_glm_clustered(design: DesignMatrix | pd.DataFrame, y=None, groups=None, 
         # Older statsmodels versions lack get_robustcov_results; fall back to sandwich estimator.
         from statsmodels.stats.sandwich_covariance import cov_cluster
 
-        cov = cov_cluster(result, np.asarray(groups_data))
-        result.cov_params_default = cov
-        result.cov_type = "cluster"
-        result.cov_kwds = {"groups": groups_data}
-        robust = result
+        try:
+            cov = cov_cluster(result, np.asarray(groups_data))
+            result.cov_params_default = cov
+            result.cov_type = "cluster"
+            result.cov_kwds = {"groups": groups_data}
+            robust = result
+        except (np.linalg.LinAlgError, ValueError) as exc:
+            # Small or collinear debug datasets can make the cluster covariance singular.
+            result.cov_type = "nonrobust"
+            result.cov_kwds = {"warning": str(exc)}
+            robust = result
     robust.feature_info = feature_info
     robust.weights = weights_data
     return robust
@@ -155,16 +161,32 @@ def per_trial_contributions(df: pd.DataFrame, model) -> pd.DataFrame:
         contributions[f"C_{attr_i}"] += term
         contributions[f"C_{attr_j}"] += term
 
-    driver = contributions.apply(_argmax_attr, axis=1)
-    contributions["driver"] = driver
+    # Compute driver for choice A (argmax: strongest evidence for A)
+    driver_A = contributions.apply(_argmax_attr, axis=1)
+    # Compute driver for choice B (argmin: strongest evidence against A / for B)
+    driver_B = contributions.apply(_argmin_attr, axis=1)
+    
+    contributions["driver_A"] = driver_A
+    contributions["driver_B"] = driver_B
+    # Keep legacy "driver" column for backwards compatibility (defaults to driver_A)
+    contributions["driver"] = driver_A
     return contributions
 
 
 def _argmax_attr(row: pd.Series) -> str:
+    """Return attribute with highest contribution (strongest evidence for A)."""
     attrs = [col.split("_")[1] for col in row.index if col.startswith("C_")]
     values = [row[f"C_{attr}"] for attr in attrs]
     max_idx = int(np.argmax(values)) if values else 0
     return attrs[max_idx] if attrs else "E"
+
+
+def _argmin_attr(row: pd.Series) -> str:
+    """Return attribute with lowest (most negative) contribution (strongest evidence for B)."""
+    attrs = [col.split("_")[1] for col in row.index if col.startswith("C_")]
+    values = [row[f"C_{attr}"] for attr in attrs]
+    min_idx = int(np.argmin(values)) if values else 0
+    return attrs[min_idx] if attrs else "E"
 
 
 def fit_stageA_with_validation(

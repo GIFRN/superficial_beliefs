@@ -1,0 +1,14 @@
+{
+  "alignment": {
+    "ECRB_top1_driver": 0.71,
+    "ECRB_top1_weights": 0.53,
+    "rank_corr": 0.7999999999999999
+  },
+  "eval_dataset": "artifacts/v3_tradeoff500_holdout_80_20_20260208/splits/occlusion_tradeoff500_holdout/test",
+  "include_interactions": false,
+  "model": "openai_gpt5nano",
+  "probes": {
+    "note": "Skipped probe refits to avoid test-set leakage; run on train split for probes."
+  },
+  "reasoning_effort": "minimal"
+}

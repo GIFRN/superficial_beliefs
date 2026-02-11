@@ -34,6 +34,35 @@ def evaluate_model(model, design_matrix) -> dict[str, float]:
     return _metric_bundle(probs, design_matrix.y.to_numpy(), design_matrix.weights.to_numpy())
 
 
+def _dominance_masks(df: pd.DataFrame) -> tuple[pd.Series, pd.Series]:
+    """Return boolean masks for A-dominant and B-dominant trials using visible deltas."""
+    delta_cols = [f"delta_{attr}" for attr in ATTRIBUTES if f"delta_{attr}" in df]
+    deltas = df[delta_cols]
+    a_dominant = (deltas.ge(0).all(axis=1)) & (deltas.gt(0).any(axis=1))
+    b_dominant = (deltas.le(0).all(axis=1)) & (deltas.lt(0).any(axis=1))
+    return a_dominant, b_dominant
+
+
+def _visible_dominance_mask(df: pd.DataFrame) -> pd.Series:
+    """Exclude trials where the dominant attribute is occluded (drop/equalize)."""
+    if "manipulation" not in df or "attribute_target" not in df:
+        return pd.Series(True, index=df.index)
+    mask = pd.Series(True, index=df.index)
+    occluded = df["manipulation"].isin(["occlude_drop", "occlude_equalize"])
+    if not occluded.any():
+        return mask
+    for attr in ATTRIBUTES:
+        base_col = f"delta_base_{attr}"
+        delta_col = f"delta_{attr}"
+        if base_col in df:
+            diff = df[base_col].ne(0)
+        else:
+            diff = df[delta_col].ne(0) if delta_col in df else False
+        hidden = occluded & df["attribute_target"].eq(attr) & diff
+        mask = mask & ~hidden
+    return mask
+
+
 def validate_b1_rationality(trials_df: pd.DataFrame, choice_agg: pd.DataFrame) -> dict[str, Any]:
     """Validate that B1 trials show expected Pareto optimal behavior.
     
@@ -52,10 +81,20 @@ def validate_b1_rationality(trials_df: pd.DataFrame, choice_agg: pd.DataFrame) -
             "message": "No B1 trials found"
         }
     
-    # Determine which option is dominant for each trial
-    delta_sums = b1_trials[[f"delta_{attr}" for attr in ATTRIBUTES]].sum(axis=1)
-    a_dominant = delta_sums > 0  # A is better overall
-    b_dominant = delta_sums < 0  # B is better overall
+    # Only evaluate trials where the dominant attribute is visible
+    visible_mask = _visible_dominance_mask(b1_trials)
+    b1_trials = b1_trials[visible_mask].copy()
+    if b1_trials.empty:
+        return {
+            "rationality_check_passed": True,
+            "failure_rate": 0.0,
+            "accuracy": 1.0,
+            "failed_trials": [],
+            "message": "No B1 trials with visible dominant attribute"
+        }
+
+    # Determine which option is dominant for each trial (visible deltas)
+    a_dominant, b_dominant = _dominance_masks(b1_trials)
     
     # Calculate P(choose A)
     prob_choose_a = b1_trials["successes"] / b1_trials["trials"]
@@ -99,6 +138,10 @@ def validate_b1_probes(trials_df: pd.DataFrame, choice_agg: pd.DataFrame) -> dic
             "message": "No B1 trials found"
         }
     
+    # Only evaluate trials where the dominant attribute is visible
+    visible_mask = _visible_dominance_mask(b1_trials)
+    b1_trials = b1_trials[visible_mask].copy()
+
     baseline = b1_trials[b1_trials["manipulation"] == "none"]
     manipulated = b1_trials[b1_trials["manipulation"] != "none"]
     
@@ -115,15 +158,13 @@ def validate_b1_probes(trials_df: pd.DataFrame, choice_agg: pd.DataFrame) -> dic
     
     # Calculate accuracy (chose dominant option) for each group
     def compute_accuracy(df):
-        delta_sums = df[[f"delta_{attr}" for attr in ATTRIBUTES]].sum(axis=1)
-        a_dominant = delta_sums > 0
-        b_dominant = delta_sums < 0
+        a_dominant, b_dominant = _dominance_masks(df)
         prob_choose_a = df["successes"] / df["trials"]
-        
+
         correct = pd.Series(False, index=df.index, dtype=bool)
         correct.loc[a_dominant] = (prob_choose_a.loc[a_dominant] >= 0.95).values
         correct.loc[b_dominant] = (prob_choose_a.loc[b_dominant] <= 0.05).values
-        
+
         return float(correct.mean())
     
     baseline_acc = compute_accuracy(baseline)

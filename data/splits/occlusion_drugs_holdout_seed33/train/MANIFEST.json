@@ -1,0 +1,43 @@
+{
+  "actual_total": 907,
+  "blocks": {
+    "B1": 60,
+    "B2": 96,
+    "B3": 746,
+    "DOM": 5
+  },
+  "n_configs": 400,
+  "n_trials": 907,
+  "source_dataset": "data/generated/occlusion_drugs",
+  "split": "train",
+  "split_group_by": "config_id",
+  "split_seed": 33,
+  "split_test_fraction": 0.2,
+  "target_total": 907,
+  "theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Durability",
+        "name": "D"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs",
+    "objective": "5-year overall patient outcome"
+  }
+}

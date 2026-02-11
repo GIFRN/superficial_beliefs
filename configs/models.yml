@@ -46,6 +46,6 @@ backends:
     max_tokens: 1024
     enable_thinking: true
 sampling:
-  default_backend: openai_gpt5mini
+  default_backend: openai_gpt5nano
   S: 5
   seed: 17

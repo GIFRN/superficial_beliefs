@@ -87,13 +87,14 @@ def summarize_records(records: list[dict[str, Any]]) -> dict[str, Any]:
 def main():
     parser = argparse.ArgumentParser(description="Sample-size sensitivity analysis for Stage A results")
     parser.add_argument("--dataset", default="data/generated/v1_short", help="Dataset directory containing dataset_trials.parquet")
+    parser.add_argument("--responses", default=None, help="Path to responses.jsonl (overrides responses-root lookup)")
     parser.add_argument("--responses-root", default="results/reasoning_effort_comparison", help="Root directory that holds model/effort/train responses")
     parser.add_argument("--model", default="gpt-5-mini", help="Model name (used to locate responses)")
     parser.add_argument("--efforts", default="minimal,low,medium,high", help="Comma-separated effort levels or 'all'")
     parser.add_argument("--sizes", default="50,100,150,200,250", help="Comma-separated trial counts to evaluate")
     parser.add_argument("--folds", type=int, default=5, help="Number of resampling folds per sample size")
     parser.add_argument("--seed", type=int, default=123, help="Base random seed for reproducibility")
-    parser.add_argument("--out-dir", default="results/reasoning_effort_comparison/sample_size_curves", help="Directory to write summary JSON files")
+    parser.add_argument("--out-dir", default="results/sample_size_curves", help="Directory to write summary JSON files")
     args = parser.parse_args()
 
     dataset_dir = Path(args.dataset)
@@ -108,9 +109,15 @@ def main():
     trials_df = pd.read_parquet(dataset_dir / "dataset_trials.parquet")
     trials_df = trials_df.set_index("trial_id")
 
+    if args.responses:
+        efforts = ["custom"]
+
     for effort in efforts:
         print(f"\n{'='*80}\nEFFORT LEVEL: {effort.upper()}\n{'='*80}")
-        responses_path = responses_root / args.model.replace("/", "_") / effort / "train" / f"responses_{effort}_train.jsonl"
+        if args.responses:
+            responses_path = Path(args.responses)
+        else:
+            responses_path = responses_root / args.model.replace("/", "_") / effort / "train" / f"responses_{effort}_train.jsonl"
         responses = load_responses(responses_path)
         n_available = len(responses)
         print(f"📂 Found {n_available} training trials for {effort}")
@@ -171,6 +178,8 @@ def main():
             "folds": args.folds,
             "records": effort_records,
             "summaries": summaries,
+            "responses_path": str(responses_path),
+            "dataset": str(dataset_dir),
         }
         with output_path.open("w") as f:
             json.dump(payload, f, indent=2)
@@ -179,4 +188,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

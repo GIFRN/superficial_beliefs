@@ -44,6 +44,9 @@ class ManipulationShareConfig(BaseModel):
     redact: float = 0.05
     neutralize: float = 0.05
     inject: float = 0.0
+    occlude_drop: float = 0.0
+    occlude_equalize: float = 0.0
+    occlude_swap: float = 0.0
 
     @validator(
         "short_reason",
@@ -52,6 +55,9 @@ class ManipulationShareConfig(BaseModel):
         "redact",
         "neutralize",
         "inject",
+        "occlude_drop",
+        "occlude_equalize",
+        "occlude_swap",
     )
     def shares_between_zero_one(cls, value: float) -> float:
         if not (0 <= value <= 1):
@@ -67,6 +73,9 @@ class ManipulationShareConfig(BaseModel):
             "redact": self.redact,
             "neutralize": self.neutralize,
             "inject": self.inject,
+            "occlude_drop": self.occlude_drop,
+            "occlude_equalize": self.occlude_equalize,
+            "occlude_swap": self.occlude_swap,
         }
         total = sum(weights.values())
         if total == 0:
