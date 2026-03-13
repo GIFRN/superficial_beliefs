@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from src.analysis.features import aggregate_choices, load_responses, prepare_stageA_data
+from src.analysis.argllm_semantics import add_argllm_semantics_predictions
 from src.analysis.judge_baselines import (
     ATTRIBUTES,
     add_pairwise_drivers,
@@ -39,6 +40,16 @@ def _driver_alignment(df: pd.DataFrame, driver_col: str, premise_col: str) -> fl
     return float((valid[driver_col] == valid[premise_col]).mean())
 
 
+def _weight_correlation_from_effects(df: pd.DataFrame, prefix: str, weights: dict[str, float]) -> float:
+    effect_series = pd.Series(
+        {attr: df[f"{prefix}_effect_{attr}"].abs().mean() for attr in ATTRIBUTES}
+    )
+    weight_series = pd.Series(weights)
+    if effect_series.sum() and weight_series.sum():
+        return float(effect_series.rank().corr(weight_series.rank(), method="spearman"))
+    return float("nan")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Analyze judge baselines and behavioral attributions")
     parser.add_argument("--dataset", default="data/generated/v1_short", help="Path to generated dataset directory")
@@ -46,6 +57,8 @@ def main() -> None:
     parser.add_argument("--out", default=None, help="Directory to write outputs (auto-generated if not specified)")
     parser.add_argument("--interactions", action="store_true", help="Include pairwise interactions for Stage A")
     parser.add_argument("--bootstrap", type=int, default=0, help="Bootstrap samples for behavioral attribution CIs")
+    parser.add_argument("--argllm-conservativeness", type=float, default=1.0, help="Conservativeness for dfq/qe semantics")
+    parser.add_argument("--claim-base-score", type=float, default=0.5, help="Base score for the root claim 'Choose A over B'")
     args = parser.parse_args()
 
     dataset_dir = Path(args.dataset)
@@ -83,6 +96,18 @@ def main() -> None:
 
     tau_df = add_tau_predictions(responses_df, trials_df)
     tau_df = add_pairwise_drivers(tau_df)
+    tau_df = add_argllm_semantics_predictions(
+        tau_df,
+        semantics="dfq",
+        conservativeness=args.argllm_conservativeness,
+        claim_base_score=args.claim_base_score,
+    )
+    tau_df = add_argllm_semantics_predictions(
+        tau_df,
+        semantics="qe",
+        conservativeness=args.argllm_conservativeness,
+        claim_base_score=args.claim_base_score,
+    )
 
     stability = tau_stability(tau_df)
     tau_ok_rate = float(tau_df["tau_ok"].mean()) if "tau_ok" in tau_df else float("nan")
@@ -97,9 +122,25 @@ def main() -> None:
         tau_driver_align = _driver_alignment(
             tau_df[tau_df["premise_ok"]], "tau_driver", "premise_attr"
         )
+        dfq_agreement = _agreement_rate(
+            tau_df[tau_df["choice_ok"] & tau_df["dfq_ok"]], "dfq_pred_choice", "choice"
+        )
+        dfq_driver_align = _driver_alignment(
+            tau_df[tau_df["premise_ok"] & tau_df["dfq_ok"]], "dfq_driver", "premise_attr"
+        )
+        qe_agreement = _agreement_rate(
+            tau_df[tau_df["choice_ok"] & tau_df["qe_ok"]], "qe_pred_choice", "choice"
+        )
+        qe_driver_align = _driver_alignment(
+            tau_df[tau_df["premise_ok"] & tau_df["qe_ok"]], "qe_driver", "premise_attr"
+        )
     else:
         tau_agreement = float("nan")
         tau_driver_align = float("nan")
+        dfq_agreement = float("nan")
+        dfq_driver_align = float("nan")
+        qe_agreement = float("nan")
+        qe_driver_align = float("nan")
         stability = {}
 
     if has_pairwise_signal:
@@ -118,8 +159,12 @@ def main() -> None:
             tau_weight_corr = avg_abs_tau.rank().corr(weight_series.rank(), method="spearman")
         else:
             tau_weight_corr = float("nan")
+        dfq_weight_corr = _weight_correlation_from_effects(tau_df, "dfq", weights_info["weights"])
+        qe_weight_corr = _weight_correlation_from_effects(tau_df, "qe", weights_info["weights"])
     else:
         tau_weight_corr = float("nan")
+        dfq_weight_corr = float("nan")
+        qe_weight_corr = float("nan")
 
     behavioral = behavioral_attribution(
         trials_df,
@@ -132,9 +177,13 @@ def main() -> None:
         "include_interactions": args.interactions,
         "agreement": {
             "tau_vs_choice": tau_agreement,
+            "dfq_vs_choice": dfq_agreement,
+            "qe_vs_choice": qe_agreement,
         },
         "alignment": {
             "tau_driver_vs_premise": tau_driver_align,
+            "dfq_driver_vs_premise": dfq_driver_align,
+            "qe_driver_vs_premise": qe_driver_align,
             "pair_driver_vs_premise": pair_driver_align,
         },
         "tau_ok_rate": tau_ok_rate,
@@ -142,6 +191,12 @@ def main() -> None:
         "tau_stability": stability,
         "stageA_weights": weights_info["weights"],
         "tau_weight_correlation": float(tau_weight_corr) if not np.isnan(tau_weight_corr) else float("nan"),
+        "dfq_weight_correlation": float(dfq_weight_corr) if not np.isnan(dfq_weight_corr) else float("nan"),
+        "qe_weight_correlation": float(qe_weight_corr) if not np.isnan(qe_weight_corr) else float("nan"),
+        "argllm_semantics": {
+            "claim_base_score": args.claim_base_score,
+            "conservativeness": args.argllm_conservativeness,
+        },
         "behavioral_attribution": behavioral,
     }
     if reasoning_effort:
@@ -154,10 +209,17 @@ def main() -> None:
         f"# Judge Baselines Summary ({model_name})",
         "",
         f"- Tau/choice agreement: {tau_agreement:.3f}" if not np.isnan(tau_agreement) else "- Tau/choice agreement: n/a",
+        f"- DFQ/choice agreement: {dfq_agreement:.3f}" if not np.isnan(dfq_agreement) else "- DFQ/choice agreement: n/a",
+        f"- QE/choice agreement: {qe_agreement:.3f}" if not np.isnan(qe_agreement) else "- QE/choice agreement: n/a",
         f"- Tau driver vs premise alignment: {tau_driver_align:.3f}" if not np.isnan(tau_driver_align) else "- Tau driver vs premise alignment: n/a",
+        f"- DFQ driver vs premise alignment: {dfq_driver_align:.3f}" if not np.isnan(dfq_driver_align) else "- DFQ driver vs premise alignment: n/a",
+        f"- QE driver vs premise alignment: {qe_driver_align:.3f}" if not np.isnan(qe_driver_align) else "- QE driver vs premise alignment: n/a",
         f"- Pairwise driver vs premise alignment: {pair_driver_align:.3f}" if not np.isnan(pair_driver_align) else "- Pairwise driver vs premise alignment: n/a",
         f"- Tau OK rate: {tau_ok_rate:.3f}" if not np.isnan(tau_ok_rate) else "- Tau OK rate: n/a",
         f"- Pairwise OK rate: {pair_ok_rate:.3f}" if not np.isnan(pair_ok_rate) else "- Pairwise OK rate: n/a",
+        f"- Tau/weights rank correlation: {tau_weight_corr:.3f}" if not np.isnan(tau_weight_corr) else "- Tau/weights rank correlation: n/a",
+        f"- DFQ/weights rank correlation: {dfq_weight_corr:.3f}" if not np.isnan(dfq_weight_corr) else "- DFQ/weights rank correlation: n/a",
+        f"- QE/weights rank correlation: {qe_weight_corr:.3f}" if not np.isnan(qe_weight_corr) else "- QE/weights rank correlation: n/a",
         "",
         "## Stage A Weights",
         json.dumps(weights_info["weights"], indent=2),
