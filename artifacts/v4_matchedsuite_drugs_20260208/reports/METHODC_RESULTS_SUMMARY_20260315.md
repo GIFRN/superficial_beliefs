@@ -12,6 +12,46 @@ Method C is currently complete and analyzed for one condition:
 
 The Method C suite is best interpreted as an intervention-based validation of the revealed-preference account. Starting from matched baseline prompts, it selectively neutralizes or removes evidence for one attribute while keeping the rest of the item family fixed.
 
+## Dataset Structure And Construction
+
+The analyzed Method C dataset is `artifacts/v4_matchedsuite_drugs_20260208/data/occlusion_suite_methodC`.
+
+It was constructed in two stages:
+
+1. A raw occlusion suite was generated from the drugs theme.
+2. That raw suite was then filtered to matched `B3` tradeoff-only families whose baseline `short_reason` row had at least one positive and one negative attribute differential.
+
+The final dataset therefore contains only non-dominance tradeoff families and keeps matched variants grouped by `base_trial_id`.
+
+Structure of the final dataset:
+
+- total trials: `8100`
+- unique matched base families: `900`
+- unique base configurations: `450`
+- block composition: `8100` `B3` rows and no `B1`/`B2`
+
+Each matched family contains `9` rows:
+
+- `1` baseline `short_reason` row
+- `4` `occlude_equalize` rows, one per attribute
+- `4` `occlude_drop` rows, one per attribute
+
+So the final manipulation counts are:
+
+- `short_reason`: `900`
+- `occlude_equalize`: `3600`
+- `occlude_drop`: `3600`
+
+And the intervention target counts are perfectly balanced:
+
+- target `E`: `1800`
+- target `A`: `1800`
+- target `S`: `1800`
+- target `D`: `1800`
+- baseline rows with no target: `900`
+
+Within a matched family, the baseline and intervention variants share the same `order_id_A`, `order_id_B`, `paraphrase_id`, and `seed`; only the targeted attribute manipulation changes. The final released Method C dataset does not include `occlude_swap`.
+
 ## Headline Results
 
 The baseline-only `short_reason` rows recover a clear preference ranking:
