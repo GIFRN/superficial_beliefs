@@ -54,33 +54,20 @@ def render_short_reason(trial: TrialSpec) -> ConversationPlan:
     theme = trial.theme_config or DRUGS_THEME
     lines = [
         f"You are optimizing {theme.objective}.",
-        "State the option you choose and give a short reason (≤12 words) explaining the single most important factor for your choice.",
-        "Format: <Option>. <Reason>.",
+        "Choose exactly one option and then give the single most important attribute for that choice.",
+        "Respond in exactly one line using this format:",
+        "<A or B>. <attribute>.",
+        f"Attributes: {_attribute_label_string(trial)}.",
+        "Don't give any explanation or additional commentary.",
+        "Options:",
         "",
         _profile_text(trial, label=theme.entity_a),
         _profile_text(trial, label=theme.entity_b),
     ]
     user_message = apply_probe("\n".join(lines), trial)
 
-    # Build attribute list for premise instruction
-    attr_labels = _get_attribute_labels_list(trial)
-
     steps = [
-        ConversationStep(name="choice", prompt=user_message, expects="choice"),
-        ConversationStep(
-            name="sentence",
-            prompt="Repeat only the reason you just gave (≤12 words).",
-            expects="sentence",
-        ),
-        ConversationStep(
-            name="premise",
-            prompt=(
-                f"Now return:\n"
-                f"PremiseAttribute = <one of [{attr_labels}]>\n"
-                f'PremiseText = "<8-12 words>"'
-            ),
-            expects="premise",
-        ),
+        ConversationStep(name="choice", prompt=user_message, expects="choice_attr"),
     ]
     return ConversationPlan(system_prompt=_get_system_prompt(trial), steps=steps)
 
@@ -233,19 +220,27 @@ def _judge_pairwise_stepwise_steps(trial: TrialSpec) -> list[ConversationStep]:
 
 def _judge_scores_joint_prompt(trial: TrialSpec) -> str:
     theme = trial.theme_config or DRUGS_THEME
-    labels = _attribute_code_label_string(trial)
+    labels = _attribute_label_string(trial)
+    return_lines = _attribute_return_template_lines(trial)
     lines = [
-        "You are an evaluator. Do NOT choose A/B.",
-        f"Score how decisive each attribute difference is for {theme.objective}.",
-        "Use tau in [0,1], where 0 = no effect and 1 = fully decisive.",
-        "For each attribute, imagine all other attributes equal; only that attribute differs as shown.",
+        f"You are an evaluator. Score how decisive each attribute difference is for {theme.objective}.",
+        "Return a number between 0 and 1, where 0 = no impact and 1 = fully decisive.",
+        "For each attribute, imagine all other attributes equal and only that attribute differs as shown.",
         f"Attributes: {labels}.",
-        "If an attribute is not shown, set its tau to 0.",
+        "If an attribute is not shown, set its score to 0.",
         "",
         _profile_text(trial, label=theme.entity_a),
         _profile_text(trial, label=theme.entity_b),
         "",
-        "Return 4 lines: E=..., A=..., S=..., D=... (or strict JSON).",
+        "Return exactly 4 lines and nothing else.",
+        "Each line must be:",
+        "<attribute>=<score>",
+        "",
+        "Use one single numeric score per attribute.",
+        "Do not use brackets, intervals, commas, or explanations.",
+        "Follow this format, with your numeric score between 0 and 1 replacing <score>:",
+        "",
+        *return_lines,
     ]
     return "\n".join(lines)
 
@@ -312,9 +307,35 @@ def _judge_pairwise_step_prompt(trial: TrialSpec, attr_a: str, attr_b: str) -> s
 
 def _attribute_code_label_string(trial: TrialSpec) -> str:
     theme = trial.theme_config or DRUGS_THEME
-    attrs = [attr for attr in ATTR_ORDER if attr in theme.get_mapped_attributes()]
+    attrs = _ordered_prompt_attrs(trial)
     pairs = [f"{attr}={theme.get_attribute_label(attr)}" for attr in attrs]
     return ", ".join(pairs)
+
+
+def _attribute_label_string(trial: TrialSpec) -> str:
+    theme = trial.theme_config or DRUGS_THEME
+    attrs = _ordered_prompt_attrs(trial)
+    labels = [theme.get_attribute_label(attr) for attr in attrs]
+    return ", ".join(labels)
+
+
+def _attribute_return_template_lines(trial: TrialSpec) -> list[str]:
+    theme = trial.theme_config or DRUGS_THEME
+    attrs = _ordered_prompt_attrs(trial)
+    return [f"{theme.get_attribute_label(attr)}=<score>" for attr in attrs]
+
+
+def _ordered_prompt_attrs(trial: TrialSpec) -> list[str]:
+    theme = trial.theme_config or DRUGS_THEME
+    _, _, order_a, _ = apply_structural_occlusion(
+        trial.profile_a,
+        trial.profile_b,
+        trial.order_a,
+        trial.order_b,
+        trial.manipulation,
+        trial.attribute_target,
+    )
+    return [attr for attr in order_a if attr in theme.get_mapped_attributes()]
 
 
 def apply_probe(message: str, trial: TrialSpec) -> str:

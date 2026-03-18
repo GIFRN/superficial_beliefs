@@ -1,0 +1,50 @@
+{
+  "agreement": {
+    "dfq_vs_choice": 0.6858333333333333,
+    "qe_vs_choice": 0.6958333333333333,
+    "tau_vs_choice": 0.7041666666666667
+  },
+  "alignment": {
+    "dfq_driver_vs_premise": 0.495,
+    "pair_driver_vs_premise": NaN,
+    "qe_driver_vs_premise": 0.495,
+    "tau_driver_vs_premise": 0.495
+  },
+  "argllm_semantics": {
+    "claim_base_score": 0.5,
+    "conservativeness": 1.0
+  },
+  "behavioral_attribution": {},
+  "dfq_weight_correlation": 1.0,
+  "include_interactions": false,
+  "model": "local_ministral3_14b_reasoning_vllm_minimal",
+  "pairwise_ok_rate": 0.0,
+  "qe_weight_correlation": 1.0,
+  "reasoning_effort": "minimal",
+  "stageA_weights": {
+    "A": 0.27792769324806466,
+    "D": 0.0,
+    "E": 0.4255099247883199,
+    "S": 0.2965623819636155
+  },
+  "tau_ok_rate": 1.0,
+  "tau_stability": {
+    "A": {
+      "mean_std": 0.14275422232182933,
+      "median_std": 0.1154700538379252
+    },
+    "D": {
+      "mean_std": 0.0388319838389,
+      "median_std": 0.05773502691896258
+    },
+    "E": {
+      "mean_std": 0.1190464946536872,
+      "median_std": 0.10000000000000005
+    },
+    "S": {
+      "mean_std": 0.1311162882903059,
+      "median_std": 0.11547005383792512
+    }
+  },
+  "tau_weight_correlation": 1.0
+}

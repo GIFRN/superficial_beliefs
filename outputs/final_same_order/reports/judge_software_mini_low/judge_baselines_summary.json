@@ -1,0 +1,50 @@
+{
+  "agreement": {
+    "dfq_vs_choice": 0.7191666666666666,
+    "qe_vs_choice": 0.6783333333333333,
+    "tau_vs_choice": 0.6783333333333333
+  },
+  "alignment": {
+    "dfq_driver_vs_premise": 0.6091666666666666,
+    "pair_driver_vs_premise": NaN,
+    "qe_driver_vs_premise": 0.6091666666666666,
+    "tau_driver_vs_premise": 0.6083333333333333
+  },
+  "argllm_semantics": {
+    "claim_base_score": 0.5,
+    "conservativeness": 1.0
+  },
+  "behavioral_attribution": {},
+  "dfq_weight_correlation": 0.6000000000000001,
+  "include_interactions": false,
+  "model": "openai_gpt5mini",
+  "pairwise_ok_rate": 0.0,
+  "qe_weight_correlation": 0.6000000000000001,
+  "reasoning_effort": "low",
+  "stageA_weights": {
+    "A": 0.11784146717282709,
+    "D": 0.428487403144147,
+    "E": 0.08583628862477907,
+    "S": 0.3678348410582469
+  },
+  "tau_ok_rate": 1.0,
+  "tau_stability": {
+    "A": {
+      "mean_std": 0.07176973204772213,
+      "median_std": 0.05773502691896257
+    },
+    "D": {
+      "mean_std": 0.05636607852992466,
+      "median_std": 0.028867513459481322
+    },
+    "E": {
+      "mean_std": 0.0737066256251227,
+      "median_std": 0.05773502691896256
+    },
+    "S": {
+      "mean_std": 0.07370898184874866,
+      "median_std": 0.05773502691896255
+    }
+  },
+  "tau_weight_correlation": 0.6000000000000001
+}

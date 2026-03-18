@@ -1,0 +1,19 @@
+name: "policy_intervention"
+entities:
+  - "Policy A"
+  - "Policy B"
+objective: "5-year overall community outcome"
+attributes:
+  E:
+    name: "EF"
+    label: "Effectiveness"
+  A:
+    name: "CP"
+    label: "Compliance"
+  S:
+    name: "SF"
+    label: "Safety"
+  D:
+    name: "IE"
+    label: "Implementation Ease"
+

@@ -1,0 +1,24 @@
+{
+  "split": "train",
+  "n_base_trials": 400,
+  "n_full_trials": 1600,
+  "n_configs": 294,
+  "block": "B3",
+  "manipulation": "short_reason",
+  "current_stage43_rows_kept": 381,
+  "rows_added_from_regenerated_pool": 19,
+  "source_same_order_rows": 103,
+  "source_different_order_rows": 297,
+  "base_variant": "p_at_oa_vs_q_at_oa",
+  "full_variants": [
+    "p_at_oa_vs_q_at_oa",
+    "q_at_oa_vs_p_at_oa",
+    "p_at_ob_vs_q_at_ob",
+    "q_at_ob_vs_p_at_ob"
+  ],
+  "source_origin_counts": {
+    "stage43": 381,
+    "regen": 19
+  },
+  "notes": "dataset_trials.parquet is the canonical same-order base dataset; full_trials.parquet expands each family into all four same-order variants; paraphrase_id is fixed to 0 because profile rendering is now canonical."
+}

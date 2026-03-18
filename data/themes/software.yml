@@ -1,0 +1,19 @@
+name: "software_library"
+entities:
+  - "Library A"
+  - "Library B"
+objective: "5-year overall production engineering outcome for a small team"
+attributes:
+  E:
+    name: "CAP"
+    label: "Capability"
+  A:
+    name: "ADP"
+    label: "Adoption Ease"
+  S:
+    name: "REL"
+    label: "Reliability"
+  D:
+    name: "MNT"
+    label: "Maintainability"
+

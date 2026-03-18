@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import json
 from dataclasses import dataclass
 import re
@@ -25,6 +26,22 @@ class LLMBackend:
         seed: int | None = None,
     ) -> str:
         raise NotImplementedError
+
+    async def complete_async(
+        self,
+        messages: Sequence[dict[str, str]],
+        *,
+        temperature: float = 0.0,
+        max_tokens: int = 1024,
+        seed: int | None = None,
+    ) -> str:
+        return await asyncio.to_thread(
+            self.complete,
+            messages,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            seed=seed,
+        )
 
 
 @dataclass
@@ -119,13 +136,38 @@ def run_trial(
     *,
     max_tokens: int = 1024,
 ) -> dict[str, Any]:
+    return asyncio.run(
+        run_trial_async(
+            trial=trial,
+            backend=backend,
+            S=S,
+            temperature=temperature,
+            seed=seed,
+            max_tokens=max_tokens,
+        )
+    )
+
+
+async def run_trial_async(
+    trial: TrialSpec,
+    backend: LLMBackend,
+    S: int,
+    temperature: float,
+    seed: int,
+    *,
+    max_tokens: int = 1024,
+) -> dict[str, Any]:
     rng = np.random.default_rng(seed ^ trial.seed)
     plan = conversation_plan(trial)
-    runs: list[SingleRunResult] = []
-    for _ in range(S):
+
+    replicate_seeds = [
+        int(rng.integers(0, 2**32 - 1))
+        for _ in range(S)
+    ]
+
+    async def run_replicate(replicate_seed: int) -> SingleRunResult:
         system_message = {"role": "system", "content": plan.system_prompt}
         conversation: list[dict[str, str]] = [system_message]
-        replicate_seed = int(rng.integers(0, 2**32 - 1))
         steps_results: list[StepResult] = []
         history = [system_message.copy()]
         context: dict[str, Any] = {"trial": trial, "steps": {}}
@@ -137,17 +179,24 @@ def run_trial(
             history.append({"role": "user", "content": prompt})
             conversation.append({"role": "user", "content": prompt})
             step_seed = (replicate_seed + idx) % (2**32)
-            # Let exceptions propagate to stop the program
-            response = backend.complete(history, temperature=temperature, max_tokens=max_tokens, seed=step_seed)
+            response = await backend.complete_async(
+                history,
+                temperature=temperature,
+                max_tokens=max_tokens,
+                seed=step_seed,
+            )
             history.append({"role": "assistant", "content": response})
             conversation.append({"role": "assistant", "content": response})
-            parsed = _parse_step(step, response, trial.theme_config)
+            parsed = parse_step_response(step, response, trial.theme_config)
             result = StepResult(name=step.name, content=response, parsed=parsed)
             steps_results.append(result)
             context["steps"][step.name] = result
             if not parsed.get("ok") and step.stop_on_fail:
                 break
-        runs.append(SingleRunResult(seed=replicate_seed, steps=steps_results, conversation=conversation))
+        return SingleRunResult(seed=replicate_seed, steps=steps_results, conversation=conversation)
+
+    runs = await asyncio.gather(*(run_replicate(rep_seed) for rep_seed in replicate_seeds))
+
     return {
         "trial_id": trial.trial_id,
         "config_id": trial.config_id,
@@ -215,13 +264,232 @@ def parse_choice(text: str) -> dict[str, Any]:
     return {"ok": False, "choice": None}
 
 
-def parse_scores4(text: str) -> dict[str, Any]:
+def _match_choice_prefix(text: str) -> tuple[str | None, int]:
+    body = text.strip()
+    if not body:
+        return None, 0
+
+    patterns = [
+        r"^\s*(?:choice|answer|selected|pick)\s*[:=\-]?\s*([AB])\b",
+        r"^\s*(?:option|entity|drug|policy|library|candidate|restaurant)\s+([AB])\b",
+        r"^\s*([AB])\b",
+    ]
+    for pattern in patterns:
+        match = re.search(pattern, body, re.I)
+        if match:
+            return match.group(1).upper(), match.end()
+
+    start_section = body[:40]
+    match = re.search(r"\b([AB])\b", start_section, re.I)
+    if match:
+        return match.group(1).upper(), match.end()
+    return None, 0
+
+
+def _extract_attr_from_tail(text: str, theme_config: ThemeConfig | None = None) -> tuple[str | None, str]:
+    attr_map = _build_attr_map(theme_config)
+    body = text.strip()
+    if not body:
+        return None, ""
+
+    # Remove leading scaffolding words the model may add before the attribute.
+    body = re.sub(
+        r"^(?:attribute|attr|factor|feature|reason|premise)\s*[:=\-]?\s*",
+        "",
+        body,
+        flags=re.I,
+    ).strip()
+    if not body:
+        return None, ""
+
+    upper_body = body.upper()
+    compact_body = re.sub(r"[^A-Z0-9]+", "", upper_body)
+    aliases = sorted(set(attr_map.keys()), key=lambda alias: (-len(alias.replace(" ", "")), -len(alias), alias))
+
+    for alias in aliases:
+        alias_upper = alias.upper()
+        pattern = r"(?<![A-Z0-9])" + re.escape(alias_upper) + r"(?![A-Z0-9])"
+        if re.search(pattern, upper_body):
+            return attr_map[alias], alias_upper
+        alias_compact = re.sub(r"[^A-Z0-9]+", "", alias_upper)
+        if alias_compact and compact_body.startswith(alias_compact):
+            return attr_map[alias], alias_upper
+
+    def _common_prefix_len(a: str, b: str) -> int:
+        n = min(len(a), len(b))
+        idx = 0
+        while idx < n and a[idx] == b[idx]:
+            idx += 1
+        return idx
+
+    fuzzy_matches: list[tuple[int, str, str]] = []
+    for alias in aliases:
+        alias_upper = alias.upper()
+        alias_compact = re.sub(r"[^A-Z0-9]+", "", alias_upper)
+        if not alias_compact or len(alias_compact) < 6 or len(compact_body) < 6:
+            continue
+        prefix_len = _common_prefix_len(compact_body, alias_compact)
+        if prefix_len >= 6:
+            fuzzy_matches.append((prefix_len, attr_map[alias], alias_upper))
+    if fuzzy_matches:
+        fuzzy_matches.sort(key=lambda row: (-row[0], row[1], row[2]))
+        best = fuzzy_matches[0]
+        tied = [row for row in fuzzy_matches if row[0] == best[0]]
+        if len({row[1] for row in tied}) == 1:
+            return best[1], body
+
+    inferred = classify_premise_open_text(body, theme_config)
+    if inferred.get("conf", 0.0) > 0:
+        return inferred.get("attr"), body
+    return None, ""
+
+
+def parse_choice_attr(text: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
+    body = text.strip()
+    if not body:
+        return {
+            "ok": False,
+            "choice_ok": False,
+            "choice": None,
+            "premise_ok": False,
+            "attr": None,
+            "text": "",
+        }
+
+    choice, choice_end = _match_choice_prefix(body)
+    choice_ok = choice in {"A", "B"}
+
+    attr = None
+    attr_text = ""
+    if choice_ok:
+        tail = body[choice_end:]
+        tail = tail.lstrip(" \t\r\n.:;,-")
+        attr, attr_text = _extract_attr_from_tail(tail, theme_config)
+    else:
+        attr, attr_text = _extract_attr_from_tail(body, theme_config)
+
+    premise_ok = attr in {"E", "A", "S", "D"}
+    return {
+        # Keep step success keyed to whether a choice was recovered, so judge
+        # steps still run even if the attribute token is malformed.
+        "ok": choice_ok,
+        "choice_ok": choice_ok,
+        "choice": choice,
+        "premise_ok": premise_ok,
+        "attr": attr,
+        "text": attr_text.strip(),
+    }
+
+
+def _normalize_attr_key(token: Any, theme_config: ThemeConfig | None = None) -> str | None:
+    if token is None:
+        return None
+    attr_map = _build_attr_map(theme_config)
+    raw = str(token).strip()
+    if not raw:
+        return None
+    raw = re.sub(r"[\[\](){}\"']", "", raw).strip()
+    raw_upper = raw.upper()
+    if raw_upper in attr_map:
+        return attr_map[raw_upper]
+    raw_compact = re.sub(r"[^A-Z0-9]+", "", raw_upper)
+    if raw_compact in attr_map:
+        return attr_map[raw_compact]
+    return None
+
+
+def _visible_attr_keys_from_prompt(prompt: str, theme_config: ThemeConfig | None = None) -> list[str]:
+    keys = ["E", "A", "S", "D"]
+    if not prompt:
+        return keys
+    for raw_line in prompt.splitlines():
+        line = raw_line.strip()
+        if not line.lower().startswith("attributes:"):
+            continue
+        _, _, payload = line.partition(":")
+        visible: list[str] = []
+        for token in payload.split(","):
+            key = _normalize_attr_key(token.strip(), theme_config)
+            if key in keys and key not in visible:
+                visible.append(key)
+        if visible:
+            return visible
+    return keys
+
+
+def parse_scores4(
+    text: str,
+    theme_config: ThemeConfig | None = None,
+    visible_attrs: Sequence[str] | None = None,
+) -> dict[str, Any]:
     """Parse four tau scores for E/A/S/D from JSON or key=value lines."""
     keys = ["E", "A", "S", "D"]
+    visible_keys = [key for key in (visible_attrs or keys) if key in keys]
+    if not visible_keys:
+        visible_keys = keys[:]
     values: dict[str, float] = {}
     body = text.strip()
     if not body:
         return {"ok": False, "tau": {}, "missing": keys}
+
+    def _coerce_tau_value(raw: Any) -> float | None:
+        if isinstance(raw, (int, float)):
+            val = float(raw)
+            return val if 0.0 <= val <= 1.0 else None
+        if isinstance(raw, str):
+            cleaned = raw.strip().strip('"').strip("'")
+            number_tokens = re.findall(r"([0-9]*\.?[0-9]+)", cleaned)
+            if not number_tokens:
+                return None
+            if len(number_tokens) > 1:
+                try:
+                    vals = [float(token) for token in number_tokens]
+                except ValueError:
+                    return None
+                if all(0.0 <= val <= 1.0 for val in vals) and max(vals) - min(vals) <= 1e-9:
+                    return vals[0]
+                return None
+            try:
+                val = float(number_tokens[0])
+            except ValueError:
+                return None
+            return val if 0.0 <= val <= 1.0 else None
+        return None
+
+    def _split_top_level_segments(raw: str) -> list[str]:
+        segments: list[str] = []
+        current: list[str] = []
+        depth = 0
+        for char in raw:
+            if char in "[({<":
+                depth += 1
+            elif char in "])}>":
+                depth = max(0, depth - 1)
+            if depth == 0 and char in ",\n":
+                segment = "".join(current).strip()
+                if segment:
+                    segments.append(segment)
+                current = []
+                continue
+            current.append(char)
+        tail = "".join(current).strip()
+        if tail:
+            segments.append(tail)
+        return segments
+
+    def _consume_kv_segment(segment: str) -> None:
+        if "=" in segment:
+            key_text, value_text = segment.split("=", 1)
+        elif ":" in segment:
+            key_text, value_text = segment.split(":", 1)
+        else:
+            return
+        key = _normalize_attr_key(key_text.strip().lstrip("-*0123456789. )("), theme_config)
+        if key not in keys or key in values:
+            return
+        val = _coerce_tau_value(value_text)
+        if val is not None:
+            values[key] = val
 
     json_match = re.search(r"\{.*\}", body, flags=re.S)
     if json_match:
@@ -232,29 +500,75 @@ def parse_scores4(text: str) -> dict[str, Any]:
             payload = None
         if isinstance(payload, dict):
             for key, value in payload.items():
-                key_upper = str(key).strip().upper()
-                if key_upper in keys:
-                    try:
-                        val = float(value)
-                    except (TypeError, ValueError):
-                        continue
-                    if 0.0 <= val <= 1.0:
-                        values[key_upper] = val
+                norm_key = _normalize_attr_key(key, theme_config)
+                if norm_key in keys:
+                    val = _coerce_tau_value(value)
+                    if val is not None:
+                        values[norm_key] = val
 
-    pattern = re.compile(r"\b([EASD])\s*[:=]\s*([0-9]*\.?[0-9]+)\b", re.I)
+    for segment in _split_top_level_segments(body):
+        _consume_kv_segment(segment)
+
+    # Canonical compact forms, tolerant to quoted numeric values.
+    pattern = re.compile(r"\b([EASD])\s*[:=]\s*['\"]?\s*([0-9]*\.?[0-9]+)\s*['\"]?", re.I)
     for match in pattern.finditer(body):
         key = match.group(1).upper()
         if key in values:
             continue
-        try:
-            val = float(match.group(2))
-        except ValueError:
-            continue
-        if 0.0 <= val <= 1.0:
+        val = _coerce_tau_value(match.group(2))
+        if val is not None:
             values[key] = val
 
+    line_pattern = re.compile(
+        r"^\s*([A-Za-z][A-Za-z0-9 _-]{0,40})\s*[:=]\s*['\"]?\s*([0-9]*\.?[0-9]+)\s*[\])'\"]?\s*$",
+        re.I,
+    )
+    for raw_line in body.splitlines():
+        line = raw_line.strip()
+        if not line:
+            continue
+        _consume_kv_segment(line)
+        match = line_pattern.match(line)
+        if not match:
+            continue
+        key = _normalize_attr_key(match.group(1), theme_config)
+        if key not in keys or key in values:
+            continue
+        val = _coerce_tau_value(match.group(2))
+        if val is not None:
+            values[key] = val
+
+    generic_pattern = re.compile(
+        r"([A-Za-z][A-Za-z0-9 _-]{0,40})\s*[:=]\s*['\"]?\s*([0-9]*\.?[0-9]+)\s*[\])'\"]?",
+        re.I,
+    )
+    for match in generic_pattern.finditer(body):
+        key = _normalize_attr_key(match.group(1), theme_config)
+        if key not in keys or key in values:
+            continue
+        val = _coerce_tau_value(match.group(2))
+        if val is not None:
+            values[key] = val
+
+    # Narrative forms, e.g. "(E): Tau ≈ 0.8".
+    narrative = re.compile(
+        r"(?:\b([EASD])\b|\(([EASD])\))\s*[:=]\s*(?:tau\s*(?:≈|~|:|=)\s*)?['\"]?\s*([0-9]*\.?[0-9]+)\s*['\"]?",
+        re.I,
+    )
+    for match in narrative.finditer(body):
+        key = (match.group(1) or match.group(2) or "").upper()
+        if key not in keys or key in values:
+            continue
+        val = _coerce_tau_value(match.group(3))
+        if val is not None:
+            values[key] = val
+
+    for key in keys:
+        if key not in visible_keys:
+            values.setdefault(key, 0.0)
+
     missing = [key for key in keys if key not in values]
-    ok = len(values) >= 2
+    ok = len(values) == len(keys)
     return {"ok": ok, "tau": values, "missing": missing}
 
 
@@ -263,7 +577,7 @@ def parse_score1(text: str) -> dict[str, Any]:
     body = text.strip()
     if not body:
         return {"ok": False, "tau": None}
-    match = re.search(r"\btau\s*[:=]\s*([0-9]*\.?[0-9]+)\b", body, re.I)
+    match = re.search(r"\btau\s*[:=]\s*['\"]?\s*([0-9]*\.?[0-9]+)\s*['\"]?", body, re.I)
     candidates = []
     if match:
         candidates.append(match.group(1))
@@ -358,32 +672,91 @@ def parse_structured_premise(text: str, theme_config: ThemeConfig | None = None)
     # Maps theme labels (e.g., "Experience", "X") back to source attributes (E, A, S, D)
     attr_map = _build_attr_map(theme_config)
     
+    def _de_md(value: str) -> str:
+        # Remove light markdown wrappers often produced by models.
+        value = re.sub(r"[*_`]", "", value)
+        return value.strip()
+
+    def _clean_attr_token(value: str) -> str:
+        value = _de_md(value)
+        value = re.sub(r"^[\[\](){}<>\"'=\s:.-]+", "", value)
+        value = re.sub(r"[\[\](){}<>\"'\s:.;,!?-]+$", "", value)
+        return value.strip().upper()
+
+    def _clean_text_value(value: str) -> str:
+        value = _de_md(value)
+        value = value.strip()
+        if (value.startswith('"') and value.endswith('"')) or (value.startswith("'") and value.endswith("'")):
+            value = value[1:-1]
+        return value.strip()
+
     premise_text = ""
-    for line in lines:
-        if line.lower().startswith("premiseattribute"):
-            _, _, value = line.partition("=")
-            token = value.strip().strip("[] ")
-            token_upper = token.upper()
+    attr_line_idx = -1
+    for idx, raw_line in enumerate(lines):
+        line = _de_md(raw_line)
+        lower = line.lower()
+        if lower.startswith("premiseattribute") or lower.startswith("premise attribute"):
+            attr_line_idx = idx
+            if "=" in line:
+                _, _, value = line.partition("=")
+            elif ":" in line:
+                _, _, value = line.partition(":")
+            else:
+                parts = line.split(maxsplit=1)
+                value = parts[1] if len(parts) > 1 else ""
+            token_upper = _clean_attr_token(value)
             if token_upper in attr_map:
                 attr_code = attr_map[token_upper]
                 attr_ok = True
             else:
-                cleaned_token = token_upper.replace("]", "").replace("[", "")
-                pieces = [part.strip() for part in re.split(r"[|,/]+", cleaned_token) if part.strip()]
-                # Only accept if exactly one recognizable attribute token is present
-                matched = {attr_map[part] for part in pieces if part in attr_map}
-                if len(matched) == 1:
-                    attr_code = matched.pop()
+                token_no_space = token_upper.replace(" ", "")
+                if token_no_space in attr_map:
+                    attr_code = attr_map[token_no_space]
                     attr_ok = True
-        if line.lower().startswith("premisetext"):
-            _, _, value = line.partition("=")
-            value = value.strip()
-            if value.startswith('"') and value.endswith('"') and len(value) >= 2:
-                premise_text = value[1:-1].strip()
-                text_ok = True
+                else:
+                    cleaned_token = re.sub(r"[\[\](){}<>]", "", token_upper)
+                    pieces = [part.strip() for part in re.split(r"[|,/]+", cleaned_token) if part.strip()]
+                    # Only accept if exactly one recognizable attribute token is present
+                    matched = {attr_map[part] for part in pieces if part in attr_map}
+                    if len(matched) == 1:
+                        attr_code = matched.pop()
+                        attr_ok = True
+                    else:
+                        words = [w.strip() for w in cleaned_token.split() if w.strip()]
+                        matched_words = {attr_map[w] for w in words if w in attr_map}
+                        if len(matched_words) == 1:
+                            attr_code = matched_words.pop()
+                            attr_ok = True
+        if (
+            lower.startswith("premisetext")
+            or lower.startswith("premise text")
+            or lower.startswith("preminetext")
+            or lower.startswith("premine text")
+        ):
+            if "=" in line:
+                _, _, value = line.partition("=")
+            elif ":" in line:
+                _, _, value = line.partition(":")
             else:
-                premise_text = value.strip('"')
-                text_ok = bool(premise_text)
+                parts = line.split(maxsplit=1)
+                value = parts[1] if len(parts) > 1 else ""
+            premise_text = _clean_text_value(value)
+            text_ok = bool(premise_text)
+
+    # Common fallback: attribute line present but text provided on the next line.
+    if not text_ok and attr_line_idx >= 0 and attr_line_idx + 1 < len(lines):
+        next_line = _de_md(lines[attr_line_idx + 1])
+        if not next_line.lower().startswith("premise"):
+            if "=" in next_line and "text" in next_line.lower():
+                _, _, value = next_line.partition("=")
+                premise_text = _clean_text_value(value)
+            elif ":" in next_line and "text" in next_line.lower():
+                _, _, value = next_line.partition(":")
+                premise_text = _clean_text_value(value)
+            else:
+                premise_text = _clean_text_value(next_line)
+            text_ok = bool(premise_text)
+
     if not attr_ok and premise_text:
         inferred = classify_premise_open_text(premise_text, theme_config)
         if inferred.get("conf", 0.0) > 0:
@@ -418,14 +791,20 @@ def _build_attr_map(theme_config: ThemeConfig | None) -> dict[str, str]:
         for attr, mapping in theme_config.attributes.items():
             # Map the themed label (e.g., "Experience") to source attr (e.g., "E")
             if mapping.label:
-                attr_map[mapping.label.upper()] = attr
+                label_upper = mapping.label.upper()
+                attr_map[label_upper] = attr
+                attr_map[label_upper.replace(" ", "")] = attr
+                if label_upper == "MAINTAINABILITY":
+                    attr_map["MAINTABILITY"] = attr
                 # Also handle partial matches (e.g., "FOOD QUALITY" -> "FOOD" or "QUALITY")
-                for word in mapping.label.upper().split():
+                for word in label_upper.split():
                     if word not in attr_map:
                         attr_map[word] = attr
             # Map the themed name/code (e.g., "X") to source attr (e.g., "E")
             if mapping.name:
-                attr_map[mapping.name.upper()] = attr
+                name_upper = mapping.name.upper()
+                attr_map[name_upper] = attr
+                attr_map[name_upper.replace(" ", "")] = attr
     
     return attr_map
 
@@ -502,15 +881,18 @@ def _normalize_levels(levels_obj: Any, attributes: Sequence[Attribute]) -> dict[
     raise TypeError(f"Unsupported levels representation: {type(levels_obj)}")
 
 
-def _parse_step(step: ConversationStep, response: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
+def parse_step_response(step: ConversationStep, response: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
     if step.expects == "choice":
         return parse_choice(response)
+    if step.expects == "choice_attr":
+        return parse_choice_attr(response, theme_config)
     if step.expects == "premise":
         return parse_structured_premise(response, theme_config)
     if step.expects == "sentence":
         return {"ok": bool(response.strip()), "text": response.strip()}
     if step.expects == "scores4":
-        return parse_scores4(response)
+        visible_attrs = _visible_attr_keys_from_prompt(step.prompt, theme_config)
+        return parse_scores4(response, theme_config, visible_attrs=visible_attrs)
     if step.expects == "score1":
         return parse_score1(response)
     if step.expects == "pairwise6":
@@ -518,3 +900,8 @@ def _parse_step(step: ConversationStep, response: str, theme_config: ThemeConfig
     if step.expects == "pairwise1":
         return parse_pairwise1(response)
     return {"ok": False, "unknown_step": step.expects}
+
+
+def _parse_step(step: ConversationStep, response: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
+    """Backward-compatible alias for older imports."""
+    return parse_step_response(step, response, theme_config)

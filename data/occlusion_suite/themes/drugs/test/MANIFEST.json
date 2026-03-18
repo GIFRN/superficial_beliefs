@@ -1,0 +1,64 @@
+{
+  "actual_total": 3600,
+  "blocks": {
+    "B3": 3600
+  },
+  "n_configs": 73,
+  "n_trials": 3600,
+  "source_configs_filename": "dataset_configs.parquet",
+  "source_dataset": "/vol/bitbucket/gif22/superficial_beliefs/data/occlusion_suite/test",
+  "source_theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Durability",
+        "name": "D"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs",
+    "objective": "5-year overall patient outcome"
+  },
+  "source_trials_filename": "dataset_trials.parquet",
+  "target_total": 3600,
+  "theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Durability",
+        "name": "D"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs",
+    "objective": "5-year overall patient outcome"
+  }
+}

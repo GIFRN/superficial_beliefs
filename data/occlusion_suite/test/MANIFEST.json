@@ -1,0 +1,41 @@
+{
+  "blocks": {
+    "B3": 3600
+  },
+  "counts_by_attribute_target": {
+    "A": 800,
+    "D": 800,
+    "E": 800,
+    "None": 400,
+    "S": 800
+  },
+  "counts_by_manipulation": {
+    "occlude_drop": 1600,
+    "occlude_equalize": 1600,
+    "short_reason": 400
+  },
+  "generated_at_utc": "2026-03-17T15:42:02.751857+00:00",
+  "n_base_trials": 400,
+  "n_configs": 73,
+  "n_trials": 3600,
+  "source_configs_filename": "dataset_configs.parquet",
+  "source_dir": "data/test",
+  "source_trials_filename": "full_trials.parquet",
+  "suite": {
+    "attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "baseline_manipulation": "short_reason",
+    "note": "Baseline and occlusions share order_id_A/B, paraphrase_id, and seed within each base_trial_id.",
+    "occlusion_manipulations": [
+      "occlude_equalize",
+      "occlude_drop"
+    ],
+    "paired_key": "base_trial_id",
+    "type": "occlusion_suite",
+    "variants_per_base_trial": 9
+  }
+}

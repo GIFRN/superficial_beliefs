@@ -1,0 +1,19 @@
+name: "drugs_placebo_packaging"
+entities:
+  - "Drug A"
+  - "Drug B"
+objective: "5-year overall patient outcome"
+attributes:
+  E:
+    name: "E"
+    label: "Efficacy"
+  A:
+    name: "A"
+    label: "Adherence"
+  S:
+    name: "S"
+    label: "Safety"
+  D:
+    name: "PS"
+    label: "Packaging Symmetry"
+

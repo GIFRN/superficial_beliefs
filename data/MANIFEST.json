@@ -1,0 +1,13 @@
+{
+  "train_target": 400,
+  "test_target": 100,
+  "train_base_trials": 400,
+  "test_base_trials": 100,
+  "train_full_trials": 1600,
+  "test_full_trials": 400,
+  "train_kept_from_stage43": 381,
+  "test_kept_from_stage43": 97,
+  "train_added_from_regenerated_pool": 19,
+  "test_added_from_regenerated_pool": 3,
+  "regenerated_pool_available_rows": 495
+}

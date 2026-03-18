@@ -76,9 +76,18 @@ htmlcov/
 
 # Logs
 *.log
+.nfs*
+outputs/final_same_order/logs/
+outputs/final_same_order/runs/
+outputs/final_same_order/results/
+outputs/final_same_order/datasets/
+outputs/occlusion_suite_drugs_mini_min/runs/
+outputs/occlusion_suite_drugs_mini_min/results/
+outputs/occlusion_suite_drugs_mini_min/reports/judge_baselines/
+outputs/occlusion_suite_drugs_mini_min/reports/occlusion_suite_current_run/
+outputs/occlusion_suite_drugs_mini_min/reports/occlusion_suite_extra/
 
 # Temporary files
 *.tmp
 *.bak
 *.swp
-

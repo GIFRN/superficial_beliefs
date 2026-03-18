@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="520" viewBox="0 0 1480 520">
+<text x="740.0" y="34.0" font-size="22" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="bold" fill="#222222">Attribute recovery depends strongly on which attribute the actor states</text>
+<text x="740.0" y="58.0" font-size="13" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Weighted across 5 model families and 2 effort settings on the final short-reason test split</text>
+<text x="62.0" y="82.0" font-size="15" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-weight="bold" fill="#222222">Drugs</text>
+<line x1="104.0" y1="410.0" x2="480.0" y2="410.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="96.0" y="414.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.00</text>
+<line x1="104.0" y1="335.0" x2="480.0" y2="335.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="96.0" y="339.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.25</text>
+<line x1="104.0" y1="260.0" x2="480.0" y2="260.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="96.0" y="264.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.50</text>
+<line x1="104.0" y1="185.0" x2="480.0" y2="185.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="96.0" y="189.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.75</text>
+<line x1="104.0" y1="110.0" x2="480.0" y2="110.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="96.0" y="114.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">1.00</text>
+<line x1="104.0" y1="110.0" x2="104.0" y2="410.0" stroke="#777777" stroke-width="1.0"/>
+<line x1="104.0" y1="410.0" x2="480.0" y2="410.0" stroke="#777777" stroke-width="1.0"/>
+<text x="68.0" y="260.0" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#222222" transform="rotate(-90 68.0,260.0)">Conditional match rate</text>
+<rect x="129.6" y="136.1" width="24.0" height="273.9" fill="#4b78a8" stroke="none"/>
+<rect x="159.6" y="147.1" width="24.0" height="262.9" fill="#c26d2d" stroke="none"/>
+<text x="141.6" y="130.1" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.91</text>
+<text x="171.6" y="141.1" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.88</text>
+<text x="156.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Efficacy</text>
+<text x="156.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=3674)</text>
+<rect x="223.6" y="251.1" width="24.0" height="158.9" fill="#4b78a8" stroke="none"/>
+<rect x="253.6" y="290.1" width="24.0" height="119.9" fill="#c26d2d" stroke="none"/>
+<text x="235.6" y="245.1" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.53</text>
+<text x="265.6" y="284.1" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.40</text>
+<text x="250.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Adherence</text>
+<text x="250.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=1777)</text>
+<rect x="317.6" y="194.0" width="24.0" height="216.0" fill="#4b78a8" stroke="none"/>
+<rect x="347.6" y="305.4" width="24.0" height="104.6" fill="#c26d2d" stroke="none"/>
+<text x="329.6" y="188.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.72</text>
+<text x="359.6" y="299.4" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.35</text>
+<text x="344.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Safety</text>
+<text x="344.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=2129)</text>
+<rect x="411.6" y="239.2" width="24.0" height="170.8" fill="#4b78a8" stroke="none"/>
+<rect x="441.6" y="352.5" width="24.0" height="57.5" fill="#c26d2d" stroke="none"/>
+<text x="423.6" y="233.2" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.57</text>
+<text x="453.6" y="346.5" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.19</text>
+<text x="438.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Durability</text>
+<text x="438.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=2020)</text>
+<text x="530.0" y="82.0" font-size="15" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-weight="bold" fill="#222222">Policy</text>
+<line x1="572.0" y1="410.0" x2="948.0" y2="410.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="564.0" y="414.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.00</text>
+<line x1="572.0" y1="335.0" x2="948.0" y2="335.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="564.0" y="339.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.25</text>
+<line x1="572.0" y1="260.0" x2="948.0" y2="260.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="564.0" y="264.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.50</text>
+<line x1="572.0" y1="185.0" x2="948.0" y2="185.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="564.0" y="189.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.75</text>
+<line x1="572.0" y1="110.0" x2="948.0" y2="110.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="564.0" y="114.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">1.00</text>
+<line x1="572.0" y1="110.0" x2="572.0" y2="410.0" stroke="#777777" stroke-width="1.0"/>
+<line x1="572.0" y1="410.0" x2="948.0" y2="410.0" stroke="#777777" stroke-width="1.0"/>
+<text x="536.0" y="260.0" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#222222" transform="rotate(-90 536.0,260.0)">Conditional match rate</text>
+<rect x="597.6" y="133.1" width="24.0" height="276.9" fill="#4b78a8" stroke="none"/>
+<rect x="627.6" y="177.9" width="24.0" height="232.1" fill="#c26d2d" stroke="none"/>
+<text x="609.6" y="127.1" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.92</text>
+<text x="639.6" y="171.9" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.77</text>
+<text x="624.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Effectiveness</text>
+<text x="624.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=4962)</text>
+<rect x="691.6" y="242.7" width="24.0" height="167.3" fill="#4b78a8" stroke="none"/>
+<rect x="721.6" y="271.6" width="24.0" height="138.4" fill="#c26d2d" stroke="none"/>
+<text x="703.6" y="236.7" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.56</text>
+<text x="733.6" y="265.6" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.46</text>
+<text x="718.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Compliance</text>
+<text x="718.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=1506)</text>
+<rect x="785.6" y="172.2" width="24.0" height="237.8" fill="#4b78a8" stroke="none"/>
+<rect x="815.6" y="271.1" width="24.0" height="138.9" fill="#c26d2d" stroke="none"/>
+<text x="797.6" y="166.2" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.79</text>
+<text x="827.6" y="265.1" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.46</text>
+<text x="812.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Safety</text>
+<text x="812.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=2492)</text>
+<rect x="879.6" y="288.1" width="24.0" height="121.9" fill="#4b78a8" stroke="none"/>
+<rect x="909.6" y="367.3" width="24.0" height="42.7" fill="#c26d2d" stroke="none"/>
+<text x="891.6" y="282.1" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.41</text>
+<text x="921.6" y="361.3" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.14</text>
+<text x="906.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Implementation Ease</text>
+<text x="906.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=640)</text>
+<text x="998.0" y="82.0" font-size="15" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-weight="bold" fill="#222222">Software</text>
+<line x1="1040.0" y1="410.0" x2="1416.0" y2="410.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="1032.0" y="414.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.00</text>
+<line x1="1040.0" y1="335.0" x2="1416.0" y2="335.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="1032.0" y="339.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.25</text>
+<line x1="1040.0" y1="260.0" x2="1416.0" y2="260.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="1032.0" y="264.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.50</text>
+<line x1="1040.0" y1="185.0" x2="1416.0" y2="185.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="1032.0" y="189.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.75</text>
+<line x1="1040.0" y1="110.0" x2="1416.0" y2="110.0" stroke="#d9d9d9" stroke-width="1.0"/>
+<text x="1032.0" y="114.0" font-size="10" text-anchor="end" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">1.00</text>
+<line x1="1040.0" y1="110.0" x2="1040.0" y2="410.0" stroke="#777777" stroke-width="1.0"/>
+<line x1="1040.0" y1="410.0" x2="1416.0" y2="410.0" stroke="#777777" stroke-width="1.0"/>
+<text x="1004.0" y="260.0" font-size="12" font-family="Helvetica, Arial, sans-serif" fill="#222222" transform="rotate(-90 1004.0,260.0)">Conditional match rate</text>
+<rect x="1065.6" y="165.5" width="24.0" height="244.5" fill="#4b78a8" stroke="none"/>
+<rect x="1095.6" y="207.9" width="24.0" height="202.1" fill="#c26d2d" stroke="none"/>
+<text x="1077.6" y="159.5" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.81</text>
+<text x="1107.6" y="201.9" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.67</text>
+<text x="1092.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Capability</text>
+<text x="1092.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=1885)</text>
+<rect x="1159.6" y="309.5" width="24.0" height="100.5" fill="#4b78a8" stroke="none"/>
+<rect x="1189.6" y="326.8" width="24.0" height="83.2" fill="#c26d2d" stroke="none"/>
+<text x="1171.6" y="303.5" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.34</text>
+<text x="1201.6" y="320.8" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.28</text>
+<text x="1186.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Adoption Ease</text>
+<text x="1186.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=1737)</text>
+<rect x="1253.6" y="166.1" width="24.0" height="243.9" fill="#4b78a8" stroke="none"/>
+<rect x="1283.6" y="247.4" width="24.0" height="162.6" fill="#c26d2d" stroke="none"/>
+<text x="1265.6" y="160.1" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.81</text>
+<text x="1295.6" y="241.4" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.54</text>
+<text x="1280.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Reliability</text>
+<text x="1280.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=3386)</text>
+<rect x="1347.6" y="207.9" width="24.0" height="202.1" fill="#4b78a8" stroke="none"/>
+<rect x="1377.6" y="288.4" width="24.0" height="121.6" fill="#c26d2d" stroke="none"/>
+<text x="1359.6" y="201.9" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.67</text>
+<text x="1389.6" y="282.4" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">0.41</text>
+<text x="1374.6" y="434.0" font-size="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Maintainability</text>
+<text x="1374.6" y="450.0" font-size="9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">(n=2592)</text>
+<rect x="625.0" y="498.0" width="16.0" height="12.0" fill="#4b78a8" stroke="none"/>
+<text x="647.0" y="509.0" font-size="11" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Linear model</text>
+<rect x="743.0" y="498.0" width="16.0" height="12.0" fill="#c26d2d" stroke="none"/>
+<text x="765.0" y="509.0" font-size="11" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-weight="normal" fill="#222222">Judge</text>
+</svg>

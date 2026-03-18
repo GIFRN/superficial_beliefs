@@ -1,0 +1,14 @@
+{
+  "built": [
+    {
+      "out_dir": "data/occlusion_suite/themes/drugs/test",
+      "source_dir": "data/occlusion_suite/test",
+      "theme": "drugs"
+    }
+  ],
+  "generated_at_utc": "2026-03-18T16:00:00+00:00",
+  "source_dir": "data/occlusion_suite/test",
+  "themes": [
+    "drugs"
+  ]
+}

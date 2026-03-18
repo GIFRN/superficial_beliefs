@@ -1,0 +1,51 @@
+backends:
+  openai_gpt5nano:
+    type: openai
+    model: gpt-5-nano
+    temperature: 1.0
+    max_tokens: 4000
+    reasoning_effort: low
+  openai_gpt5mini:
+    type: openai
+    model: gpt-5-mini
+    temperature: 1.0
+    max_tokens: 8000
+    reasoning_effort: low
+  openai_gpt4o:
+    type: openai
+    model: gpt-4o
+    temperature: 1.0
+    max_tokens: 256
+  anthropic_claude:
+    type: anthropic
+    model: claude-3-opus-20240229
+    temperature: 1.0
+    max_tokens: 256
+  local_vllm:
+    type: vllm
+    endpoint: http://localhost:8000/v1
+    model: meta-llama-3-70b-instruct
+    temperature: 1.0
+    max_tokens: 256
+  qwen3_8b:
+    type: qwen3
+    model: Qwen/Qwen3-8B
+    temperature: 0.7
+    max_tokens: 1024
+    enable_thinking: true
+  qwen3_14b:
+    type: qwen3
+    model: Qwen/Qwen3-14B
+    temperature: 0.7
+    max_tokens: 1024
+    enable_thinking: true
+  qwen3_32b:
+    type: qwen3
+    model: Qwen/Qwen3-32B
+    temperature: 0.7
+    max_tokens: 1024
+    enable_thinking: true
+sampling:
+  default_backend: openai_gpt5nano
+  S: 3
+  seed: 17

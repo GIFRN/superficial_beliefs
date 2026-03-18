@@ -1,0 +1,50 @@
+{
+  "agreement": {
+    "dfq_vs_choice": 0.83,
+    "qe_vs_choice": 0.8416666666666667,
+    "tau_vs_choice": 0.8358333333333333
+  },
+  "alignment": {
+    "dfq_driver_vs_premise": 0.6675,
+    "pair_driver_vs_premise": NaN,
+    "qe_driver_vs_premise": 0.6675,
+    "tau_driver_vs_premise": 0.6675
+  },
+  "argllm_semantics": {
+    "claim_base_score": 0.5,
+    "conservativeness": 1.0
+  },
+  "behavioral_attribution": {},
+  "dfq_weight_correlation": 1.0,
+  "include_interactions": false,
+  "model": "local_qwen35_14b_vllm_minimal",
+  "pairwise_ok_rate": 0.0,
+  "qe_weight_correlation": 1.0,
+  "reasoning_effort": "minimal",
+  "stageA_weights": {
+    "A": 0.26745898735736445,
+    "D": 0.0,
+    "E": 0.43894028499549026,
+    "S": 0.2936007276471454
+  },
+  "tau_ok_rate": 1.0,
+  "tau_stability": {
+    "A": {
+      "mean_std": 0.02887497333343944,
+      "median_std": 0.0
+    },
+    "D": {
+      "mean_std": 0.007794228634059947,
+      "median_std": 0.0
+    },
+    "E": {
+      "mean_std": 0.02809745872375464,
+      "median_std": 0.0
+    },
+    "S": {
+      "mean_std": 0.0367508491263862,
+      "median_std": 0.0
+    }
+  },
+  "tau_weight_correlation": 1.0
+}

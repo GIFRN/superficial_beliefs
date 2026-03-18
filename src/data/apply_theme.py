@@ -15,7 +15,10 @@ def transform_dataset(
     source_dir: str | Path,
     theme_config: ThemeConfig,
     output_dir: str | Path,
-    source_theme: ThemeConfig | None = None
+    source_theme: ThemeConfig | None = None,
+    *,
+    configs_filename: str = "dataset_configs.parquet",
+    trials_filename: str = "dataset_trials.parquet",
 ) -> dict[str, Any]:
     """
     Transform a dataset from one theme to another.
@@ -36,8 +39,8 @@ def transform_dataset(
         source_theme = DRUGS_THEME
     
     # Load source data
-    configs_df = pd.read_parquet(source_path / "dataset_configs.parquet")
-    trials_df = pd.read_parquet(source_path / "dataset_trials.parquet")
+    configs_df = pd.read_parquet(source_path / configs_filename)
+    trials_df = pd.read_parquet(source_path / trials_filename)
     
     # Get attribute mapping
     source_attrs = source_theme.get_mapped_attributes()
@@ -79,6 +82,8 @@ def transform_dataset(
         "theme": theme_config.to_dict(),
         "source_theme": source_theme.to_dict(),
         "source_dataset": str(source_path),
+        "source_configs_filename": configs_filename,
+        "source_trials_filename": trials_filename,
     }
     
     write_json(manifest, output_path / "MANIFEST.json")
@@ -171,7 +176,10 @@ def transform_dataset_from_paths(
     source_dir: str | Path,
     theme_name_or_path: str,
     output_dir: str | Path,
-    source_theme_name_or_path: str | None = None
+    source_theme_name_or_path: str | None = None,
+    *,
+    configs_filename: str = "dataset_configs.parquet",
+    trials_filename: str = "dataset_trials.parquet",
 ) -> dict[str, Any]:
     """
     Transform a dataset using theme names or paths.
@@ -194,5 +202,11 @@ def transform_dataset_from_paths(
     else:
         source_theme = DRUGS_THEME
     
-    return transform_dataset(source_dir, target_theme, output_dir, source_theme)
-
+    return transform_dataset(
+        source_dir,
+        target_theme,
+        output_dir,
+        source_theme,
+        configs_filename=configs_filename,
+        trials_filename=trials_filename,
+    )

@@ -1,0 +1,13 @@
+backends:
+  local_ministral3_14b_reasoning_vllm_minimal:
+    type: vllm
+    endpoint: http://127.0.0.1:8020/v1
+    model: ministral_3_14b_reasoning_local
+    temperature: 1.0
+    top_p: 0.95
+    max_tokens: 2048
+    reasoning_effort: minimal
+sampling:
+  default_backend: local_ministral3_14b_reasoning_vllm_minimal
+  S: 3
+  seed: 17

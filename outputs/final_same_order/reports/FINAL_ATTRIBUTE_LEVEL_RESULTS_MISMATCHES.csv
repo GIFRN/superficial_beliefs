@@ -1,0 +1,813 @@
+theme,objective,family,effort,comparison,from_attr_code,from_attr_label,to_attr_code,to_attr_label,count,share_of_mismatches,n_mismatches
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,D,Durability,E,Efficacy,99,0.3333333333333333,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,D,Durability,S,Safety,55,0.18518518518518517,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,A,Adherence,E,Efficacy,47,0.15824915824915825,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,S,Safety,E,Efficacy,29,0.09764309764309764,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,E,Efficacy,S,Safety,10,0.03367003367003367,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,A,Adherence,D,Durability,27,0.09090909090909091,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,S,Safety,D,Durability,13,0.04377104377104377,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,A,Adherence,S,Safety,16,0.05387205387205387,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_linear,S,Safety,A,Adherence,1,0.003367003367003367,297
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,S,Safety,E,Efficacy,87,0.1839323467230444,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,D,Durability,E,Efficacy,153,0.32346723044397463,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,D,Durability,S,Safety,62,0.13107822410147993,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,A,Adherence,E,Efficacy,50,0.10570824524312897,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,E,Efficacy,S,Safety,44,0.09302325581395349,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,S,Safety,A,Adherence,15,0.03171247357293869,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,A,Adherence,S,Safety,36,0.07610993657505286,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,S,Safety,D,Durability,5,0.010570824524312896,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,D,Durability,A,Adherence,16,0.03382663847780127,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,A,Adherence,D,Durability,4,0.008456659619450317,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,actor_vs_judge,E,Efficacy,A,Adherence,1,0.0021141649048625794,473
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,S,Safety,E,Efficacy,95,0.30844155844155846,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,E,Efficacy,S,Safety,49,0.1590909090909091,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,D,Durability,S,Safety,67,0.21753246753246752,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,S,Safety,A,Adherence,28,0.09090909090909091,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,A,Adherence,S,Safety,8,0.025974025974025976,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,D,Durability,A,Adherence,16,0.05194805194805195,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,D,Durability,E,Efficacy,32,0.1038961038961039,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,A,Adherence,E,Efficacy,4,0.012987012987012988,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,S,Safety,D,Durability,4,0.012987012987012988,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,E,Efficacy,A,Adherence,2,0.006493506493506494,308
+drugs,5-year overall patient outcome,GPT-5-mini,minimal,linear_vs_judge,A,Adherence,D,Durability,3,0.00974025974025974,308
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_linear,D,Durability,E,Efficacy,50,0.390625,128
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_linear,D,Durability,S,Safety,21,0.1640625,128
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_linear,A,Adherence,E,Efficacy,27,0.2109375,128
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_linear,A,Adherence,D,Durability,3,0.0234375,128
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_linear,S,Safety,A,Adherence,1,0.0078125,128
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_linear,A,Adherence,S,Safety,20,0.15625,128
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_linear,E,Efficacy,S,Safety,1,0.0078125,128
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_linear,S,Safety,E,Efficacy,5,0.0390625,128
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,S,Safety,E,Efficacy,96,0.24120603015075376,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,D,Durability,E,Efficacy,104,0.2613065326633166,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,D,Durability,S,Safety,24,0.06030150753768844,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,A,Adherence,E,Efficacy,79,0.1984924623115578,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,S,Safety,A,Adherence,21,0.052763819095477386,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,E,Efficacy,D,Durability,2,0.005025125628140704,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,E,Efficacy,S,Safety,5,0.01256281407035176,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,E,Efficacy,A,Adherence,4,0.010050251256281407,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,S,Safety,D,Durability,6,0.01507537688442211,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,D,Durability,A,Adherence,20,0.05025125628140704,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,A,Adherence,D,Durability,11,0.02763819095477387,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,actor_vs_judge,A,Adherence,S,Safety,26,0.06532663316582915,398
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,S,Safety,E,Efficacy,98,0.32131147540983607,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,E,Efficacy,S,Safety,7,0.022950819672131147,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,A,Adherence,E,Efficacy,51,0.16721311475409836,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,S,Safety,A,Adherence,29,0.09508196721311475,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,D,Durability,E,Efficacy,54,0.17704918032786884,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,E,Efficacy,D,Durability,3,0.009836065573770493,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,E,Efficacy,A,Adherence,6,0.019672131147540985,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,S,Safety,D,Durability,10,0.03278688524590164,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,D,Durability,A,Adherence,16,0.05245901639344262,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,D,Durability,S,Safety,9,0.029508196721311476,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,A,Adherence,S,Safety,17,0.05573770491803279,305
+drugs,5-year overall patient outcome,GPT-5-mini,low,linear_vs_judge,A,Adherence,D,Durability,5,0.01639344262295082,305
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,A,Adherence,D,Durability,38,0.07676767676767676,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,A,Adherence,S,Safety,11,0.022222222222222223,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,E,Efficacy,S,Safety,29,0.05858585858585859,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,D,Durability,E,Efficacy,102,0.20606060606060606,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,A,Adherence,E,Efficacy,57,0.11515151515151516,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,D,Durability,S,Safety,28,0.05656565656565657,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,S,Safety,D,Durability,35,0.0707070707070707,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,E,Efficacy,D,Durability,45,0.09090909090909091,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,E,Efficacy,A,Adherence,24,0.048484848484848485,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,S,Safety,E,Efficacy,47,0.09494949494949495,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,D,Durability,A,Adherence,35,0.0707070707070707,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_linear,S,Safety,A,Adherence,44,0.08888888888888889,495
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,A,Adherence,E,Efficacy,89,0.14171974522292993,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,D,Durability,E,Efficacy,185,0.2945859872611465,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,S,Safety,E,Efficacy,79,0.12579617834394904,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,D,Durability,S,Safety,42,0.06687898089171974,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,S,Safety,A,Adherence,66,0.10509554140127389,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,E,Efficacy,S,Safety,18,0.028662420382165606,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,A,Adherence,D,Durability,7,0.011146496815286623,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,D,Durability,A,Adherence,51,0.08121019108280254,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,E,Efficacy,A,Adherence,47,0.07484076433121019,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,E,Efficacy,D,Durability,18,0.028662420382165606,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,S,Safety,D,Durability,11,0.01751592356687898,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,actor_vs_judge,A,Adherence,S,Safety,15,0.02388535031847134,628
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,D,Durability,E,Efficacy,134,0.24587155963302754,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,S,Safety,A,Adherence,41,0.07522935779816514,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,S,Safety,E,Efficacy,59,0.10825688073394496,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,E,Efficacy,D,Durability,27,0.04954128440366973,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,E,Efficacy,S,Safety,27,0.04954128440366973,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,D,Durability,S,Safety,42,0.07706422018348624,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,D,Durability,A,Adherence,68,0.12477064220183487,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,A,Adherence,E,Efficacy,66,0.12110091743119267,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,E,Efficacy,A,Adherence,43,0.07889908256880734,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,S,Safety,D,Durability,8,0.014678899082568808,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,A,Adherence,D,Durability,14,0.025688073394495414,545
+drugs,5-year overall patient outcome,GPT-5-nano,minimal,linear_vs_judge,A,Adherence,S,Safety,16,0.029357798165137616,545
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,D,Durability,E,Efficacy,41,0.15129151291512916,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,D,Durability,S,Safety,36,0.13284132841328414,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,E,Efficacy,D,Durability,10,0.03690036900369004,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,D,Durability,A,Adherence,18,0.06642066420664207,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,E,Efficacy,S,Safety,69,0.25461254612546125,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,A,Adherence,D,Durability,12,0.04428044280442804,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,A,Adherence,E,Efficacy,31,0.11439114391143912,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,A,Adherence,S,Safety,41,0.15129151291512916,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,S,Safety,E,Efficacy,7,0.025830258302583026,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,E,Efficacy,A,Adherence,2,0.007380073800738007,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,S,Safety,D,Durability,3,0.01107011070110701,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_linear,S,Safety,A,Adherence,1,0.0036900369003690036,271
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,D,Durability,E,Efficacy,131,0.22393162393162394,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,S,Safety,A,Adherence,52,0.08888888888888889,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,S,Safety,E,Efficacy,100,0.17094017094017094,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,D,Durability,S,Safety,20,0.03418803418803419,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,D,Durability,A,Adherence,46,0.07863247863247863,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,A,Adherence,E,Efficacy,112,0.19145299145299147,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,E,Efficacy,A,Adherence,16,0.02735042735042735,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,A,Adherence,S,Safety,21,0.035897435897435895,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,S,Safety,D,Durability,37,0.06324786324786325,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,E,Efficacy,D,Durability,21,0.035897435897435895,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,A,Adherence,D,Durability,23,0.039316239316239315,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,actor_vs_judge,E,Efficacy,S,Safety,6,0.010256410256410256,585
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,S,Safety,A,Adherence,76,0.13286713286713286,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,S,Safety,E,Efficacy,173,0.30244755244755245,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,E,Efficacy,S,Safety,10,0.017482517482517484,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,A,Adherence,E,Efficacy,78,0.13636363636363635,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,D,Durability,E,Efficacy,84,0.14685314685314685,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,D,Durability,A,Adherence,29,0.050699300699300696,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,A,Adherence,S,Safety,18,0.03146853146853147,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,S,Safety,D,Durability,64,0.11188811188811189,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,E,Efficacy,A,Adherence,21,0.03671328671328671,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,A,Adherence,D,Durability,9,0.015734265734265736,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,D,Durability,S,Safety,8,0.013986013986013986,572
+drugs,5-year overall patient outcome,GPT-5-nano,low,linear_vs_judge,E,Efficacy,D,Durability,2,0.0034965034965034965,572
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,D,Durability,E,Efficacy,42,0.1494661921708185,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,E,Efficacy,S,Safety,8,0.028469750889679714,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,S,Safety,D,Durability,82,0.2918149466192171,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,A,Adherence,S,Safety,17,0.060498220640569395,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,E,Efficacy,D,Durability,30,0.10676156583629894,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,A,Adherence,E,Efficacy,27,0.09608540925266904,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,D,Durability,A,Adherence,5,0.017793594306049824,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,S,Safety,E,Efficacy,22,0.07829181494661921,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,D,Durability,S,Safety,9,0.03202846975088968,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,A,Adherence,D,Durability,24,0.08540925266903915,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_linear,E,Efficacy,A,Adherence,15,0.05338078291814947,281
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,D,Durability,S,Safety,42,0.08061420345489444,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,S,Safety,E,Efficacy,117,0.22456813819577734,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,D,Durability,E,Efficacy,126,0.2418426103646833,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,E,Efficacy,A,Adherence,27,0.05182341650671785,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,E,Efficacy,S,Safety,28,0.053742802303262956,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,D,Durability,A,Adherence,12,0.023032629558541268,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,E,Efficacy,D,Durability,26,0.04990403071017274,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,A,Adherence,E,Efficacy,35,0.0671785028790787,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,S,Safety,A,Adherence,43,0.08253358925143954,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,S,Safety,D,Durability,27,0.05182341650671785,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,A,Adherence,S,Safety,14,0.026871401151631478,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,actor_vs_judge,A,Adherence,D,Durability,24,0.046065259117082535,521
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,E,Efficacy,S,Safety,37,0.07326732673267326,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,S,Safety,E,Efficacy,79,0.15643564356435644,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,D,Durability,E,Efficacy,143,0.28316831683168314,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,S,Safety,A,Adherence,27,0.053465346534653464,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,E,Efficacy,A,Adherence,32,0.06336633663366337,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,E,Efficacy,D,Durability,29,0.05742574257425743,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,D,Durability,S,Safety,63,0.12475247524752475,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,D,Durability,A,Adherence,33,0.06534653465346535,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,A,Adherence,E,Efficacy,35,0.06930693069306931,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,minimal,linear_vs_judge,S,Safety,D,Durability,27,0.053465346534653464,505
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,D,Durability,E,Efficacy,43,0.15925925925925927,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,E,Efficacy,S,Safety,7,0.025925925925925925,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,S,Safety,D,Durability,79,0.29259259259259257,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,A,Adherence,S,Safety,17,0.06296296296296296,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,E,Efficacy,D,Durability,26,0.0962962962962963,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,A,Adherence,E,Efficacy,27,0.1,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,D,Durability,A,Adherence,4,0.014814814814814815,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,S,Safety,E,Efficacy,20,0.07407407407407407,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,D,Durability,S,Safety,8,0.02962962962962963,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,A,Adherence,D,Durability,24,0.08888888888888889,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_linear,E,Efficacy,A,Adherence,15,0.05555555555555555,270
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,D,Durability,S,Safety,41,0.07854406130268199,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,S,Safety,E,Efficacy,111,0.21264367816091953,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,D,Durability,E,Efficacy,117,0.22413793103448276,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,E,Efficacy,A,Adherence,30,0.05747126436781609,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,E,Efficacy,S,Safety,28,0.05363984674329502,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,D,Durability,A,Adherence,23,0.044061302681992334,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,E,Efficacy,D,Durability,21,0.040229885057471264,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,A,Adherence,E,Efficacy,37,0.07088122605363985,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,S,Safety,A,Adherence,48,0.09195402298850575,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,S,Safety,D,Durability,31,0.05938697318007663,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,A,Adherence,S,Safety,8,0.01532567049808429,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,actor_vs_judge,A,Adherence,D,Durability,27,0.05172413793103448,522
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,E,Efficacy,S,Safety,38,0.07554671968190854,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,S,Safety,E,Efficacy,77,0.15308151093439365,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,D,Durability,E,Efficacy,134,0.2664015904572565,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,S,Safety,A,Adherence,32,0.0636182902584493,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,E,Efficacy,A,Adherence,37,0.073558648111332,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,E,Efficacy,D,Durability,27,0.0536779324055666,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,D,Durability,S,Safety,50,0.09940357852882704,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,D,Durability,A,Adherence,46,0.09145129224652088,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,A,Adherence,E,Efficacy,35,0.06958250497017893,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,S,Safety,D,Durability,25,0.04970178926441352,503
+drugs,5-year overall patient outcome,Qwen3.5-14B,low,linear_vs_judge,A,Adherence,D,Durability,2,0.003976143141153081,503
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,D,Durability,E,Efficacy,84,0.18791946308724833,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,A,Adherence,E,Efficacy,106,0.2371364653243848,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,E,Efficacy,A,Adherence,4,0.008948545861297539,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,D,Durability,A,Adherence,19,0.042505592841163314,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,S,Safety,E,Efficacy,80,0.1789709172259508,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,A,Adherence,D,Durability,19,0.042505592841163314,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,S,Safety,A,Adherence,9,0.020134228187919462,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,D,Durability,S,Safety,36,0.08053691275167785,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,A,Adherence,S,Safety,58,0.1297539149888143,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,E,Efficacy,D,Durability,1,0.0022371364653243847,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,S,Safety,D,Durability,21,0.04697986577181208,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_linear,E,Efficacy,S,Safety,10,0.02237136465324385,447
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,S,Safety,E,Efficacy,158,0.22097902097902097,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,D,Durability,E,Efficacy,140,0.1958041958041958,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,A,Adherence,E,Efficacy,131,0.18321678321678322,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,E,Efficacy,A,Adherence,18,0.025174825174825177,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,A,Adherence,D,Durability,21,0.02937062937062937,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,A,Adherence,S,Safety,57,0.07972027972027972,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,E,Efficacy,S,Safety,40,0.055944055944055944,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,D,Durability,A,Adherence,31,0.043356643356643354,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,D,Durability,S,Safety,46,0.06433566433566433,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,S,Safety,A,Adherence,50,0.06993006993006994,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,S,Safety,D,Durability,21,0.02937062937062937,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,actor_vs_judge,E,Efficacy,D,Durability,2,0.002797202797202797,715
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,S,Safety,E,Efficacy,123,0.22862453531598512,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,E,Efficacy,A,Adherence,44,0.08178438661710037,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,A,Adherence,E,Efficacy,53,0.09851301115241635,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,E,Efficacy,D,Durability,11,0.020446096654275093,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,D,Durability,E,Efficacy,58,0.10780669144981413,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,A,Adherence,S,Safety,29,0.05390334572490706,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,E,Efficacy,S,Safety,65,0.120817843866171,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,D,Durability,S,Safety,33,0.06133828996282528,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,S,Safety,D,Durability,21,0.03903345724907063,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,S,Safety,A,Adherence,63,0.1171003717472119,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,D,Durability,A,Adherence,27,0.05018587360594796,538
+drugs,5-year overall patient outcome,Ministral-3-14B,minimal,linear_vs_judge,A,Adherence,D,Durability,11,0.020446096654275093,538
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,D,Durability,E,Efficacy,76,0.17551963048498845,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,A,Adherence,E,Efficacy,99,0.22863741339491916,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,E,Efficacy,A,Adherence,5,0.011547344110854504,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,D,Durability,A,Adherence,18,0.04157043879907621,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,S,Safety,E,Efficacy,82,0.18937644341801385,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,A,Adherence,D,Durability,26,0.06004618937644342,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,S,Safety,A,Adherence,7,0.016166281755196306,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,D,Durability,S,Safety,41,0.09468822170900693,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,A,Adherence,S,Safety,62,0.14318706697459585,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,E,Efficacy,D,Durability,1,0.0023094688221709007,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,S,Safety,D,Durability,8,0.018475750577367205,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_linear,E,Efficacy,S,Safety,8,0.018475750577367205,433
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,S,Safety,E,Efficacy,149,0.21316165951359084,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,D,Durability,E,Efficacy,132,0.1888412017167382,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,A,Adherence,E,Efficacy,145,0.20743919885550788,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,E,Efficacy,A,Adherence,14,0.020028612303290415,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,A,Adherence,D,Durability,23,0.032904148783977114,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,A,Adherence,S,Safety,72,0.10300429184549356,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,E,Efficacy,S,Safety,36,0.05150214592274678,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,D,Durability,A,Adherence,27,0.03862660944206009,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,D,Durability,S,Safety,42,0.060085836909871244,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,S,Safety,A,Adherence,45,0.06437768240343347,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,S,Safety,D,Durability,12,0.017167381974248927,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,actor_vs_judge,E,Efficacy,D,Durability,2,0.002861230329041488,699
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,S,Safety,E,Efficacy,130,0.24528301886792453,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,E,Efficacy,A,Adherence,40,0.07547169811320754,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,A,Adherence,E,Efficacy,62,0.1169811320754717,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,E,Efficacy,D,Durability,10,0.018867924528301886,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,D,Durability,E,Efficacy,54,0.1018867924528302,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,A,Adherence,S,Safety,41,0.07735849056603773,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,E,Efficacy,S,Safety,65,0.12264150943396226,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,D,Durability,S,Safety,24,0.045283018867924525,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,S,Safety,D,Durability,16,0.03018867924528302,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,S,Safety,A,Adherence,54,0.1018867924528302,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,D,Durability,A,Adherence,23,0.04339622641509434,530
+drugs,5-year overall patient outcome,Ministral-3-14B,low,linear_vs_judge,A,Adherence,D,Durability,11,0.020754716981132074,530
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,D,Implementation Ease,E,Effectiveness,18,0.15384615384615385,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,A,Compliance,E,Effectiveness,18,0.15384615384615385,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,S,Safety,E,Effectiveness,14,0.11965811965811966,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,E,Effectiveness,S,Safety,33,0.28205128205128205,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,A,Compliance,S,Safety,20,0.17094017094017094,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,E,Effectiveness,A,Compliance,6,0.05128205128205128,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,S,Safety,A,Compliance,1,0.008547008547008548,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,D,Implementation Ease,A,Compliance,2,0.017094017094017096,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_linear,D,Implementation Ease,S,Safety,5,0.042735042735042736,117
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,S,Safety,E,Effectiveness,101,0.3344370860927152,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,E,Effectiveness,S,Safety,58,0.19205298013245034,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,D,Implementation Ease,E,Effectiveness,18,0.059602649006622516,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,A,Compliance,E,Effectiveness,25,0.08278145695364239,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,E,Effectiveness,A,Compliance,20,0.06622516556291391,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,S,Safety,A,Compliance,30,0.09933774834437085,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,A,Compliance,S,Safety,26,0.08609271523178808,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,D,Implementation Ease,S,Safety,9,0.029801324503311258,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,D,Implementation Ease,A,Compliance,6,0.019867549668874173,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,S,Safety,D,Implementation Ease,3,0.009933774834437087,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,actor_vs_judge,A,Compliance,D,Implementation Ease,6,0.019867549668874173,302
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,S,Safety,E,Effectiveness,97,0.3975409836065574,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,E,Effectiveness,S,Safety,43,0.1762295081967213,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,E,Effectiveness,A,Compliance,9,0.036885245901639344,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,S,Safety,A,Compliance,50,0.20491803278688525,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,A,Compliance,E,Effectiveness,10,0.040983606557377046,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,A,Compliance,S,Safety,18,0.07377049180327869,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,D,Implementation Ease,S,Safety,5,0.020491803278688523,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,S,Safety,D,Implementation Ease,3,0.012295081967213115,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,D,Implementation Ease,A,Compliance,3,0.012295081967213115,244
+policy,5-year overall community outcome,GPT-5-mini,minimal,linear_vs_judge,A,Compliance,D,Implementation Ease,6,0.02459016393442623,244
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_linear,A,Compliance,E,Effectiveness,20,0.26666666666666666,75
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_linear,E,Effectiveness,S,Safety,11,0.14666666666666667,75
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_linear,D,Implementation Ease,S,Safety,3,0.04,75
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_linear,A,Compliance,S,Safety,29,0.38666666666666666,75
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_linear,E,Effectiveness,A,Compliance,1,0.013333333333333334,75
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_linear,D,Implementation Ease,A,Compliance,4,0.05333333333333334,75
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_linear,S,Safety,E,Effectiveness,7,0.09333333333333334,75
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,S,Safety,E,Effectiveness,50,0.23696682464454977,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,E,Effectiveness,S,Safety,33,0.15639810426540285,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,A,Compliance,S,Safety,30,0.14218009478672985,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,A,Compliance,E,Effectiveness,40,0.1895734597156398,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,S,Safety,A,Compliance,30,0.14218009478672985,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,A,Compliance,D,Implementation Ease,4,0.018957345971563982,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,E,Effectiveness,A,Compliance,10,0.04739336492890995,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,D,Implementation Ease,E,Effectiveness,4,0.018957345971563982,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,S,Safety,D,Implementation Ease,6,0.02843601895734597,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,D,Implementation Ease,S,Safety,2,0.009478672985781991,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,D,Implementation Ease,A,Compliance,1,0.004739336492890996,211
+policy,5-year overall community outcome,GPT-5-mini,low,actor_vs_judge,E,Effectiveness,D,Implementation Ease,1,0.004739336492890996,211
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,S,Safety,E,Effectiveness,61,0.2824074074074074,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,E,Effectiveness,S,Safety,31,0.14351851851851852,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,A,Compliance,E,Effectiveness,25,0.11574074074074074,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,S,Safety,A,Compliance,43,0.19907407407407407,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,A,Compliance,D,Implementation Ease,6,0.027777777777777776,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,E,Effectiveness,A,Compliance,20,0.09259259259259259,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,A,Compliance,S,Safety,21,0.09722222222222222,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,S,Safety,D,Implementation Ease,6,0.027777777777777776,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,D,Implementation Ease,S,Safety,1,0.004629629629629629,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,D,Implementation Ease,E,Effectiveness,1,0.004629629629629629,216
+policy,5-year overall community outcome,GPT-5-mini,low,linear_vs_judge,E,Effectiveness,D,Implementation Ease,1,0.004629629629629629,216
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,D,Implementation Ease,E,Effectiveness,52,0.12871287128712872,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,S,Safety,E,Effectiveness,81,0.2004950495049505,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,E,Effectiveness,S,Safety,44,0.10891089108910891,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,A,Compliance,E,Effectiveness,57,0.14108910891089108,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,D,Implementation Ease,S,Safety,28,0.06930693069306931,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,E,Effectiveness,A,Compliance,28,0.06930693069306931,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,D,Implementation Ease,A,Compliance,16,0.039603960396039604,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,A,Compliance,S,Safety,37,0.09158415841584158,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,E,Effectiveness,D,Implementation Ease,13,0.03217821782178218,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,A,Compliance,D,Implementation Ease,21,0.05198019801980198,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,S,Safety,D,Implementation Ease,19,0.04702970297029703,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_linear,S,Safety,A,Compliance,8,0.019801980198019802,404
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,E,Effectiveness,D,Implementation Ease,35,0.05654281098546042,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,S,Safety,E,Effectiveness,153,0.24717285945072698,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,S,Safety,D,Implementation Ease,23,0.03715670436187399,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,D,Implementation Ease,E,Effectiveness,93,0.15024232633279483,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,D,Implementation Ease,S,Safety,28,0.045234248788368334,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,D,Implementation Ease,A,Compliance,23,0.03715670436187399,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,S,Safety,A,Compliance,71,0.1147011308562197,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,A,Compliance,E,Effectiveness,77,0.12439418416801293,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,E,Effectiveness,A,Compliance,49,0.0791599353796446,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,E,Effectiveness,S,Safety,34,0.05492730210016155,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,A,Compliance,S,Safety,22,0.035541195476575124,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,actor_vs_judge,A,Compliance,D,Implementation Ease,11,0.017770597738287562,619
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,E,Effectiveness,D,Implementation Ease,44,0.0707395498392283,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,S,Safety,E,Effectiveness,148,0.2379421221864952,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,S,Safety,D,Implementation Ease,20,0.03215434083601286,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,E,Effectiveness,S,Safety,56,0.09003215434083602,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,E,Effectiveness,A,Compliance,74,0.1189710610932476,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,S,Safety,A,Compliance,82,0.13183279742765272,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,A,Compliance,E,Effectiveness,63,0.10128617363344052,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,D,Implementation Ease,E,Effectiveness,63,0.10128617363344052,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,D,Implementation Ease,A,Compliance,30,0.04823151125401929,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,A,Compliance,D,Implementation Ease,12,0.01929260450160772,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,D,Implementation Ease,S,Safety,15,0.024115755627009645,622
+policy,5-year overall community outcome,GPT-5-nano,minimal,linear_vs_judge,A,Compliance,S,Safety,15,0.024115755627009645,622
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,D,Implementation Ease,E,Effectiveness,23,0.14465408805031446,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,D,Implementation Ease,S,Safety,8,0.050314465408805034,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,A,Compliance,E,Effectiveness,40,0.25157232704402516,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,S,Safety,E,Effectiveness,36,0.22641509433962265,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,E,Effectiveness,S,Safety,9,0.05660377358490566,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,D,Implementation Ease,A,Compliance,11,0.06918238993710692,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,A,Compliance,S,Safety,13,0.08176100628930817,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,E,Effectiveness,A,Compliance,12,0.07547169811320754,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,S,Safety,D,Implementation Ease,3,0.018867924528301886,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_linear,S,Safety,A,Compliance,4,0.025157232704402517,159
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,D,Implementation Ease,S,Safety,20,0.04728132387706856,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,E,Effectiveness,S,Safety,48,0.11347517730496454,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,E,Effectiveness,D,Implementation Ease,27,0.06382978723404255,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,S,Safety,E,Effectiveness,102,0.24113475177304963,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,S,Safety,A,Compliance,62,0.14657210401891252,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,S,Safety,D,Implementation Ease,38,0.08983451536643026,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,D,Implementation Ease,E,Effectiveness,20,0.04728132387706856,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,A,Compliance,S,Safety,24,0.05673758865248227,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,E,Effectiveness,A,Compliance,27,0.06382978723404255,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,A,Compliance,D,Implementation Ease,16,0.037825059101654845,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,A,Compliance,E,Effectiveness,32,0.07565011820330969,423
+policy,5-year overall community outcome,GPT-5-nano,low,actor_vs_judge,D,Implementation Ease,A,Compliance,7,0.016548463356973995,423
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,E,Effectiveness,S,Safety,54,0.14835164835164835,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,E,Effectiveness,D,Implementation Ease,32,0.08791208791208792,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,S,Safety,E,Effectiveness,85,0.23351648351648352,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,S,Safety,A,Compliance,55,0.1510989010989011,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,S,Safety,D,Implementation Ease,38,0.1043956043956044,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,E,Effectiveness,A,Compliance,38,0.1043956043956044,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,A,Compliance,S,Safety,19,0.0521978021978022,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,A,Compliance,D,Implementation Ease,18,0.04945054945054945,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,A,Compliance,E,Effectiveness,10,0.027472527472527472,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,D,Implementation Ease,S,Safety,8,0.02197802197802198,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,D,Implementation Ease,A,Compliance,4,0.01098901098901099,364
+policy,5-year overall community outcome,GPT-5-nano,low,linear_vs_judge,D,Implementation Ease,E,Effectiveness,3,0.008241758241758242,364
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,S,Safety,A,Compliance,3,0.018633540372670808,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,E,Effectiveness,A,Compliance,22,0.13664596273291926,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,D,Implementation Ease,A,Compliance,23,0.14285714285714285,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,E,Effectiveness,S,Safety,51,0.3167701863354037,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,D,Implementation Ease,S,Safety,7,0.043478260869565216,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,S,Safety,D,Implementation Ease,3,0.018633540372670808,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,A,Compliance,S,Safety,10,0.062111801242236024,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,A,Compliance,E,Effectiveness,23,0.14285714285714285,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,S,Safety,E,Effectiveness,16,0.09937888198757763,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_linear,D,Implementation Ease,E,Effectiveness,3,0.018633540372670808,161
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,E,Effectiveness,S,Safety,168,0.3287671232876712,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,S,Safety,E,Effectiveness,70,0.136986301369863,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,S,Safety,A,Compliance,29,0.05675146771037182,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,A,Compliance,E,Effectiveness,24,0.046966731898238745,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,D,Implementation Ease,E,Effectiveness,15,0.029354207436399216,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,E,Effectiveness,D,Implementation Ease,42,0.0821917808219178,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,S,Safety,D,Implementation Ease,30,0.05870841487279843,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,E,Effectiveness,A,Compliance,56,0.1095890410958904,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,D,Implementation Ease,S,Safety,23,0.04500978473581213,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,A,Compliance,S,Safety,41,0.08023483365949119,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,A,Compliance,D,Implementation Ease,12,0.023483365949119372,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,actor_vs_judge,D,Implementation Ease,A,Compliance,1,0.0019569471624266144,511
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,E,Effectiveness,S,Safety,162,0.34913793103448276,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,S,Safety,E,Effectiveness,78,0.16810344827586207,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,A,Compliance,E,Effectiveness,24,0.05172413793103448,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,S,Safety,D,Implementation Ease,38,0.08189655172413793,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,E,Effectiveness,A,Compliance,39,0.08405172413793104,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,E,Effectiveness,D,Implementation Ease,31,0.0668103448275862,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,D,Implementation Ease,S,Safety,7,0.015086206896551725,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,S,Safety,A,Compliance,29,0.0625,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,A,Compliance,D,Implementation Ease,18,0.03879310344827586,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,D,Implementation Ease,E,Effectiveness,4,0.008620689655172414,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,A,Compliance,S,Safety,33,0.07112068965517242,464
+policy,5-year overall community outcome,Qwen3.5-14B,minimal,linear_vs_judge,D,Implementation Ease,A,Compliance,1,0.0021551724137931034,464
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,A,Compliance,E,Effectiveness,26,0.15294117647058825,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,E,Effectiveness,A,Compliance,22,0.12941176470588237,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,S,Safety,A,Compliance,2,0.011764705882352941,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,D,Implementation Ease,A,Compliance,27,0.1588235294117647,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,E,Effectiveness,S,Safety,52,0.3058823529411765,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,D,Implementation Ease,S,Safety,7,0.041176470588235294,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,S,Safety,D,Implementation Ease,3,0.01764705882352941,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,A,Compliance,S,Safety,9,0.052941176470588235,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,D,Implementation Ease,E,Effectiveness,5,0.029411764705882353,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_linear,S,Safety,E,Effectiveness,17,0.1,170
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,E,Effectiveness,S,Safety,159,0.3087378640776699,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,A,Compliance,S,Safety,42,0.08155339805825243,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,S,Safety,E,Effectiveness,75,0.14563106796116504,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,D,Implementation Ease,E,Effectiveness,17,0.03300970873786408,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,A,Compliance,E,Effectiveness,28,0.05436893203883495,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,E,Effectiveness,D,Implementation Ease,36,0.06990291262135923,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,S,Safety,D,Implementation Ease,32,0.062135922330097085,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,S,Safety,A,Compliance,31,0.06019417475728155,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,E,Effectiveness,A,Compliance,57,0.11067961165048544,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,D,Implementation Ease,S,Safety,24,0.04660194174757282,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,A,Compliance,D,Implementation Ease,13,0.02524271844660194,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,actor_vs_judge,D,Implementation Ease,A,Compliance,1,0.001941747572815534,515
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,E,Effectiveness,S,Safety,154,0.3311827956989247,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,S,Safety,E,Effectiveness,78,0.16774193548387098,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,A,Compliance,E,Effectiveness,30,0.06451612903225806,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,S,Safety,D,Implementation Ease,40,0.08602150537634409,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,S,Safety,A,Compliance,35,0.07526881720430108,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,E,Effectiveness,A,Compliance,38,0.08172043010752689,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,E,Effectiveness,D,Implementation Ease,26,0.05591397849462366,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,D,Implementation Ease,S,Safety,5,0.010752688172043012,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,A,Compliance,D,Implementation Ease,19,0.04086021505376344,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,D,Implementation Ease,E,Effectiveness,4,0.008602150537634409,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,A,Compliance,S,Safety,35,0.07526881720430108,465
+policy,5-year overall community outcome,Qwen3.5-14B,low,linear_vs_judge,D,Implementation Ease,A,Compliance,1,0.002150537634408602,465
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,A,Compliance,E,Effectiveness,84,0.19534883720930232,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,S,Safety,A,Compliance,9,0.020930232558139535,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,A,Compliance,D,Implementation Ease,39,0.09069767441860466,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,D,Implementation Ease,S,Safety,18,0.04186046511627907,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,D,Implementation Ease,E,Effectiveness,47,0.10930232558139535,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,A,Compliance,S,Safety,44,0.10232558139534884,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,E,Effectiveness,A,Compliance,5,0.011627906976744186,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,E,Effectiveness,S,Safety,22,0.05116279069767442,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,S,Safety,E,Effectiveness,121,0.2813953488372093,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,E,Effectiveness,D,Implementation Ease,14,0.03255813953488372,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,S,Safety,D,Implementation Ease,21,0.04883720930232558,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_linear,D,Implementation Ease,A,Compliance,6,0.013953488372093023,430
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,S,Safety,E,Effectiveness,139,0.22601626016260162,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,A,Compliance,S,Safety,92,0.14959349593495935,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,S,Safety,A,Compliance,47,0.07642276422764227,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,A,Compliance,E,Effectiveness,67,0.10894308943089431,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,E,Effectiveness,S,Safety,92,0.14959349593495935,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,D,Implementation Ease,E,Effectiveness,44,0.07154471544715447,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,E,Effectiveness,A,Compliance,29,0.04715447154471545,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,S,Safety,D,Implementation Ease,12,0.01951219512195122,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,D,Implementation Ease,S,Safety,54,0.08780487804878048,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,E,Effectiveness,D,Implementation Ease,10,0.016260162601626018,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,D,Implementation Ease,A,Compliance,23,0.03739837398373984,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,actor_vs_judge,A,Compliance,D,Implementation Ease,6,0.00975609756097561,615
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,S,Safety,E,Effectiveness,82,0.148014440433213,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,E,Effectiveness,S,Safety,160,0.2888086642599278,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,S,Safety,A,Compliance,49,0.08844765342960288,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,A,Compliance,E,Effectiveness,25,0.04512635379061372,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,D,Implementation Ease,E,Effectiveness,38,0.06859205776173286,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,A,Compliance,S,Safety,32,0.05776173285198556,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,S,Safety,D,Implementation Ease,7,0.01263537906137184,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,E,Effectiveness,A,Compliance,66,0.11913357400722022,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,D,Implementation Ease,A,Compliance,27,0.048736462093862815,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,E,Effectiveness,D,Implementation Ease,11,0.019855595667870037,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,D,Implementation Ease,S,Safety,53,0.09566787003610108,554
+policy,5-year overall community outcome,Ministral-3-14B,minimal,linear_vs_judge,A,Compliance,D,Implementation Ease,4,0.007220216606498195,554
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,A,Compliance,E,Effectiveness,84,0.1958041958041958,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,S,Safety,A,Compliance,10,0.023310023310023312,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,A,Compliance,D,Implementation Ease,43,0.10023310023310024,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,D,Implementation Ease,S,Safety,16,0.037296037296037296,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,D,Implementation Ease,E,Effectiveness,46,0.10722610722610723,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,A,Compliance,S,Safety,49,0.11421911421911422,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,E,Effectiveness,A,Compliance,7,0.016317016317016316,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,E,Effectiveness,S,Safety,17,0.039627039627039624,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,S,Safety,E,Effectiveness,117,0.2727272727272727,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,E,Effectiveness,D,Implementation Ease,13,0.030303030303030304,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,S,Safety,D,Implementation Ease,22,0.05128205128205128,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_linear,D,Implementation Ease,A,Compliance,5,0.011655011655011656,429
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,S,Safety,E,Effectiveness,144,0.2304,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,A,Compliance,S,Safety,99,0.1584,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,S,Safety,A,Compliance,47,0.0752,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,A,Compliance,E,Effectiveness,69,0.1104,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,E,Effectiveness,S,Safety,94,0.1504,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,D,Implementation Ease,E,Effectiveness,45,0.072,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,E,Effectiveness,A,Compliance,28,0.0448,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,S,Safety,D,Implementation Ease,13,0.0208,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,D,Implementation Ease,S,Safety,47,0.0752,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,E,Effectiveness,D,Implementation Ease,10,0.016,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,D,Implementation Ease,A,Compliance,24,0.0384,625
+policy,5-year overall community outcome,Ministral-3-14B,low,actor_vs_judge,A,Compliance,D,Implementation Ease,5,0.008,625
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,S,Safety,E,Effectiveness,85,0.15070921985815602,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,E,Effectiveness,S,Safety,162,0.2872340425531915,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,S,Safety,A,Compliance,48,0.0851063829787234,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,A,Compliance,E,Effectiveness,30,0.05319148936170213,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,D,Implementation Ease,E,Effectiveness,38,0.0673758865248227,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,A,Compliance,S,Safety,31,0.0549645390070922,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,S,Safety,D,Implementation Ease,8,0.014184397163120567,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,E,Effectiveness,A,Compliance,63,0.11170212765957446,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,D,Implementation Ease,A,Compliance,33,0.05851063829787234,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,E,Effectiveness,D,Implementation Ease,12,0.02127659574468085,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,D,Implementation Ease,S,Safety,51,0.09042553191489362,564
+policy,5-year overall community outcome,Ministral-3-14B,low,linear_vs_judge,A,Compliance,D,Implementation Ease,3,0.005319148936170213,564
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,D,Maintainability,E,Capability,57,0.16715542521994134,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,D,Maintainability,S,Reliability,32,0.093841642228739,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,E,Capability,S,Reliability,55,0.16129032258064516,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,A,Adoption Ease,D,Maintainability,20,0.05865102639296188,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,A,Adoption Ease,S,Reliability,52,0.15249266862170088,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,S,Reliability,E,Capability,84,0.24633431085043989,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,E,Capability,D,Maintainability,10,0.02932551319648094,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,S,Reliability,D,Maintainability,6,0.017595307917888565,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_linear,A,Adoption Ease,E,Capability,25,0.07331378299120235,341
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,S,Reliability,E,Capability,76,0.1366906474820144,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,S,Reliability,D,Maintainability,83,0.14928057553956833,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,D,Maintainability,S,Reliability,70,0.12589928057553956,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,D,Maintainability,E,Capability,52,0.09352517985611511,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,D,Maintainability,A,Adoption Ease,5,0.008992805755395683,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,E,Capability,S,Reliability,103,0.18525179856115107,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,E,Capability,D,Maintainability,31,0.05575539568345324,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,S,Reliability,A,Adoption Ease,2,0.0035971223021582736,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,A,Adoption Ease,D,Maintainability,40,0.07194244604316546,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,A,Adoption Ease,S,Reliability,71,0.12769784172661872,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,A,Adoption Ease,E,Capability,20,0.03597122302158273,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,actor_vs_judge,E,Capability,A,Adoption Ease,3,0.00539568345323741,556
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,S,Reliability,E,Capability,84,0.16279069767441862,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,S,Reliability,D,Maintainability,99,0.19186046511627908,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,E,Capability,S,Reliability,162,0.313953488372093,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,D,Maintainability,E,Capability,32,0.06201550387596899,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,D,Maintainability,A,Adoption Ease,1,0.001937984496124031,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,D,Maintainability,S,Reliability,48,0.09302325581395349,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,E,Capability,D,Maintainability,47,0.09108527131782945,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,S,Reliability,A,Adoption Ease,3,0.005813953488372093,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,A,Adoption Ease,E,Capability,9,0.01744186046511628,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,E,Capability,A,Adoption Ease,6,0.011627906976744186,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,A,Adoption Ease,D,Maintainability,15,0.029069767441860465,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,minimal,linear_vs_judge,A,Adoption Ease,S,Reliability,10,0.01937984496124031,516
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_linear,D,Maintainability,S,Reliability,59,0.45038167938931295,131
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_linear,E,Capability,S,Reliability,20,0.15267175572519084,131
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_linear,A,Adoption Ease,E,Capability,11,0.08396946564885496,131
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_linear,A,Adoption Ease,S,Reliability,18,0.13740458015267176,131
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_linear,E,Capability,D,Maintainability,4,0.030534351145038167,131
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_linear,A,Adoption Ease,D,Maintainability,19,0.1450381679389313,131
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,D,Maintainability,E,Capability,88,0.18723404255319148,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,D,Maintainability,S,Reliability,151,0.32127659574468087,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,S,Reliability,D,Maintainability,35,0.07446808510638298,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,S,Reliability,E,Capability,96,0.20425531914893616,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,E,Capability,D,Maintainability,2,0.00425531914893617,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,D,Maintainability,A,Adoption Ease,6,0.01276595744680851,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,A,Adoption Ease,E,Capability,26,0.05531914893617021,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,A,Adoption Ease,S,Reliability,39,0.08297872340425531,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,A,Adoption Ease,D,Maintainability,11,0.023404255319148935,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,E,Capability,S,Reliability,6,0.01276595744680851,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,S,Reliability,A,Adoption Ease,9,0.019148936170212766,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,actor_vs_judge,E,Capability,A,Adoption Ease,1,0.002127659574468085,470
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,D,Maintainability,E,Capability,86,0.21287128712871287,404
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,D,Maintainability,S,Reliability,111,0.2747524752475248,404
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,S,Reliability,D,Maintainability,43,0.10643564356435643,404
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,S,Reliability,E,Capability,116,0.2871287128712871,404
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,D,Maintainability,A,Adoption Ease,7,0.017326732673267328,404
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,E,Capability,S,Reliability,2,0.0049504950495049506,404
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,A,Adoption Ease,E,Capability,14,0.034653465346534656,404
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,A,Adoption Ease,S,Reliability,15,0.03712871287128713,404
+software,5-year overall production engineering outcome for a small team,GPT-5-mini,low,linear_vs_judge,S,Reliability,A,Adoption Ease,10,0.024752475247524754,404
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,A,Adoption Ease,D,Maintainability,79,0.1111111111111111,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,A,Adoption Ease,E,Capability,260,0.3656821378340366,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,A,Adoption Ease,S,Reliability,134,0.18846694796061886,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,D,Maintainability,E,Capability,62,0.08720112517580872,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,E,Capability,S,Reliability,5,0.007032348804500703,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,S,Reliability,E,Capability,91,0.1279887482419128,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,D,Maintainability,S,Reliability,43,0.06047819971870605,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,D,Maintainability,A,Adoption Ease,9,0.012658227848101266,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,S,Reliability,A,Adoption Ease,11,0.015471167369901548,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,S,Reliability,D,Maintainability,13,0.01828410689170183,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,E,Capability,D,Maintainability,2,0.0028129395218002813,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_linear,E,Capability,A,Adoption Ease,2,0.0028129395218002813,711
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,A,Adoption Ease,E,Capability,330,0.379746835443038,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,S,Reliability,E,Capability,170,0.1956271576524741,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,D,Maintainability,E,Capability,127,0.14614499424626007,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,A,Adoption Ease,S,Reliability,92,0.10586881472957423,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,S,Reliability,A,Adoption Ease,55,0.06329113924050633,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,D,Maintainability,A,Adoption Ease,32,0.03682393555811277,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,D,Maintainability,S,Reliability,34,0.039125431530494824,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,E,Capability,D,Maintainability,1,0.0011507479861910242,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,S,Reliability,D,Maintainability,6,0.006904487917146145,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,A,Adoption Ease,D,Maintainability,11,0.012658227848101266,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,E,Capability,S,Reliability,5,0.005753739930955121,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,actor_vs_judge,E,Capability,A,Adoption Ease,6,0.006904487917146145,869
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,D,Maintainability,E,Capability,96,0.138328530259366,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,S,Reliability,A,Adoption Ease,94,0.13544668587896252,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,S,Reliability,E,Capability,182,0.2622478386167147,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,E,Capability,S,Reliability,61,0.08789625360230548,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,A,Adoption Ease,E,Capability,71,0.10230547550432277,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,D,Maintainability,A,Adoption Ease,53,0.07636887608069164,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,E,Capability,D,Maintainability,17,0.024495677233429394,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,E,Capability,A,Adoption Ease,60,0.08645533141210375,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,A,Adoption Ease,S,Reliability,25,0.03602305475504323,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,D,Maintainability,S,Reliability,29,0.04178674351585014,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,minimal,linear_vs_judge,S,Reliability,D,Maintainability,6,0.008645533141210375,694
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,D,Maintainability,S,Reliability,30,0.10909090909090909,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,E,Capability,S,Reliability,39,0.14181818181818182,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,D,Maintainability,E,Capability,15,0.05454545454545454,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,A,Adoption Ease,D,Maintainability,30,0.10909090909090909,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,S,Reliability,D,Maintainability,15,0.05454545454545454,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,A,Adoption Ease,E,Capability,48,0.17454545454545456,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,E,Capability,D,Maintainability,13,0.04727272727272727,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,S,Reliability,A,Adoption Ease,3,0.01090909090909091,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,S,Reliability,E,Capability,47,0.1709090909090909,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,A,Adoption Ease,S,Reliability,32,0.11636363636363636,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_linear,D,Maintainability,A,Adoption Ease,3,0.01090909090909091,275
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,E,Capability,D,Maintainability,15,0.02533783783783784,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,S,Reliability,D,Maintainability,67,0.11317567567567567,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,D,Maintainability,S,Reliability,55,0.0929054054054054,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,D,Maintainability,E,Capability,90,0.15202702702702703,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,A,Adoption Ease,E,Capability,66,0.11148648648648649,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,D,Maintainability,A,Adoption Ease,23,0.03885135135135135,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,S,Reliability,E,Capability,118,0.19932432432432431,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,E,Capability,S,Reliability,20,0.033783783783783786,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,S,Reliability,A,Adoption Ease,52,0.08783783783783784,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,A,Adoption Ease,D,Maintainability,21,0.03547297297297297,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,E,Capability,A,Adoption Ease,15,0.02533783783783784,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,actor_vs_judge,A,Adoption Ease,S,Reliability,50,0.08445945945945946,592
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,E,Capability,D,Maintainability,13,0.025490196078431372,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,S,Reliability,D,Maintainability,74,0.1450980392156863,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,D,Maintainability,E,Capability,80,0.1568627450980392,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,A,Adoption Ease,E,Capability,19,0.03725490196078431,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,D,Maintainability,A,Adoption Ease,29,0.056862745098039215,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,S,Reliability,E,Capability,118,0.23137254901960785,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,D,Maintainability,S,Reliability,62,0.12156862745098039,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,E,Capability,S,Reliability,22,0.043137254901960784,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,S,Reliability,A,Adoption Ease,54,0.10588235294117647,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,E,Capability,A,Adoption Ease,16,0.03137254901960784,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,A,Adoption Ease,S,Reliability,14,0.027450980392156862,510
+software,5-year overall production engineering outcome for a small team,GPT-5-nano,low,linear_vs_judge,A,Adoption Ease,D,Maintainability,9,0.01764705882352941,510
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,D,Maintainability,S,Reliability,48,0.1411764705882353,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,E,Capability,S,Reliability,12,0.03529411764705882,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,E,Capability,D,Maintainability,14,0.041176470588235294,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,S,Reliability,D,Maintainability,21,0.061764705882352944,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,D,Maintainability,E,Capability,72,0.21176470588235294,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,A,Adoption Ease,E,Capability,55,0.16176470588235295,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,S,Reliability,E,Capability,37,0.10882352941176471,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,A,Adoption Ease,D,Maintainability,56,0.16470588235294117,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_linear,A,Adoption Ease,S,Reliability,25,0.07352941176470588,340
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,D,Maintainability,S,Reliability,61,0.10777385159010601,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,D,Maintainability,E,Capability,76,0.13427561837455831,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,E,Capability,A,Adoption Ease,23,0.04063604240282685,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,S,Reliability,E,Capability,138,0.24381625441696114,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,E,Capability,D,Maintainability,28,0.04946996466431095,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,S,Reliability,D,Maintainability,25,0.044169611307420496,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,D,Maintainability,A,Adoption Ease,46,0.0812720848056537,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,A,Adoption Ease,E,Capability,59,0.10424028268551237,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,E,Capability,S,Reliability,14,0.024734982332155476,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,S,Reliability,A,Adoption Ease,38,0.06713780918727916,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,A,Adoption Ease,D,Maintainability,35,0.061837455830388695,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,actor_vs_judge,A,Adoption Ease,S,Reliability,23,0.04063604240282685,566
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,D,Maintainability,E,Capability,80,0.16494845360824742,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,S,Reliability,A,Adoption Ease,55,0.1134020618556701,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,S,Reliability,E,Capability,123,0.2536082474226804,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,S,Reliability,D,Maintainability,21,0.04329896907216495,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,E,Capability,S,Reliability,57,0.11752577319587629,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,D,Maintainability,S,Reliability,10,0.020618556701030927,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,E,Capability,D,Maintainability,34,0.07010309278350516,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,D,Maintainability,A,Adoption Ease,37,0.07628865979381444,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,E,Capability,A,Adoption Ease,51,0.10515463917525773,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,A,Adoption Ease,E,Capability,9,0.018556701030927835,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,A,Adoption Ease,S,Reliability,2,0.004123711340206186,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,minimal,linear_vs_judge,A,Adoption Ease,D,Maintainability,6,0.012371134020618556,485
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,D,Maintainability,S,Reliability,53,0.1572700296735905,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,E,Capability,S,Reliability,12,0.03560830860534125,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,E,Capability,D,Maintainability,12,0.03560830860534125,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,S,Reliability,D,Maintainability,19,0.05637982195845697,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,A,Adoption Ease,E,Capability,58,0.17210682492581603,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,S,Reliability,E,Capability,36,0.10682492581602374,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,D,Maintainability,E,Capability,70,0.20771513353115728,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,A,Adoption Ease,D,Maintainability,53,0.1572700296735905,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_linear,A,Adoption Ease,S,Reliability,24,0.0712166172106825,337
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,D,Maintainability,S,Reliability,61,0.108348134991119,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,D,Maintainability,E,Capability,79,0.14031971580817051,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,E,Capability,A,Adoption Ease,24,0.04262877442273535,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,S,Reliability,E,Capability,134,0.23801065719360567,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,E,Capability,D,Maintainability,31,0.055062166962699825,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,S,Reliability,D,Maintainability,31,0.055062166962699825,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,A,Adoption Ease,D,Maintainability,28,0.0497335701598579,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,A,Adoption Ease,E,Capability,54,0.09591474245115453,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,D,Maintainability,A,Adoption Ease,50,0.08880994671403197,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,E,Capability,S,Reliability,15,0.02664298401420959,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,S,Reliability,A,Adoption Ease,37,0.06571936056838366,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,actor_vs_judge,A,Adoption Ease,S,Reliability,19,0.03374777975133215,563
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,D,Maintainability,E,Capability,80,0.16227180527383367,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,S,Reliability,A,Adoption Ease,54,0.10953346855983773,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,S,Reliability,E,Capability,119,0.2413793103448276,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,S,Reliability,D,Maintainability,27,0.05476673427991886,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,D,Maintainability,S,Reliability,14,0.028397565922920892,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,A,Adoption Ease,D,Maintainability,4,0.008113590263691683,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,A,Adoption Ease,E,Capability,6,0.012170385395537525,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,E,Capability,D,Maintainability,40,0.08113590263691683,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,E,Capability,S,Reliability,42,0.08519269776876268,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,E,Capability,A,Adoption Ease,66,0.13387423935091278,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,D,Maintainability,A,Adoption Ease,38,0.07707910750507099,493
+software,5-year overall production engineering outcome for a small team,Qwen3.5-14B,low,linear_vs_judge,A,Adoption Ease,S,Reliability,3,0.006085192697768763,493
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,S,Reliability,D,Maintainability,30,0.06880733944954129,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,E,Capability,D,Maintainability,4,0.009174311926605505,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,S,Reliability,A,Adoption Ease,14,0.03211009174311927,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,S,Reliability,E,Capability,93,0.21330275229357798,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,A,Adoption Ease,E,Capability,20,0.045871559633027525,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,D,Maintainability,S,Reliability,74,0.16972477064220184,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,A,Adoption Ease,S,Reliability,25,0.05733944954128441,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,D,Maintainability,E,Capability,69,0.15825688073394495,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,E,Capability,S,Reliability,57,0.13073394495412843,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,D,Maintainability,A,Adoption Ease,14,0.03211009174311927,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,A,Adoption Ease,D,Maintainability,31,0.07110091743119266,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_linear,E,Capability,A,Adoption Ease,5,0.011467889908256881,436
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,S,Reliability,D,Maintainability,85,0.13097072419106318,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,A,Adoption Ease,S,Reliability,73,0.11248073959938366,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,E,Capability,S,Reliability,65,0.10015408320493066,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,S,Reliability,E,Capability,80,0.12326656394453005,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,A,Adoption Ease,D,Maintainability,32,0.04930662557781202,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,D,Maintainability,S,Reliability,142,0.21879815100154082,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,E,Capability,D,Maintainability,36,0.05546995377503852,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,D,Maintainability,E,Capability,61,0.09399075500770417,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,E,Capability,A,Adoption Ease,14,0.02157164869029276,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,S,Reliability,A,Adoption Ease,27,0.04160246533127889,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,D,Maintainability,A,Adoption Ease,18,0.02773497688751926,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,actor_vs_judge,A,Adoption Ease,E,Capability,16,0.02465331278890601,649
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,S,Reliability,D,Maintainability,86,0.14214876033057852,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,D,Maintainability,E,Capability,45,0.0743801652892562,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,A,Adoption Ease,D,Maintainability,19,0.03140495867768595,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,E,Capability,D,Maintainability,59,0.09752066115702479,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,E,Capability,S,Reliability,132,0.21818181818181817,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,S,Reliability,E,Capability,74,0.12231404958677686,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,D,Maintainability,S,Reliability,86,0.14214876033057852,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,A,Adoption Ease,S,Reliability,42,0.06942148760330578,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,S,Reliability,A,Adoption Ease,31,0.0512396694214876,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,D,Maintainability,A,Adoption Ease,9,0.01487603305785124,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,A,Adoption Ease,E,Capability,10,0.01652892561983471,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,minimal,linear_vs_judge,E,Capability,A,Adoption Ease,12,0.019834710743801654,605
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,S,Reliability,E,Capability,76,0.18446601941747573,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,D,Maintainability,E,Capability,55,0.13349514563106796,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,D,Maintainability,S,Reliability,70,0.16990291262135923,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,A,Adoption Ease,E,Capability,22,0.05339805825242718,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,E,Capability,D,Maintainability,12,0.02912621359223301,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,S,Reliability,D,Maintainability,27,0.06553398058252427,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,S,Reliability,A,Adoption Ease,10,0.024271844660194174,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,E,Capability,S,Reliability,66,0.16019417475728157,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,A,Adoption Ease,D,Maintainability,34,0.0825242718446602,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,E,Capability,A,Adoption Ease,5,0.012135922330097087,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,D,Maintainability,A,Adoption Ease,11,0.02669902912621359,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_linear,A,Adoption Ease,S,Reliability,24,0.05825242718446602,412
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,D,Maintainability,E,Capability,62,0.08895265423242468,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,S,Reliability,E,Capability,90,0.1291248206599713,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,D,Maintainability,S,Reliability,134,0.19225251076040173,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,D,Maintainability,A,Adoption Ease,18,0.02582496413199426,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,S,Reliability,D,Maintainability,81,0.11621233859397417,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,A,Adoption Ease,S,Reliability,85,0.12195121951219512,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,A,Adoption Ease,E,Capability,25,0.035868005738880916,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,S,Reliability,A,Adoption Ease,16,0.02295552367288379,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,E,Capability,D,Maintainability,54,0.07747489239598278,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,E,Capability,S,Reliability,87,0.12482065997130559,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,E,Capability,A,Adoption Ease,16,0.02295552367288379,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,actor_vs_judge,A,Adoption Ease,D,Maintainability,29,0.04160688665710186,697
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,D,Maintainability,E,Capability,55,0.08675078864353312,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,E,Capability,S,Reliability,132,0.2082018927444795,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,E,Capability,A,Adoption Ease,15,0.02365930599369085,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,S,Reliability,E,Capability,88,0.138801261829653,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,E,Capability,D,Maintainability,55,0.08675078864353312,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,S,Reliability,D,Maintainability,87,0.13722397476340695,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,D,Maintainability,A,Adoption Ease,9,0.014195583596214511,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,A,Adoption Ease,E,Capability,9,0.014195583596214511,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,A,Adoption Ease,D,Maintainability,23,0.03627760252365931,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,D,Maintainability,S,Reliability,88,0.138801261829653,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,A,Adoption Ease,S,Reliability,50,0.07886435331230283,634
+software,5-year overall production engineering outcome for a small team,Ministral-3-14B,low,linear_vs_judge,S,Reliability,A,Adoption Ease,23,0.03627760252365931,634

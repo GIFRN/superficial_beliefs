@@ -43,22 +43,19 @@ def render_profile(
     label: str,
     theme_config: "ThemeConfig | None" = None
 ) -> str:
-    template = PARAPHRASES[template_id % len(PARAPHRASES)]
-    
-    # Use theme config if provided, otherwise use default ATTR_LABELS
     if theme_config:
         segments = [
-            f"{theme_config.get_attribute_label(attr)}{template.connector}{profile.levels[attr]}" 
+            f"{theme_config.get_attribute_label(attr)} = {profile.levels[attr]}"
             for attr in order if attr in profile.levels
         ]
     else:
         segments = [
-            f"{ATTR_LABELS[attr]}{template.connector}{profile.levels[attr]}" 
+            f"{ATTR_LABELS[attr]} = {profile.levels[attr]}"
             for attr in order if attr in profile.levels
         ]
-    
-    pairs = template.separator.join(segments)
-    return template.pattern.format(label=label, pairs=pairs)
+
+    pairs = "; ".join(segments)
+    return f"{label}: {pairs}."
 
 
 def get_template(template_id: int) -> ParaphraseTemplate:

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import asyncio
 import json
 import sys
 import time
@@ -27,8 +28,12 @@ try:
 except Exception:  # pragma: no cover
     MockBackend = None
 from src.llm.backends.openai import OpenAIBackend
+try:
+    from src.llm.backends.qwen3 import Qwen3Backend
+except Exception:  # pragma: no cover
+    Qwen3Backend = None
 from src.llm.backends.vllm import VLLMBackend
-from src.llm.harness import build_trial_specs, run_trial
+from src.llm.harness import build_trial_specs, run_trial, run_trial_async
 from src.utils.config import Config, load_config
 from src.utils.io import ensure_dir, read_yaml, write_json
 
@@ -37,6 +42,8 @@ BACKEND_FACTORY = {
     "anthropic": AnthropicBackend,
     "vllm": VLLMBackend,
 }
+if Qwen3Backend is not None:
+    BACKEND_FACTORY["qwen3"] = Qwen3Backend
 if MockBackend is not None:
     BACKEND_FACTORY["mock"] = MockBackend
 
@@ -212,6 +219,173 @@ def _build_run_suffix(
     return "_".join(parts)
 
 
+async def _run_single_trial_async(
+    *,
+    spec: Any,
+    idx: int,
+    backend: Any,
+    S: int,
+    temperature: float,
+    base_seed: int,
+    backend_spec: dict[str, Any],
+    args: argparse.Namespace,
+    max_tokens_ceiling: int,
+) -> tuple[str, Any]:
+    trial_seed = base_seed + idx
+    retries = 0
+    max_tokens_for_trial = int(args.max_tokens or backend_spec.get("max_tokens", 256))
+    while True:
+        try:
+            result = await run_trial_async(
+                trial=spec,
+                backend=backend,
+                S=S,
+                temperature=temperature,
+                seed=trial_seed,
+                max_tokens=max_tokens_for_trial,
+            )
+            return ("result", result)
+        except Exception as exc:
+            if is_invalid_prompt_error(exc):
+                if retries < MAX_INVALID_PROMPT_RETRIES:
+                    attempt_num = retries + 1
+                    total_attempts = MAX_INVALID_PROMPT_RETRIES
+                    print(f"\n{'='*60}")
+                    print(f"Invalid prompt flagged for trial {spec.trial_id}. Retrying attempt {attempt_num}/{total_attempts}.")
+                    print(f"{'='*60}\n")
+                    retries += 1
+                    continue
+                print(f"\n{'='*60}")
+                print(f"Skipping trial {spec.trial_id} after {MAX_INVALID_PROMPT_RETRIES + 1} invalid prompt attempts.")
+                print(f"{'='*60}\n")
+                return (
+                    "skip",
+                    {
+                        "trial_id": spec.trial_id,
+                        "config_id": spec.config_id,
+                        "block": spec.block,
+                        "manipulation": spec.manipulation,
+                        "variant": spec.variant,
+                        "skipped": True,
+                        "skip_reason": "invalid_prompt",
+                        "error_type": type(exc).__name__,
+                        "error_message": str(exc),
+                        "responses": [],
+                    },
+                )
+            if is_quota_error(exc):
+                fatal_stop_reason = f"quota_exhausted: {type(exc).__name__}: {str(exc)}"
+                print(f"\n{'='*60}")
+                print("Stopping run due to quota/billing error (safe to resume later).")
+                print(f"Trial: {spec.trial_id}  Config: {spec.config_id}  Block: {spec.block}")
+                print(f"Error: {fatal_stop_reason}")
+                print(f"{'='*60}\n")
+                return ("fatal", fatal_stop_reason)
+            if is_max_output_tokens_error(exc):
+                bumped = _next_max_tokens(max_tokens_for_trial, ceiling=max_tokens_ceiling)
+                if bumped is not None:
+                    print(f"\n{'='*60}")
+                    print(
+                        f"Trial {spec.trial_id}: max_output_tokens hit at {max_tokens_for_trial}. "
+                        f"Bumping to {bumped} and retrying."
+                    )
+                    print(f"{'='*60}\n")
+                    max_tokens_for_trial = bumped
+                    retries += 1
+                    continue
+            if is_transient_error(exc) and retries < max(0, int(args.max_retries)):
+                delay = float(args.retry_backoff) * (2 ** retries)
+                print(f"\n{'='*60}")
+                print(
+                    f"Transient error during trial {spec.trial_id}. "
+                    f"Retry {retries + 1}/{args.max_retries} after {delay:.1f}s."
+                )
+                print(f"Error type: {type(exc).__name__}")
+                print(f"Error message: {str(exc)}")
+                print(f"{'='*60}\n")
+                await asyncio.sleep(delay)
+                retries += 1
+                continue
+            return ("error", (spec, idx, exc))
+
+
+async def _run_trials_async_pool(
+    *,
+    remaining_specs: list[Any],
+    backend: Any,
+    backend_spec: dict[str, Any],
+    responses_path: Path,
+    S: int,
+    base_seed: int,
+    temperature_override: Any,
+    cfg: Config,
+    args: argparse.Namespace,
+    max_tokens_ceiling: int,
+) -> tuple[int, str | None]:
+    completed_this_run = 0
+    fatal_stop_reason: str | None = None
+    trial_concurrency = max(1, int(args.trial_concurrency))
+    progress = tqdm(total=len(remaining_specs), desc="Trials")
+
+    with responses_path.open("a", encoding="utf-8") as fh:
+        for chunk_start in range(0, len(remaining_specs), trial_concurrency):
+            chunk_specs = remaining_specs[chunk_start : chunk_start + trial_concurrency]
+            chunk_tasks = []
+            for rel_idx, spec in enumerate(chunk_specs):
+                idx = chunk_start + rel_idx
+                temperature = (
+                    temperature_override
+                    if temperature_override is not None
+                    else backend_spec.get("temperature", cfg.replicates.temperature)
+                )
+                chunk_tasks.append(
+                    _run_single_trial_async(
+                        spec=spec,
+                        idx=idx,
+                        backend=backend,
+                        S=S,
+                        temperature=temperature,
+                        base_seed=base_seed,
+                        backend_spec=backend_spec,
+                        args=args,
+                        max_tokens_ceiling=max_tokens_ceiling,
+                    )
+                )
+
+            outcomes = await asyncio.gather(*chunk_tasks)
+            for kind, payload in outcomes:
+                if kind == "result":
+                    fh.write(json.dumps(payload))
+                    fh.write("\n")
+                    fh.flush()
+                    completed_this_run += 1
+                    progress.update(1)
+                elif kind == "skip":
+                    fh.write(json.dumps(payload))
+                    fh.write("\n")
+                    fh.flush()
+                    progress.update(1)
+                elif kind == "fatal":
+                    fatal_stop_reason = str(payload)
+                elif kind == "error":
+                    spec, idx, exc = payload
+                    print(f"\n{'='*60}")
+                    print(f"API ERROR during trial {spec.trial_id}")
+                    print(f"Trial index: {idx + 1}/{len(remaining_specs)}")
+                    print(f"Config ID: {spec.config_id}")
+                    print(f"Block: {spec.block}")
+                    print(f"Error type: {type(exc).__name__}")
+                    print(f"Error message: {str(exc)}")
+                    print(f"{'='*60}\n")
+                    progress.close()
+                    raise exc
+            if fatal_stop_reason is not None:
+                break
+
+    progress.close()
+    return completed_this_run, fatal_stop_reason
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run LLM trials for superficial beliefs study")
     parser.add_argument("--config", default="configs/default.yml", help="Path to dataset configuration YAML")
@@ -233,6 +407,12 @@ def main() -> None:
         default="any",
         help="Resume behavior when responses.jsonl already exists (default: any)",
     )
+    parser.add_argument(
+        "--trial-concurrency",
+        type=int,
+        default=1,
+        help="Number of trials to process concurrently with the standard API runner (default: 1).",
+    )
     parser.add_argument("--max-retries", type=int, default=DEFAULT_MAX_RETRIES, help="Max retries for transient API errors")
     parser.add_argument(
         "--retry-backoff",
@@ -253,7 +433,7 @@ def main() -> None:
     backend = instantiate_backend(backend_spec, debug=args.debug)
     
     # Get reasoning effort from backend spec
-    reasoning_effort = backend_spec.get("reasoning_effort", None)
+    reasoning_effort = backend_spec.get("reasoning_effort", backend_spec.get("effort", None))
     
     # Construct output directory name (always include backend/variant info to avoid collisions)
     run_suffix = _build_run_suffix(
@@ -353,110 +533,126 @@ def main() -> None:
         else int(backend_spec.get("max_tokens_ceiling", DEFAULT_MAX_TOKENS_CEILING))
     )
 
-    completed_this_run = 0
-    fatal_stop_reason: str | None = None
-    # Append to existing file (or create new if it doesn't exist)
-    with responses_path.open("a", encoding="utf-8") as fh:
-        for idx, spec in enumerate(tqdm(remaining_specs, desc="Trials")):
-            temperature = temperature_override if temperature_override is not None else backend_spec.get("temperature", cfg.replicates.temperature)
-            trial_seed = base_seed + idx
-            retries = 0
-            max_tokens_for_trial = int(max_tokens_override or backend_spec.get("max_tokens", 256))
-            while True:
-                try:
-                    result = run_trial(
-                        spec,
-                        backend,
-                        S=S,
-                        temperature=temperature,
-                        seed=trial_seed,
-                        max_tokens=max_tokens_for_trial,
-                    )
-                    print(spec)
-                    print(result)
-                    print("="*60)
-                    fh.write(json.dumps(result))
-                    fh.write("\n")
-                    fh.flush()  # Ensure data is written immediately
-                    completed_this_run += 1
-                    break
-                except Exception as exc:
-                    if is_invalid_prompt_error(exc):
-                        if retries < MAX_INVALID_PROMPT_RETRIES:
-                            attempt_num = retries + 1
-                            total_attempts = MAX_INVALID_PROMPT_RETRIES
-                            print(f"\n{'='*60}")
-                            print(f"Invalid prompt flagged for trial {spec.trial_id}. Retrying attempt {attempt_num}/{total_attempts}.")
-                            print(f"{'='*60}\n")
-                            retries += 1
-                            continue
-                        print(f"\n{'='*60}")
-                        print(f"Skipping trial {spec.trial_id} after {MAX_INVALID_PROMPT_RETRIES + 1} invalid prompt attempts.")
-                        print(f"{'='*60}\n")
-                        # Write a skip record so resume doesn't keep retrying this trial forever.
-                        fh.write(
-                            json.dumps(
-                                {
-                                    "trial_id": spec.trial_id,
-                                    "config_id": spec.config_id,
-                                    "block": spec.block,
-                                    "manipulation": spec.manipulation,
-                                    "variant": spec.variant,
-                                    "skipped": True,
-                                    "skip_reason": "invalid_prompt",
-                                    "error_type": type(exc).__name__,
-                                    "error_message": str(exc),
-                                    "responses": [],
-                                }
-                            )
+    if int(args.trial_concurrency) > 1:
+        completed_this_run, fatal_stop_reason = asyncio.run(
+            _run_trials_async_pool(
+                remaining_specs=remaining_specs,
+                backend=backend,
+                backend_spec=backend_spec,
+                responses_path=responses_path,
+                S=S,
+                base_seed=base_seed,
+                temperature_override=temperature_override,
+                cfg=cfg,
+                args=args,
+                max_tokens_ceiling=max_tokens_ceiling,
+            )
+        )
+    else:
+        completed_this_run = 0
+        fatal_stop_reason: str | None = None
+        # Append to existing file (or create new if it doesn't exist)
+        with responses_path.open("a", encoding="utf-8") as fh:
+            for idx, spec in enumerate(tqdm(remaining_specs, desc="Trials")):
+                temperature = temperature_override if temperature_override is not None else backend_spec.get("temperature", cfg.replicates.temperature)
+                trial_seed = base_seed + idx
+                retries = 0
+                max_tokens_for_trial = int(max_tokens_override or backend_spec.get("max_tokens", 256))
+                while True:
+                    try:
+                        result = run_trial(
+                            spec,
+                            backend,
+                            S=S,
+                            temperature=temperature,
+                            seed=trial_seed,
+                            max_tokens=max_tokens_for_trial,
                         )
+                        print(spec)
+                        print(result)
+                        print("="*60)
+                        fh.write(json.dumps(result))
                         fh.write("\n")
-                        fh.flush()
+                        fh.flush()  # Ensure data is written immediately
+                        completed_this_run += 1
                         break
-                    if is_quota_error(exc):
-                        fatal_stop_reason = f"quota_exhausted: {type(exc).__name__}: {str(exc)}"
-                        print(f"\n{'='*60}")
-                        print("Stopping run due to quota/billing error (safe to resume later).")
-                        print(f"Trial: {spec.trial_id}  Config: {spec.config_id}  Block: {spec.block}")
-                        print(f"Error: {fatal_stop_reason}")
-                        print(f"{'='*60}\n")
-                        break
-                    if is_max_output_tokens_error(exc):
-                        bumped = _next_max_tokens(max_tokens_for_trial, ceiling=max_tokens_ceiling)
-                        if bumped is not None:
+                    except Exception as exc:
+                        if is_invalid_prompt_error(exc):
+                            if retries < MAX_INVALID_PROMPT_RETRIES:
+                                attempt_num = retries + 1
+                                total_attempts = MAX_INVALID_PROMPT_RETRIES
+                                print(f"\n{'='*60}")
+                                print(f"Invalid prompt flagged for trial {spec.trial_id}. Retrying attempt {attempt_num}/{total_attempts}.")
+                                print(f"{'='*60}\n")
+                                retries += 1
+                                continue
+                            print(f"\n{'='*60}")
+                            print(f"Skipping trial {spec.trial_id} after {MAX_INVALID_PROMPT_RETRIES + 1} invalid prompt attempts.")
+                            print(f"{'='*60}\n")
+                            # Write a skip record so resume doesn't keep retrying this trial forever.
+                            fh.write(
+                                json.dumps(
+                                    {
+                                        "trial_id": spec.trial_id,
+                                        "config_id": spec.config_id,
+                                        "block": spec.block,
+                                        "manipulation": spec.manipulation,
+                                        "variant": spec.variant,
+                                        "skipped": True,
+                                        "skip_reason": "invalid_prompt",
+                                        "error_type": type(exc).__name__,
+                                        "error_message": str(exc),
+                                        "responses": [],
+                                    }
+                                )
+                            )
+                            fh.write("\n")
+                            fh.flush()
+                            break
+                        if is_quota_error(exc):
+                            fatal_stop_reason = f"quota_exhausted: {type(exc).__name__}: {str(exc)}"
+                            print(f"\n{'='*60}")
+                            print("Stopping run due to quota/billing error (safe to resume later).")
+                            print(f"Trial: {spec.trial_id}  Config: {spec.config_id}  Block: {spec.block}")
+                            print(f"Error: {fatal_stop_reason}")
+                            print(f"{'='*60}\n")
+                            break
+                        if is_max_output_tokens_error(exc):
+                            bumped = _next_max_tokens(max_tokens_for_trial, ceiling=max_tokens_ceiling)
+                            if bumped is not None:
+                                print(f"\n{'='*60}")
+                                print(
+                                    f"Trial {spec.trial_id}: max_output_tokens hit at {max_tokens_for_trial}. "
+                                    f"Bumping to {bumped} and retrying."
+                                )
+                                print(f"{'='*60}\n")
+                                max_tokens_for_trial = bumped
+                                retries += 1
+                                continue
+                        if is_transient_error(exc) and retries < max(0, int(args.max_retries)):
+                            delay = float(args.retry_backoff) * (2 ** retries)
                             print(f"\n{'='*60}")
                             print(
-                                f"Trial {spec.trial_id}: max_output_tokens hit at {max_tokens_for_trial}. "
-                                f"Bumping to {bumped} and retrying."
+                                f"Transient error during trial {spec.trial_id}. "
+                                f"Retry {retries + 1}/{args.max_retries} after {delay:.1f}s."
                             )
+                            print(f"Error type: {type(exc).__name__}")
+                            print(f"Error message: {str(exc)}")
                             print(f"{'='*60}\n")
-                            max_tokens_for_trial = bumped
+                            time.sleep(delay)
                             retries += 1
                             continue
-                    if is_transient_error(exc) and retries < max(0, int(args.max_retries)):
-                        delay = float(args.retry_backoff) * (2 ** retries)
                         print(f"\n{'='*60}")
-                        print(
-                            f"Transient error during trial {spec.trial_id}. "
-                            f"Retry {retries + 1}/{args.max_retries} after {delay:.1f}s."
-                        )
+                        print(f"API ERROR during trial {spec.trial_id}")
+                        print(f"Trial index: {idx + 1}/{len(remaining_specs)}")
+                        print(f"Config ID: {spec.config_id}")
+                        print(f"Block: {spec.block}")
                         print(f"Error type: {type(exc).__name__}")
                         print(f"Error message: {str(exc)}")
                         print(f"{'='*60}\n")
-                        time.sleep(delay)
-                        retries += 1
-                        continue
-                    print(f"\n{'='*60}")
-                    print(f"API ERROR during trial {spec.trial_id}")
-                    print(f"Trial index: {idx + 1}/{len(remaining_specs)}")
-                    print(f"Config ID: {spec.config_id}")
-                    print(f"Block: {spec.block}")
-                    print(f"Error type: {type(exc).__name__}")
-                    print(f"Error message: {str(exc)}")
-                    print(f"{'='*60}\n")
-                    raise
-            if fatal_stop_reason is not None:
-                break
+                        raise
+                if fatal_stop_reason is not None:
+                    break
 
     # Update manifest at end (even for partial runs).
     manifest.update(

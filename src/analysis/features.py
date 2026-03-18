@@ -35,7 +35,7 @@ def load_responses(path: str | Path) -> pd.DataFrame:
                 sentence_step = steps.get("sentence")
                 if choice_step:
                     parsed = choice_step.get("parsed", {})
-                    record["choice_ok"] = bool(parsed.get("ok"))
+                    record["choice_ok"] = bool(parsed.get("choice_ok", parsed.get("ok")))
                     record["choice"] = parsed.get("choice")
                     record["choice_raw"] = choice_step.get("content", "")
                 else:
@@ -48,6 +48,12 @@ def load_responses(path: str | Path) -> pd.DataFrame:
                     record["premise_attr"] = parsed.get("attr")
                     record["premise_text"] = parsed.get("text")
                     record["premise_raw"] = premise_step.get("content", "")
+                elif choice_step:
+                    parsed = choice_step.get("parsed", {})
+                    record["premise_ok"] = bool(parsed.get("premise_ok", False))
+                    record["premise_attr"] = parsed.get("attr")
+                    record["premise_text"] = parsed.get("text", "")
+                    record["premise_raw"] = choice_step.get("content", "")
                 else:
                     record["premise_ok"] = False
                     record["premise_attr"] = None
