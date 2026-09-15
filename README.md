@@ -2,7 +2,7 @@
 
 Gabriel Freedman and Francesca Toni · COLM 2026
 
-Code, synthetic datasets, and saved analyses for studying how LLM choices and stated reasons relate to a fitted behavioural model. This is the paper submission snapshot, previously distributed as `COLM.zip`.
+Code, synthetic datasets, and saved analyses for studying how LLM choices and stated reasons relate to a fitted behavioural model.
 
 ## Results
 
