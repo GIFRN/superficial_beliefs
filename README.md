@@ -17,7 +17,7 @@ No installation or model calls are needed to view these saved results.
 
 Some filenames retain earlier manuscript numbering. Other files in `outputs/` contain intermediate fits and diagnostic analyses.
 
-**Metric conventions:** the saved main grid compares judge choices with observed LLM choices, and attribute reports with the behavioural model's predicted-side driver. These conventions differ from the corresponding descriptions in the paper and require reconciliation.
+**Metric conventions:** the main benchmark and surrogate comparisons evaluate judge choices against behavioural-model predictions, and attribute reports against each behavioural model's predicted-choice driver. The margin, mismatch-intervention, and hospital analyses use observed-choice-conditioned drivers.
 
 ## Contents
 

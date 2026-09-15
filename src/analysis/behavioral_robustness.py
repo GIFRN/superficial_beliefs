@@ -199,7 +199,7 @@ def build_condition_comparison(
             else None
         )
         comparison[f"{label}_judge_choice_accuracy"] = (
-            float((tau_ok & _safe_match(per_draw_df["tau_pred_choice"], per_draw_df["choice"])).mean())
+            float((tau_ok & _safe_match(per_draw_df["tau_pred_choice"], predicted_choice)).mean())
             if n_draws
             else None
         )

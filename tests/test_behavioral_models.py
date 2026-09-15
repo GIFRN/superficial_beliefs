@@ -289,6 +289,44 @@ def test_ridge_selection_prefers_smallest_lambda_within_tolerance():
     assert selected == 0.0
 
 
+def test_judge_choice_agreement_uses_each_surrogate_and_all_draws():
+    draws = pd.DataFrame(
+        {
+            "choice_ok": [False, True, True, True],
+            "choice": ["B", "B", "B", "B"],
+            "premise_ok": [True] * 4,
+            "premise_attr": ["E"] * 4,
+            "tau_ok": [True, True, False, True],
+            "tau_pred_choice": ["A", "A", "A", "B"],
+            "tau_driver": ["E"] * 4,
+            "m0_predicted_choice": ["A", "B", "A", "B"],
+            "m1_predicted_choice": ["B", "B", "A", "A"],
+            "m2_predicted_choice": ["A", "A", "A", "B"],
+        }
+    )
+    row_predictions = {}
+    for label in ("m0", "m1", "m2"):
+        draws[f"{label}_predicted_side_driver"] = "E"
+        draws[f"{label}_revealed_driver"] = "E"
+        row_predictions[label] = pd.DataFrame(
+            {"y_A": [1], "n_trials": [2], "p_choose_A": [0.5]}
+        )
+    for pair in ("m0_m1", "m0_m2", "m1_m2"):
+        draws[f"{pair}_driver_agreement"] = 1.0
+        draws[f"{pair}_actor_conditioned_driver_agreement"] = 1.0
+
+    comparison = build_condition_comparison(
+        theme="drugs",
+        row_predictions=row_predictions,
+        per_draw_df=draws,
+        condition_keys={},
+    )
+
+    assert comparison["m0_judge_choice_accuracy"] == 0.5
+    assert comparison["m1_judge_choice_accuracy"] == 0.0
+    assert comparison["m2_judge_choice_accuracy"] == 0.75
+
+
 def test_end_to_end_smoke_on_real_condition():
     out_root = output_root()
     theme = "drugs"
@@ -417,7 +455,7 @@ def test_m0_robustness_metrics_match_main_paper_definitions_on_real_condition():
 
     paper_choice = float((_ok(eval_df["choice_ok"]) & _match(eval_df["linear_model_pred_choice"], eval_df["choice"])).mean())
     paper_actor_attr = float((_ok(eval_df["premise_ok"]) & _match(eval_df["premise_attr"], eval_df["linear_model_factor"])).mean())
-    paper_judge_choice = float((_ok(eval_df["tau_ok"]) & _match(eval_df["tau_pred_choice"], eval_df["choice"])).mean())
+    paper_judge_choice = float((_ok(eval_df["tau_ok"]) & _match(eval_df["tau_pred_choice"], eval_df["linear_model_pred_choice"])).mean())
     paper_judge_attr = float((_ok(eval_df["tau_ok"]) & _match(eval_df["tau_driver"], eval_df["linear_model_factor"])).mean())
 
     assert np.isclose(comparison["m0_heldout_choice_accuracy"], paper_choice)

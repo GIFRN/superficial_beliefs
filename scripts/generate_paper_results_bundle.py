@@ -8,6 +8,7 @@ import math
 import sys
 from collections import defaultdict
 from datetime import datetime, timezone
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 from typing import Any, Callable
 
@@ -88,12 +89,13 @@ FIGURE_METHOD_COLORS = {
 
 TABLE1_SUBSTANTIVE_METRICS = (
     "heldout_choice_prediction",
+    "score_judge_choice_agreement_with_latent_choice",
     "self_report_revealed_driver",
     "score_judge_revealed_driver",
     "pairwise_top_driver_revealed_driver",
     "pairwise_mirror_consistency",
 )
-TABLE1_SUBSTANTIVE_METRICS_NO_PAIRWISE = TABLE1_SUBSTANTIVE_METRICS[:3]
+TABLE1_SUBSTANTIVE_METRICS_NO_PAIRWISE = TABLE1_SUBSTANTIVE_METRICS[:4]
 
 FIGURE1_CHOICE_METRICS = (
     "heldout_choice_prediction",
@@ -113,7 +115,7 @@ TABLE1_PLACEBO_METRICS = (
 
 SUBSTANTIVE_GRID_METRICS = (
     "heldout_choice_prediction",
-    "score_judge_predicts_actor_choice",
+    "score_judge_choice_agreement_with_latent_choice",
     "self_report_revealed_driver",
     "score_judge_revealed_driver",
     "pairwise_top_driver_revealed_driver",
@@ -247,12 +249,16 @@ def _fmt(value: Any) -> str:
     return str(value)
 
 
-def _fmt_ci(point: float | None, lo: float | None, hi: float | None) -> str:
+def _fmt_ci(point: float | None, lo: float | None, hi: float | None, *, half_up: bool = False) -> str:
     if point is None:
         return "n/a"
+    def render(value: float) -> str:
+        if half_up:
+            return str(Decimal(str(value)).quantize(Decimal("0.001"), rounding=ROUND_HALF_UP))
+        return f"{value:.3f}"
     if lo is None or hi is None:
-        return f"{point:.3f}"
-    return f"{point:.3f} [{lo:.3f}, {hi:.3f}]"
+        return render(point)
+    return f"{render(point)} [{render(lo)}, {render(hi)}]"
 
 
 def _json_ready(value: Any) -> Any:
@@ -908,7 +914,10 @@ def _summary_display_rows(rows: list[dict[str, Any]], metrics: tuple[str, ...]) 
     for row in rows:
         rendered = {"row_label": row["row_label"]}
         for metric in metrics:
-            rendered[metric] = _fmt_ci(row.get(metric), row.get(f"{metric}_ci_lo"), row.get(f"{metric}_ci_hi"))
+            rendered[metric] = _fmt_ci(
+                row.get(metric), row.get(f"{metric}_ci_lo"), row.get(f"{metric}_ci_hi"),
+                half_up=metric == "score_judge_choice_agreement_with_latent_choice",
+            )
         out.append(rendered)
     return out
 
@@ -922,7 +931,10 @@ def _grid_display_rows(rows: list[dict[str, Any]], metrics: tuple[str, ...]) -> 
             "effort": row["effort"],
         }
         for metric in metrics:
-            rendered[metric] = _fmt_ci(row.get(metric), row.get(f"{metric}_ci_lo"), row.get(f"{metric}_ci_hi"))
+            rendered[metric] = _fmt_ci(
+                row.get(metric), row.get(f"{metric}_ci_lo"), row.get(f"{metric}_ci_hi"),
+                half_up=metric == "score_judge_choice_agreement_with_latent_choice",
+            )
         out.append(rendered)
     return out
 
@@ -965,7 +977,8 @@ def _write_table1_files(
         "placebo_panel_rows": placebo_rows,
         "notes": [
             "Held-out actor-choice accuracy is the share of held-out test prompts where the latent behavioural model predicts the actor's A/B choice correctly.",
-            "Explicit columns report recovery of the behaviourally revealed driver.",
+            "Score-based judge choice agreement compares the reconstructed judge choice with the behavioural model's predicted choice.",
+            "Attribute columns report recovery of the behaviourally revealed driver.",
             *(
                 ["Pairwise mirror consistency is computed separately from pairwise step parse success."]
                 if include_pairwise
@@ -997,7 +1010,8 @@ def _write_table1_files(
         "## Notes",
         "",
         "- `Held-out choice prediction` is held-out actor-choice accuracy for the latent behavioural model.",
-        "- The explicit columns report recovery of the behaviourally revealed driver.",
+        "- Score-based judge choice agreement compares the reconstructed judge choice with the behavioural model's predicted choice.",
+        "- The attribute columns report recovery of the behaviourally revealed driver.",
         *(
             ["- `Pairwise mirror consistency` is reported separately from pairwise step parse success."]
             if include_pairwise
@@ -1517,8 +1531,8 @@ def _write_manuscript_captions(
     captions = {
         "table_1": (
             "Table 1. Benchmark summary. Panel A reports substantive themes averaged equally across the 8 model settings per theme. "
-            "The first column is held-out actor-choice accuracy for the latent behavioural model; the remaining substantive columns report "
-            "recovery of the behaviourally revealed driver. Pooled across substantive conditions, held-out choice prediction was "
+            "The choice columns report agreement with the behavioural model's predicted choice; the attribute columns report "
+            "recovery of its predicted-choice driver. Pooled across substantive conditions, held-out choice prediction was "
             f"{_fmt_ci(pooled['heldout_choice_prediction'], pooled['heldout_choice_prediction_ci_lo'], pooled['heldout_choice_prediction_ci_hi'])}, "
             "compared with "
             f"{_fmt_ci(pooled['self_report_revealed_driver'], pooled['self_report_revealed_driver_ci_lo'], pooled['self_report_revealed_driver_ci_hi'])} "
@@ -1651,12 +1665,13 @@ def _build_substantive_artifacts(
                 (
                     "heldout_choice_prediction",
                     "score_judge_predicts_actor_choice",
+                    "score_judge_choice_agreement_with_latent_choice",
                     "self_report_revealed_driver",
                     "score_judge_revealed_driver",
                 ),
             )
             if include_pairwise:
-                row = _attach_ci_fields(row, pair_samples, TABLE1_SUBSTANTIVE_METRICS[3:])
+                row = _attach_ci_fields(row, pair_samples, TABLE1_SUBSTANTIVE_METRICS[4:])
             rows.append(row)
 
             combined_samples = {}
@@ -2035,6 +2050,7 @@ def main() -> None:
         notes=[
             "Each row is one substantive theme x model-family x effort condition.",
             "Point estimates are paired with grouped-bootstrap 95% percentile intervals.",
+            "Score-based judge choice agreement compares the reconstructed judge choice with the behavioural model's predicted choice.",
         ],
     )
 

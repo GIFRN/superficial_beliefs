@@ -30,7 +30,7 @@
     "m0_driver_matches_stated_factor_rate": 0.6371458333333333,
     "m0_heldout_choice_accuracy": 0.8160208333333333,
     "m0_heldout_nll": 1.1516997975981493,
-    "m0_judge_choice_accuracy": 0.7344166666666666,
+    "m0_judge_choice_accuracy": 0.7830208333333334,
     "m0_judge_driver_matches_rate": 0.6497083333333332,
     "m0_m1_actor_conditioned_driver_agreement": 0.9804166666666667,
     "m0_m1_driver_agreement": 0.958375,
@@ -39,14 +39,14 @@
     "m1_driver_matches_stated_factor_rate": 0.637875,
     "m1_heldout_choice_accuracy": 0.8154791666666666,
     "m1_heldout_nll": 1.142382890023209,
-    "m1_judge_choice_accuracy": 0.7344166666666666,
+    "m1_judge_choice_accuracy": 0.7829375,
     "m1_judge_driver_matches_rate": 0.6554375,
     "m1_m2_actor_conditioned_driver_agreement": 0.9647083333333335,
     "m1_m2_driver_agreement": 0.945375,
     "m2_driver_matches_stated_factor_rate": 0.6332708333333332,
     "m2_heldout_choice_accuracy": 0.8155625000000001,
     "m2_heldout_nll": 1.148634741857223,
-    "m2_judge_choice_accuracy": 0.7344166666666666,
+    "m2_judge_choice_accuracy": 0.7823958333333333,
     "m2_judge_driver_matches_rate": 0.6473125
   }
 }

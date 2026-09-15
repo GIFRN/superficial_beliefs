@@ -2,12 +2,12 @@
 
 ## Panel A. Substantive Themes
 
-| row_label | heldout_choice_prediction | self_report_revealed_driver | score_judge_revealed_driver |
-| --- | --- | --- | --- |
-| Drugs | 0.779 [0.762, 0.795] | 0.574 [0.551, 0.599] | 0.633 [0.608, 0.655] |
-| Policy | 0.832 [0.817, 0.846] | 0.697 [0.673, 0.719] | 0.667 [0.644, 0.691] |
-| Software | 0.800 [0.786, 0.815] | 0.559 [0.536, 0.583] | 0.541 [0.518, 0.563] |
-| Pooled substantive | 0.804 [0.794, 0.812] | 0.610 [0.597, 0.624] | 0.613 [0.599, 0.628] |
+| row_label | heldout_choice_prediction | score_judge_choice_agreement_with_latent_choice | self_report_revealed_driver | score_judge_revealed_driver |
+| --- | --- | --- | --- | --- |
+| Drugs | 0.779 [0.762, 0.795] | 0.789 [0.767, 0.813] | 0.574 [0.551, 0.599] | 0.633 [0.608, 0.655] |
+| Policy | 0.832 [0.817, 0.846] | 0.768 [0.744, 0.793] | 0.697 [0.673, 0.719] | 0.667 [0.644, 0.691] |
+| Software | 0.800 [0.786, 0.815] | 0.744 [0.722, 0.766] | 0.559 [0.536, 0.583] | 0.541 [0.518, 0.563] |
+| Pooled substantive | 0.804 [0.794, 0.812] | 0.767 [0.754, 0.781] | 0.610 [0.597, 0.624] | 0.613 [0.599, 0.628] |
 
 ## Panel B. Placebo Falsification
 
@@ -19,4 +19,5 @@
 ## Notes
 
 - `Held-out choice prediction` is held-out actor-choice accuracy for the latent behavioural model.
-- The explicit columns report recovery of the behaviourally revealed driver.
+- Score-based judge choice agreement compares the reconstructed judge choice with the behavioural model's predicted choice.
+- The attribute columns report recovery of the behaviourally revealed driver.
