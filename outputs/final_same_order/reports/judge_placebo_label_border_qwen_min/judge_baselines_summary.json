@@ -1,13 +1,13 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.83,
-    "qe_vs_choice": 0.8416666666666667,
+    "dfq_vs_choice": 0.8516666666666667,
+    "qe_vs_choice": 0.8225,
     "tau_vs_choice": 0.8358333333333333
   },
   "alignment": {
     "dfq_driver_vs_premise": 0.6675,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.6675,
+    "qe_driver_vs_premise": 0.6566666666666666,
     "tau_driver_vs_premise": 0.6675
   },
   "argllm_semantics": {
@@ -15,36 +15,41 @@
     "conservativeness": 1.0
   },
   "behavioral_attribution": {},
-  "dfq_weight_correlation": 1.0,
+  "dfq_weight_correlation": 0.19999999999999998,
   "include_interactions": false,
-  "model": "local_qwen35_14b_vllm_minimal",
+  "model": "local_qwen3_14b_vllm_minimal",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
-  "qe_weight_correlation": 1.0,
+  "qe_weight_correlation": 0.39999999999999997,
   "reasoning_effort": "minimal",
   "stageA_weights": {
-    "A": 0.26745898735736445,
+    "A": 0.38852534696646174,
     "D": 0.0,
-    "E": 0.43894028499549026,
-    "S": 0.2936007276471454
+    "E": 0.3616269645480433,
+    "S": 0.24984768848549493
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.02887497333343944,
+      "mean_std": 0.014716712894337935,
       "median_std": 0.0
     },
     "D": {
-      "mean_std": 0.007794228634059947,
+      "mean_std": 0.005629165124598851,
       "median_std": 0.0
     },
     "E": {
-      "mean_std": 0.02809745872375464,
+      "mean_std": 0.011784549124408095,
       "median_std": 0.0
     },
     "S": {
-      "mean_std": 0.0367508491263862,
+      "mean_std": 0.010031460927169748,
       "median_std": 0.0
     }
   },
-  "tau_weight_correlation": 1.0
+  "tau_weight_correlation": 0.19999999999999998
 }

@@ -1,0 +1,87 @@
+{
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "behavioral_model": "m2",
+  "behavioral_model_name": "M2",
+  "coefficient_table": [],
+  "convergence_status": "cell_lookup_ok",
+  "cv_mean_nll_by_lambda": {
+    "0.5": 0.8159797518404031,
+    "1.0": 0.7955619815540023,
+    "10.0": 0.7442525688670946,
+    "100.0": 0.7413024522822655,
+    "2.0": 0.7762608476729554,
+    "20.0": 0.7390254756648357,
+    "5.0": 0.7549745777913259,
+    "50.0": 0.7389026023080412
+  },
+  "evaluation": {
+    "accuracy": 0.900625,
+    "brier": 0.04116461248363066,
+    "log_loss": 0.22210685541856454
+  },
+  "feature_columns": [
+    "delta_E",
+    "delta_A",
+    "delta_S",
+    "delta_D"
+  ],
+  "feature_info": {
+    "behavioral_model": "m2",
+    "canonical_attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "cell_columns": [
+      "delta_E",
+      "delta_A",
+      "delta_S",
+      "delta_D"
+    ],
+    "main": {
+      "A": {
+        "step1": "z_A_1",
+        "step2": "z_A_2"
+      },
+      "D": {
+        "step1": "z_D_1",
+        "step2": "z_D_2"
+      },
+      "E": {
+        "step1": "z_E_1",
+        "step2": "z_E_2"
+      },
+      "S": {
+        "step1": "z_S_1",
+        "step2": "z_S_2"
+      }
+    }
+  },
+  "fit_mode": "cell_lookup",
+  "include_interactions": false,
+  "lookup_table_path": "lookup_table.parquet",
+  "m1_convergence_status": "unpenalized_ok",
+  "m1_selected_ridge_lambda": 0.0,
+  "model": "openai_gpt5mini",
+  "model_bse": {},
+  "model_params": {},
+  "num_unique_observed_cells": 266,
+  "reasoning_effort": "low",
+  "selected_ridge_lambda": 0.0,
+  "selected_shrinkage_lambda": 50.0,
+  "train_nll": 0.6663205662556936
+}

@@ -1,10 +1,10 @@
 backends:
-  local_qwen35_14b_vllm_minimal:
+  local_qwen3_14b_vllm_minimal:
     type: vllm
     endpoint: http://127.0.0.1:8010/v1
-    model: qwen3_5_14b_local
-    temperature: 0.7
-    top_p: 0.8
+    model: qwen3_14b_local
+    temperature: 1.0
+    top_p: 0.95
     top_k: 20
     presence_penalty: 1.5
     max_tokens: 2048
@@ -12,6 +12,6 @@ backends:
       enable_thinking: false
     reasoning_effort: minimal
 sampling:
-  default_backend: local_qwen35_14b_vllm_minimal
+  default_backend: local_qwen3_14b_vllm_minimal
   S: 3
   seed: 17

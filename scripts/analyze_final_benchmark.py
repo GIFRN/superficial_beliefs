@@ -16,6 +16,7 @@ from src.analysis.final_benchmark import (
     dataset_dir,
     judge_dir,
     output_root,
+    pairwise_dir,
     resolve_run_dir,
     run_prefix,
     stagea_dir,
@@ -33,6 +34,7 @@ def main() -> None:
     parser.add_argument("--config", default="data/configs/dataset.yml")
     parser.add_argument("--themes", default=",".join(ALL_THEMES))
     parser.add_argument("--skip-judge-reports", action="store_true")
+    parser.add_argument("--include-pairwise-stepwise", action="store_true")
     parser.add_argument("--allow-missing", action="store_true")
     args = parser.parse_args()
 
@@ -78,6 +80,26 @@ def main() -> None:
                         str(judge_dir(theme, spec.tag, base=out_root)),
                     ]
                 )
+                if args.include_pairwise_stepwise:
+                    pair_run = resolve_run_dir(run_prefix(theme, "test", spec.tag, "pair", base=out_root))
+                    if pair_run is None:
+                        if args.allow_missing:
+                            print(f"skip missing pairwise run dir for {theme}/{spec.tag}")
+                        else:
+                            raise SystemExit(f"Missing pairwise run dir for {theme}/{spec.tag}")
+                    else:
+                        _run(
+                            [
+                                sys.executable,
+                                "scripts/analyze_judge_baselines.py",
+                                "--dataset",
+                                str(test_dataset),
+                                "--responses",
+                                str(pair_run / "responses.jsonl"),
+                                "--out",
+                                str(pairwise_dir(theme, spec.tag, base=out_root)),
+                            ]
+                        )
 
     _run([sys.executable, "scripts/build_final_results_tables.py", "--out-root", str(out_root)] + (["--allow-missing"] if args.allow_missing else []))
 

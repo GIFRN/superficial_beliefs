@@ -12,37 +12,37 @@ This report surfaces attribute-specific structure that is not visible in the hea
 ## Theme-Level Hotspots
 | theme | most_common_top_attr_label | top_actor_vs_linear_pair | top_actor_vs_judge_pair | linear_correct_judge_wrong_top_actor_attr | judge_correct_linear_wrong_top_actor_attr | worst_linear_match_attr | worst_linear_match_rate | worst_judge_match_attr | worst_judge_match_rate |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| drugs | Efficacy | Durability -> Efficacy | Durability -> Efficacy | Durability | Adherence | Safety | 0.308 | Durability | 0.061 |
-| policy | Effectiveness | Safety -> Effectiveness | Safety -> Effectiveness | Effectiveness | Safety | Implementation Ease | 0.222 | Implementation Ease | 0.040 |
-| software | Reliability | Adoption Ease -> Capability | Reliability -> Capability | Maintainability | Adoption Ease | Adoption Ease | 0.238 | Adoption Ease | 0.071 |
+| drugs | Efficacy | Durability -> Efficacy | Durability -> Efficacy | Efficacy | Durability | Safety | 0.307 | Durability | 0.092 |
+| policy | Effectiveness | Safety -> Effectiveness | Safety -> Effectiveness | Effectiveness | Safety | Implementation Ease | 0.333 | Implementation Ease | 0.055 |
+| software | Reliability | Reliability -> Capability | Reliability -> Capability | Reliability | Reliability | Adoption Ease | 0.231 | Adoption Ease | 0.022 |
 
 ## Stage A Weight Orders
 | theme | family | effort | top_attr_label | weight_order | weight_E | weight_A | weight_S | weight_D |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| drugs | GPT-5-mini | minimal | Efficacy | E>S>D>A | 0.406 | 0.168 | 0.241 | 0.185 |
-| drugs | GPT-5-mini | low | Efficacy | E>S>A>D | 0.340 | 0.197 | 0.299 | 0.164 |
-| drugs | GPT-5-nano | minimal | Efficacy | E>D>A>S | 0.413 | 0.186 | 0.180 | 0.221 |
-| drugs | GPT-5-nano | low | Safety | S>E>A>D | 0.268 | 0.225 | 0.288 | 0.219 |
-| drugs | Qwen3.5-14B | minimal | Efficacy | E>D>S>A | 0.319 | 0.202 | 0.232 | 0.246 |
-| drugs | Qwen3.5-14B | low | Efficacy | E>D>S>A | 0.318 | 0.202 | 0.233 | 0.247 |
-| drugs | Ministral-3-14B | minimal | Efficacy | E>S>A>D | 0.390 | 0.205 | 0.227 | 0.177 |
+| drugs | GPT-5-mini | minimal | Efficacy | E>S>D>A | 0.396 | 0.173 | 0.245 | 0.187 |
+| drugs | GPT-5-mini | low | Efficacy | E>S>A>D | 0.346 | 0.187 | 0.301 | 0.166 |
+| drugs | GPT-5-nano | minimal | Efficacy | E>D>A>S | 0.412 | 0.191 | 0.181 | 0.216 |
+| drugs | GPT-5-nano | low | Safety | S>E>A>D | 0.265 | 0.228 | 0.290 | 0.217 |
+| drugs | Qwen3-14B | minimal | Efficacy | E>A>D>S | 0.329 | 0.281 | 0.190 | 0.200 |
+| drugs | Qwen3-14B | low | Adherence | A>E>D>S | 0.291 | 0.307 | 0.184 | 0.218 |
+| drugs | Ministral-3-14B | minimal | Efficacy | E>S>A>D | 0.390 | 0.180 | 0.274 | 0.155 |
 | drugs | Ministral-3-14B | low | Efficacy | E>S>A>D | 0.390 | 0.205 | 0.227 | 0.177 |
-| policy | GPT-5-mini | minimal | Effectiveness | E>S>A>D | 0.468 | 0.184 | 0.263 | 0.085 |
-| policy | GPT-5-mini | low | Effectiveness | E>S>A>D | 0.449 | 0.220 | 0.276 | 0.054 |
-| policy | GPT-5-nano | minimal | Effectiveness | E>S>A>D | 0.433 | 0.184 | 0.206 | 0.177 |
-| policy | GPT-5-nano | low | Effectiveness | E>S>A>D | 0.449 | 0.185 | 0.288 | 0.078 |
-| policy | Qwen3.5-14B | minimal | Effectiveness | E>S>A>D | 0.450 | 0.215 | 0.243 | 0.091 |
-| policy | Qwen3.5-14B | low | Effectiveness | E>S>A>D | 0.450 | 0.216 | 0.242 | 0.092 |
-| policy | Ministral-3-14B | minimal | Effectiveness | E>S>A>D | 0.475 | 0.165 | 0.230 | 0.130 |
+| policy | GPT-5-mini | minimal | Effectiveness | E>S>A>D | 0.467 | 0.183 | 0.265 | 0.085 |
+| policy | GPT-5-mini | low | Effectiveness | E>S>A>D | 0.445 | 0.227 | 0.272 | 0.056 |
+| policy | GPT-5-nano | minimal | Effectiveness | E>S>A>D | 0.433 | 0.179 | 0.209 | 0.179 |
+| policy | GPT-5-nano | low | Effectiveness | E>S>A>D | 0.445 | 0.184 | 0.286 | 0.085 |
+| policy | Qwen3-14B | minimal | Effectiveness | E>A>S>D | 0.375 | 0.227 | 0.226 | 0.172 |
+| policy | Qwen3-14B | low | Effectiveness | E>S>A>D | 0.468 | 0.201 | 0.234 | 0.097 |
+| policy | Ministral-3-14B | minimal | Effectiveness | E>S>A>D | 0.449 | 0.154 | 0.294 | 0.104 |
 | policy | Ministral-3-14B | low | Effectiveness | E>S>A>D | 0.475 | 0.165 | 0.230 | 0.130 |
-| software | GPT-5-mini | minimal | Reliability | S>E>D>A | 0.255 | 0.152 | 0.340 | 0.253 |
-| software | GPT-5-mini | low | Reliability | S>D>A>E | 0.071 | 0.100 | 0.426 | 0.404 |
-| software | GPT-5-nano | minimal | Capability | E>S>A>D | 0.298 | 0.221 | 0.272 | 0.210 |
-| software | GPT-5-nano | low | Reliability | S>D>E>A | 0.213 | 0.182 | 0.346 | 0.259 |
-| software | Qwen3.5-14B | minimal | Capability | E>S>D>A | 0.328 | 0.160 | 0.272 | 0.241 |
-| software | Qwen3.5-14B | low | Capability | E>S>D>A | 0.327 | 0.160 | 0.270 | 0.242 |
-| software | Ministral-3-14B | minimal | Reliability | S>E>D>A | 0.285 | 0.153 | 0.340 | 0.222 |
-| software | Ministral-3-14B | low | Reliability | S>E>D>A | 0.288 | 0.150 | 0.339 | 0.223 |
+| software | GPT-5-mini | minimal | Reliability | S>E>D>A | 0.259 | 0.155 | 0.336 | 0.251 |
+| software | GPT-5-mini | low | Reliability | S>D>A>E | 0.074 | 0.101 | 0.427 | 0.398 |
+| software | GPT-5-nano | minimal | Capability | E>S>A>D | 0.302 | 0.220 | 0.265 | 0.213 |
+| software | GPT-5-nano | low | Reliability | S>D>E>A | 0.216 | 0.179 | 0.348 | 0.256 |
+| software | Qwen3-14B | minimal | Capability | E>S>A>D | 0.293 | 0.218 | 0.274 | 0.216 |
+| software | Qwen3-14B | low | Reliability | S>D>E>A | 0.217 | 0.131 | 0.354 | 0.299 |
+| software | Ministral-3-14B | minimal | Reliability | S>E>D>A | 0.325 | 0.114 | 0.352 | 0.209 |
+| software | Ministral-3-14B | low | Reliability | S>E>D>A | 0.285 | 0.153 | 0.340 | 0.222 |
 
 ## Files
 - `outputs/final_same_order/reports/FINAL_ATTRIBUTE_LEVEL_RESULTS_CONDITIONALS.csv`

@@ -1,14 +1,14 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.6258333333333334,
-    "qe_vs_choice": 0.65,
-    "tau_vs_choice": 0.6491666666666667
+    "dfq_vs_choice": 0.6375,
+    "qe_vs_choice": 0.6366666666666667,
+    "tau_vs_choice": 0.6433333333333333
   },
   "alignment": {
-    "dfq_driver_vs_premise": 0.47833333333333333,
+    "dfq_driver_vs_premise": 0.5025,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.47833333333333333,
-    "tau_driver_vs_premise": 0.4791666666666667
+    "qe_driver_vs_premise": 0.5025,
+    "tau_driver_vs_premise": 0.5025
   },
   "argllm_semantics": {
     "claim_base_score": 0.5,
@@ -18,32 +18,37 @@
   "dfq_weight_correlation": 1.0,
   "include_interactions": false,
   "model": "local_ministral3_14b_reasoning_vllm_low",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
   "qe_weight_correlation": 1.0,
   "reasoning_effort": "low",
   "stageA_weights": {
-    "A": 0.14951143740647954,
-    "D": 0.11918183469724228,
-    "E": 0.47297941358278156,
-    "S": 0.2583273143134966
+    "A": 0.1962531478166322,
+    "D": 0.15140480695572758,
+    "E": 0.41060498123515526,
+    "S": 0.2417370639924849
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.14977417388397427,
-      "median_std": 0.15275252316519464
+      "mean_std": 0.13950060835972955,
+      "median_std": 0.11547005383792516
     },
     "D": {
-      "mean_std": 0.12758759561792377,
-      "median_std": 0.1
+      "mean_std": 0.1282772376669702,
+      "median_std": 0.10000000000000003
     },
     "E": {
-      "mean_std": 0.12163994364538028,
-      "median_std": 0.10977667690561588
+      "mean_std": 0.10980793443659188,
+      "median_std": 0.10000000000000002
     },
     "S": {
-      "mean_std": 0.16801506763923732,
-      "median_std": 0.15275252316519466
+      "mean_std": 0.14315210594196418,
+      "median_std": 0.11547005383792516
     }
   },
   "tau_weight_correlation": 1.0

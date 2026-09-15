@@ -1,0 +1,64 @@
+{
+  "actual_total": 400,
+  "blocks": {
+    "B3": 400
+  },
+  "n_configs": 73,
+  "n_trials": 400,
+  "source_configs_filename": "dataset_configs.parquet",
+  "source_dataset": "<REPO_ROOT>/data/test",
+  "source_theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Durability",
+        "name": "D"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs",
+    "objective": "5-year overall patient outcome"
+  },
+  "source_trials_filename": "full_trials.parquet",
+  "target_total": 400,
+  "theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Packaging Symmetry",
+        "name": "PS"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs_placebo_packaging",
+    "objective": "5-year overall patient outcome"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "actual_total": 1600,
+  "blocks": {
+    "B3": 1600
+  },
+  "n_configs": 294,
+  "n_trials": 1600,
+  "source_configs_filename": "dataset_configs.parquet",
+  "source_dataset": "<REPO_ROOT>/data/train",
+  "source_theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Durability",
+        "name": "D"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs",
+    "objective": "5-year overall patient outcome"
+  },
+  "source_trials_filename": "full_trials.parquet",
+  "target_total": 1600,
+  "theme": {
+    "attributes": {
+      "A": {
+        "label": "Adherence",
+        "name": "A"
+      },
+      "D": {
+        "label": "Label Border Thickness",
+        "name": "LBT"
+      },
+      "E": {
+        "label": "Efficacy",
+        "name": "E"
+      },
+      "S": {
+        "label": "Safety",
+        "name": "S"
+      }
+    },
+    "entities": [
+      "Drug A",
+      "Drug B"
+    ],
+    "name": "drugs_placebo_label_border",
+    "objective": "5-year overall patient outcome"
+  }
+}

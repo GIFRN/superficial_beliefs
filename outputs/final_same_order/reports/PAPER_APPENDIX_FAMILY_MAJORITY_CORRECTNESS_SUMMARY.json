@@ -1,0 +1,74 @@
+{
+  "generated_at_utc": "2026-03-26T14:16:34.202532+00:00",
+  "rows": [
+    {
+      "row_label": "Drugs",
+      "n_cells": 8,
+      "actor_choice_family_majority_correct_rate": 0.83625,
+      "actor_choice_family_majority_correct_rate_ci_lo": 0.81184375,
+      "actor_choice_family_majority_correct_rate_ci_hi": 0.8612500000000001,
+      "self_report_driver_family_majority_correct_rate": 0.5275,
+      "self_report_driver_family_majority_correct_rate_ci_lo": 0.49684375000000003,
+      "self_report_driver_family_majority_correct_rate_ci_hi": 0.56,
+      "score_judge_choice_family_majority_correct_rate": 0.77125,
+      "score_judge_choice_family_majority_correct_rate_ci_lo": 0.74375,
+      "score_judge_choice_family_majority_correct_rate_ci_hi": 0.80125,
+      "score_judge_driver_family_majority_correct_rate": 0.5825,
+      "score_judge_driver_family_majority_correct_rate_ci_lo": 0.55,
+      "score_judge_driver_family_majority_correct_rate_ci_hi": 0.61625
+    },
+    {
+      "row_label": "Policy",
+      "n_cells": 8,
+      "actor_choice_family_majority_correct_rate": 0.895,
+      "actor_choice_family_majority_correct_rate_ci_lo": 0.8736875000000001,
+      "actor_choice_family_majority_correct_rate_ci_hi": 0.91625,
+      "self_report_driver_family_majority_correct_rate": 0.68125,
+      "self_report_driver_family_majority_correct_rate_ci_lo": 0.65309375,
+      "self_report_driver_family_majority_correct_rate_ci_hi": 0.71,
+      "score_judge_choice_family_majority_correct_rate": 0.75875,
+      "score_judge_choice_family_majority_correct_rate_ci_lo": 0.72875,
+      "score_judge_choice_family_majority_correct_rate_ci_hi": 0.78625,
+      "score_judge_driver_family_majority_correct_rate": 0.635,
+      "score_judge_driver_family_majority_correct_rate_ci_lo": 0.6025,
+      "score_judge_driver_family_majority_correct_rate_ci_hi": 0.665
+    },
+    {
+      "row_label": "Software",
+      "n_cells": 8,
+      "actor_choice_family_majority_correct_rate": 0.87875,
+      "actor_choice_family_majority_correct_rate_ci_lo": 0.85625,
+      "actor_choice_family_majority_correct_rate_ci_hi": 0.9,
+      "self_report_driver_family_majority_correct_rate": 0.5075000000000001,
+      "self_report_driver_family_majority_correct_rate_ci_lo": 0.47625,
+      "self_report_driver_family_majority_correct_rate_ci_hi": 0.53875,
+      "score_judge_choice_family_majority_correct_rate": 0.68375,
+      "score_judge_choice_family_majority_correct_rate_ci_lo": 0.65125,
+      "score_judge_choice_family_majority_correct_rate_ci_hi": 0.71565625,
+      "score_judge_driver_family_majority_correct_rate": 0.47500000000000003,
+      "score_judge_driver_family_majority_correct_rate_ci_lo": 0.44309375,
+      "score_judge_driver_family_majority_correct_rate_ci_hi": 0.50375
+    },
+    {
+      "row_label": "Pooled substantive",
+      "n_cells": 24,
+      "actor_choice_family_majority_correct_rate": 0.87,
+      "actor_choice_family_majority_correct_rate_ci_lo": 0.8583333333333334,
+      "actor_choice_family_majority_correct_rate_ci_hi": 0.8820833333333333,
+      "self_report_driver_family_majority_correct_rate": 0.5720833333333334,
+      "self_report_driver_family_majority_correct_rate_ci_lo": 0.5543645833333334,
+      "self_report_driver_family_majority_correct_rate_ci_hi": 0.5920833333333333,
+      "score_judge_choice_family_majority_correct_rate": 0.7379166666666667,
+      "score_judge_choice_family_majority_correct_rate_ci_lo": 0.7203958333333333,
+      "score_judge_choice_family_majority_correct_rate_ci_hi": 0.7552187499999999,
+      "score_judge_driver_family_majority_correct_rate": 0.5641666666666667,
+      "score_judge_driver_family_majority_correct_rate_ci_lo": 0.5449791666666667,
+      "score_judge_driver_family_majority_correct_rate_ci_hi": 0.5825
+    }
+  ],
+  "notes": [
+    "Majority correctness is computed at the base-family level over 12 draws: 4 prompt variants x 3 samples.",
+    "A family counts as majority-correct when more than half of its valid draws are correct relative to the row-level latent or revealed target.",
+    "For choice metrics, correctness uses canonicalized underlying profiles rather than raw A/B labels."
+  ]
+}

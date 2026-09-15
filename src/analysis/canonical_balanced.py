@@ -180,11 +180,19 @@ def build_balanced_eval_frame_from_model(
     eval_df = add_tau_predictions(responses_df, trials_df)
     eval_df["trial_id"] = eval_df["trial_id"].astype(str)
     eval_df = eval_df.merge(trial_preds, on="trial_id", how="left")
-    eval_df["linear_model_factor"] = np.where(
+    # Preserve the legacy actor-side driver for diagnostics, but anchor the
+    # reported latent driver to the model's predicted side.
+    eval_df["linear_model_factor_actor_side"] = np.where(
         eval_df["choice"] == "A",
         eval_df["driver_A"],
         np.where(eval_df["choice"] == "B", eval_df["driver_B"], None),
     )
+    eval_df["linear_model_factor"] = np.where(
+        eval_df["linear_model_pred_choice"] == "A",
+        eval_df["driver_A"],
+        np.where(eval_df["linear_model_pred_choice"] == "B", eval_df["driver_B"], None),
+    )
+    eval_df["linear_model_factor_predicted_side"] = eval_df["linear_model_factor"]
     return eval_df, stagea_df
 
 

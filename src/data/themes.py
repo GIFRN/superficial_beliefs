@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Literal
+from typing import Any, Dict
 
 import yaml
 
@@ -38,11 +38,9 @@ class ThemeConfig:
         if not self.attributes:
             raise ValueError("Theme must have at least one attribute mapping")
         
-        # Validate that all attribute keys are valid
-        valid_attrs = set(ATTR_LABELS.keys())
         for attr in self.attributes.keys():
-            if attr not in valid_attrs:
-                raise ValueError(f"Invalid attribute key: {attr}. Must be one of {valid_attrs}")
+            if not attr:
+                raise ValueError("Theme attribute keys cannot be empty")
 
     @property
     def entity_a(self) -> str:
@@ -180,4 +178,3 @@ def get_theme(theme_name_or_path: str) -> ThemeConfig:
     
     raise ValueError(f"Theme not found: {theme_name_or_path}. "
                      f"Available built-in themes: {list(BUILTIN_THEMES.keys())}")
-

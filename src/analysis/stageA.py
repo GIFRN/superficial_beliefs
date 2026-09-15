@@ -37,7 +37,7 @@ def build_design_matrix(
     filtered = df[df["trials"] > 0].copy()
     
     # Exclude B1 trials from weight estimation (B1 is for rationality check only)
-    if exclude_b1:
+    if exclude_b1 and "block" in filtered.columns:
         filtered = filtered[filtered["block"] != "B1"]
     
     if filtered.empty:

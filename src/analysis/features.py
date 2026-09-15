@@ -18,6 +18,14 @@ def load_responses(path: str | Path) -> pd.DataFrame:
                 tau_ok = False
                 tau_missing: list[str] = []
                 pair_values = {"EA": None, "ES": None, "ED": None, "AS": None, "AD": None, "SD": None}
+                pair_step_values = {
+                    "EA": {"forward": None, "reverse": None},
+                    "ES": {"forward": None, "reverse": None},
+                    "ED": {"forward": None, "reverse": None},
+                    "AS": {"forward": None, "reverse": None},
+                    "AD": {"forward": None, "reverse": None},
+                    "SD": {"forward": None, "reverse": None},
+                }
                 pairwise_ok = False
                 pairwise_missing: list[str] = []
                 record = {
@@ -97,10 +105,39 @@ def load_responses(path: str | Path) -> pd.DataFrame:
                             if missing not in pairwise_missing:
                                 pairwise_missing.append(missing)
                     if "winner" in parsed and name.startswith("judge_pair_"):
-                        pairwise_ok = pairwise_ok or bool(parsed.get("ok", False))
-                        pair = name.split("judge_pair_", 1)[-1]
+                        suffix = name.split("judge_pair_", 1)[-1]
+                        orientation = "forward"
+                        pair = suffix
+                        if suffix.endswith("_forward"):
+                            pair = suffix[: -len("_forward")]
+                        elif suffix.endswith("_reverse"):
+                            pair = suffix[: -len("_reverse")]
+                            orientation = "reverse"
                         if pair in pair_values:
-                            pair_values[pair] = parsed.get("winner")
+                            if suffix != pair:
+                                pair_step_values[pair][orientation] = parsed.get("winner")
+                            else:
+                                pair_values[pair] = parsed.get("winner")
+                                pairwise_ok = pairwise_ok or bool(parsed.get("ok", False))
+
+                mirror_inconsistent_pairs: list[str] = []
+                mirror_complete_pairs: list[str] = []
+                for pair, values in pair_step_values.items():
+                    forward = values["forward"]
+                    reverse = values["reverse"]
+                    if forward is None and reverse is None:
+                        continue
+                    if forward is not None and reverse is not None:
+                        mirror_complete_pairs.append(pair)
+                        if forward == reverse:
+                            pair_values[pair] = forward
+                        else:
+                            mirror_inconsistent_pairs.append(pair)
+                    else:
+                        pair_values[pair] = forward if forward is not None else reverse
+
+                if mirror_complete_pairs:
+                    pairwise_ok = pairwise_ok or (len(mirror_complete_pairs) == len(pair_values) and not mirror_inconsistent_pairs)
 
                 for attr, value in tau_values.items():
                     record[f"tau_{attr}"] = value
@@ -110,6 +147,9 @@ def load_responses(path: str | Path) -> pd.DataFrame:
                     record[f"pair_{pair}"] = value
                 record["pairwise_ok"] = pairwise_ok
                 record["pairwise_missing"] = pairwise_missing
+                record["pairwise_mirror_complete"] = len(mirror_complete_pairs) == len(pair_values)
+                record["pairwise_mirror_inconsistent_pairs"] = mirror_inconsistent_pairs
+                record["pairwise_mirror_consistent"] = bool(mirror_complete_pairs) and not mirror_inconsistent_pairs
                 records.append(record)
     return pd.DataFrame(records)
 

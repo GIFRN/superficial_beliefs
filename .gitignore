@@ -1,93 +1,30 @@
-# Python
+# Python and local environments
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-*.egg
 *.egg-info/
-dist/
-build/
-*.pyd
-
-# Virtual Environments
 .venv/
 venv/
-ENV/
-env/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-.DS_Store
-
-# Jupyter Notebook
-.ipynb_checkpoints/
-
-# Old / archived directories
-data_old/
-results_old/
-
-# Junk files
-DDDDDD
-
-# Results and Generated Data
-/results/
-data/runs/
-data/generated/
-
-# Binary data formats (global)
-*.parquet
-*.jsonl
-
-# Allow all data in artifacts/ (versioned experiment snapshots)
-!artifacts/**/*.parquet
-!artifacts/**/*.jsonl
-!artifacts/**/*.log
-
-# Allow binary data in data/splits/ (holdout splits for reproducibility)
-!data/splits/**/*.parquet
-!data/splits/**/*.jsonl
-
-# Model files and cache
+build/
+dist/
 .cache/
-*.sav
-*.pkl
-*.pickle
-*.h5
-*.pt
-*.pth
-*.ckpt
-
-# Environment variables
-.env
-.env.local
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Test coverage
+.pytest_cache/
 .coverage
 htmlcov/
-.pytest_cache/
 
-# Logs
+# Credentials and local editor files
+.env
+.env.*
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# New inference runs and temporary outputs
+outputs/**/runs/
+outputs/**/logs/
+data/runs/
+data/generated/
+/results/
 *.log
-.nfs*
-outputs/final_same_order/logs/
-outputs/final_same_order/runs/
-outputs/final_same_order/results/
-outputs/final_same_order/datasets/
-outputs/occlusion_suite_drugs_mini_min/runs/
-outputs/occlusion_suite_drugs_mini_min/results/
-outputs/occlusion_suite_drugs_mini_min/reports/judge_baselines/
-outputs/occlusion_suite_drugs_mini_min/reports/occlusion_suite_current_run/
-outputs/occlusion_suite_drugs_mini_min/reports/occlusion_suite_extra/
-
-# Temporary files
 *.tmp
 *.bak
-*.swp

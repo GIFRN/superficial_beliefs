@@ -1,0 +1,113 @@
+{
+  "AME": {
+    "A": 0.7399899007032535,
+    "D": 0.09661041390451403,
+    "E": 1.471488987136951,
+    "S": 0.9590620021358595
+  },
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "beta": {
+    "A": 0.7399899007032535,
+    "D": 0.09661041390451403,
+    "E": 1.471488987136951,
+    "S": 0.9590620021358595
+  },
+  "cv": {
+    "accuracy": 0.8117689255189255,
+    "brier": 0.06687649558915683,
+    "log_loss": 0.47343327696344756
+  },
+  "evaluation": {
+    "accuracy": 0.81125,
+    "brier": 0.06634000988791072,
+    "log_loss": 0.4722725035501592
+  },
+  "feature_columns": [
+    "Intercept",
+    "diff_E",
+    "diff_A",
+    "diff_S",
+    "diff_D",
+    "order_E",
+    "order_x_E",
+    "order_A",
+    "order_x_A",
+    "order_S",
+    "order_x_S",
+    "order_D",
+    "order_x_D"
+  ],
+  "feature_info": {
+    "interactions": {},
+    "main": {
+      "A": "diff_A",
+      "D": "diff_D",
+      "E": "diff_E",
+      "S": "diff_S"
+    },
+    "order_bias": {
+      "A": "order_A",
+      "D": "order_D",
+      "E": "order_E",
+      "S": "order_S"
+    },
+    "order_interactions": {
+      "A": "order_x_A",
+      "D": "order_x_D",
+      "E": "order_x_E",
+      "S": "order_x_S"
+    }
+  },
+  "include_interactions": false,
+  "model": "local_ministral3_14b_instruct_vllm_minimal",
+  "model_bse": {
+    "Intercept": 0.039356971463818974,
+    "diff_A": 0.041025629398028216,
+    "diff_D": 0.03565933049762647,
+    "diff_E": 0.04943320235911675,
+    "diff_S": 0.043370514895542035,
+    "order_A": 0.0,
+    "order_D": 0.0,
+    "order_E": 0.0,
+    "order_S": 0.0,
+    "order_x_A": 0.0,
+    "order_x_D": 0.0,
+    "order_x_E": 0.0,
+    "order_x_S": 0.0
+  },
+  "model_params": {
+    "Intercept": -0.8845176275349926,
+    "diff_A": 0.7399899007032535,
+    "diff_D": 0.09661041390451403,
+    "diff_E": 1.471488987136951,
+    "diff_S": 0.9590620021358595,
+    "order_A": 0.0,
+    "order_D": 0.0,
+    "order_E": 0.0,
+    "order_S": 0.0,
+    "order_x_A": 0.0,
+    "order_x_D": 0.0,
+    "order_x_E": 0.0,
+    "order_x_S": 0.0
+  },
+  "reasoning_effort": "minimal",
+  "weights": {
+    "A": 0.2264939183637826,
+    "D": 0.029570229511490465,
+    "E": 0.4503889934295915,
+    "S": 0.2935468586951354
+  }
+}

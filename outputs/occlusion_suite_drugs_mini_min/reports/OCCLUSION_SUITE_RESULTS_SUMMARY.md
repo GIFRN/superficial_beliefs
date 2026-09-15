@@ -30,13 +30,13 @@ The intervention target counts are balanced across attributes, and the released 
 
 ## Headline Results
 
-- baseline-only Stage A accuracy: `0.917`
-- full Stage A evaluation accuracy: `0.897`
-- Stage B top-driver alignment: `0.837`
-- Stage B weight alignment: `0.413`
+- baseline-only Stage A accuracy: `0.925`
+- full Stage A evaluation accuracy: `0.898`
+- Stage B top-driver alignment: `0.834`
+- Stage B weight alignment: `0.418`
 - Stage B rank correlation: `0.800`
-- judge choice agreement: `0.836`
-- judge driver-vs-premise alignment: `0.675`
+- judge choice agreement: `0.834`
+- judge driver-vs-premise alignment: `0.690`
 
 ## Intervention Pattern
 
@@ -46,13 +46,13 @@ The intervention target counts are balanced across attributes, and the released 
 
 Choice-flip rates:
 
-- `occlude_drop`: `E 0.537`, `D 0.223`, `S 0.235`, `A 0.145`
-- `occlude_equalize`: `E 0.517`, `D 0.195`, `S 0.217`, `A 0.113`
+- `occlude_drop`: `E 0.520`, `D 0.228`, `S 0.215`, `A 0.142`
+- `occlude_equalize`: `E 0.515`, `D 0.203`, `S 0.228`, `A 0.110`
 
 Premise-flip rates:
 
-- `occlude_drop`: `E 0.655`, `D 0.315`, `S 0.360`, `A 0.307`
-- `occlude_equalize`: `E 0.620`, `D 0.292`, `S 0.310`, `A 0.260`
+- `occlude_drop`: `E 0.645`, `D 0.318`, `S 0.367`, `A 0.273`
+- `occlude_equalize`: `E 0.625`, `D 0.312`, `S 0.328`, `A 0.237`
 
 ## File
 

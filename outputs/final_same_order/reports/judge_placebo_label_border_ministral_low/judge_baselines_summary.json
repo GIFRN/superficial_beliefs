@@ -1,14 +1,14 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.6758333333333333,
-    "qe_vs_choice": 0.6741666666666667,
-    "tau_vs_choice": 0.6775
+    "dfq_vs_choice": 0.6783333333333333,
+    "qe_vs_choice": 0.6583333333333333,
+    "tau_vs_choice": 0.6616666666666666
   },
   "alignment": {
-    "dfq_driver_vs_premise": 0.4975,
+    "dfq_driver_vs_premise": 0.5333333333333333,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.4975,
-    "tau_driver_vs_premise": 0.4975
+    "qe_driver_vs_premise": 0.5325,
+    "tau_driver_vs_premise": 0.5333333333333333
   },
   "argllm_semantics": {
     "claim_base_score": 0.5,
@@ -18,31 +18,36 @@
   "dfq_weight_correlation": 0.7999999999999999,
   "include_interactions": false,
   "model": "local_ministral3_14b_reasoning_vllm_low",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
   "qe_weight_correlation": 0.7999999999999999,
   "reasoning_effort": "low",
   "stageA_weights": {
-    "A": 0.29937739818599,
+    "A": 0.30159765890600354,
     "D": 0.0,
-    "E": 0.4094404488296121,
-    "S": 0.29118215298439787
+    "E": 0.4075486958491405,
+    "S": 0.290853645244856
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.1357094843692117,
-      "median_std": 0.11547005383792516
+      "mean_std": 0.1271655075739311,
+      "median_std": 0.11547005383792512
     },
     "D": {
-      "mean_std": 0.03945261751278894,
+      "mean_std": 0.047430032985027556,
       "median_std": 0.05773502691896258
     },
     "E": {
-      "mean_std": 0.11223179300745462,
-      "median_std": 0.10000000000000002
+      "mean_std": 0.11733214362864863,
+      "median_std": 0.10000000000000006
     },
     "S": {
-      "mean_std": 0.12879172915932677,
+      "mean_std": 0.1334948222260321,
       "median_std": 0.11547005383792512
     }
   },

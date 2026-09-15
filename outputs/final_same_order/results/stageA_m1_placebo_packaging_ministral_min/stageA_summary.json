@@ -1,0 +1,138 @@
+{
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "behavioral_model": "m1",
+  "behavioral_model_name": "M1",
+  "coefficient_table": [
+    {
+      "coefficient": -0.6942510923382548,
+      "feature": "Intercept",
+      "standard_error": 0.039009902632980445
+    },
+    {
+      "coefficient": 1.6133029475377143,
+      "feature": "z_E_1",
+      "standard_error": 0.06840712591094443
+    },
+    {
+      "coefficient": 3.022279148173469,
+      "feature": "z_E_2",
+      "standard_error": 0.11487708580776744
+    },
+    {
+      "coefficient": 0.8754082046406326,
+      "feature": "z_A_1",
+      "standard_error": 0.06198813185618235
+    },
+    {
+      "coefficient": 1.7273906188506714,
+      "feature": "z_A_2",
+      "standard_error": 0.09574437795928367
+    },
+    {
+      "coefficient": 1.0555448561328387,
+      "feature": "z_S_1",
+      "standard_error": 0.06489177604877054
+    },
+    {
+      "coefficient": 2.0420206201137208,
+      "feature": "z_S_2",
+      "standard_error": 0.09737486097156098
+    },
+    {
+      "coefficient": -0.06244133392703878,
+      "feature": "z_D_1",
+      "standard_error": 0.05535666388302412
+    },
+    {
+      "coefficient": -0.027767583422445452,
+      "feature": "z_D_2",
+      "standard_error": 0.08563560520056725
+    }
+  ],
+  "convergence_status": "unpenalized_ok",
+  "cv_mean_nll_by_lambda": {},
+  "evaluation": {
+    "accuracy": 0.80875,
+    "brier": 0.0699451945202332,
+    "log_loss": 0.4614695425597689
+  },
+  "feature_columns": [
+    "Intercept",
+    "z_E_1",
+    "z_E_2",
+    "z_A_1",
+    "z_A_2",
+    "z_S_1",
+    "z_S_2",
+    "z_D_1",
+    "z_D_2"
+  ],
+  "feature_info": {
+    "behavioral_model": "m1",
+    "canonical_attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "main": {
+      "A": {
+        "step1": "z_A_1",
+        "step2": "z_A_2"
+      },
+      "D": {
+        "step1": "z_D_1",
+        "step2": "z_D_2"
+      },
+      "E": {
+        "step1": "z_E_1",
+        "step2": "z_E_2"
+      },
+      "S": {
+        "step1": "z_S_1",
+        "step2": "z_S_2"
+      }
+    }
+  },
+  "fit_mode": "unpenalized",
+  "include_interactions": false,
+  "model": "local_ministral3_14b_instruct_vllm_minimal",
+  "model_bse": {
+    "Intercept": 0.039009902632980445,
+    "z_A_1": 0.06198813185618235,
+    "z_A_2": 0.09574437795928367,
+    "z_D_1": 0.05535666388302412,
+    "z_D_2": 0.08563560520056725,
+    "z_E_1": 0.06840712591094443,
+    "z_E_2": 0.11487708580776744,
+    "z_S_1": 0.06489177604877054,
+    "z_S_2": 0.09737486097156098
+  },
+  "model_params": {
+    "Intercept": -0.6942510923382548,
+    "z_A_1": 0.8754082046406326,
+    "z_A_2": 1.7273906188506714,
+    "z_D_1": -0.06244133392703878,
+    "z_D_2": -0.027767583422445452,
+    "z_E_1": 1.6133029475377143,
+    "z_E_2": 3.022279148173469,
+    "z_S_1": 1.0555448561328387,
+    "z_S_2": 2.0420206201137208
+  },
+  "reasoning_effort": "minimal",
+  "selected_ridge_lambda": 0.0,
+  "train_nll": 1.3844086276793066
+}

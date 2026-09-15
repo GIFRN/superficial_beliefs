@@ -6,6 +6,8 @@ import json
 import sys
 from pathlib import Path
 
+import numpy as np
+
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -13,15 +15,15 @@ if str(ROOT) not in sys.path:
 
 import pandas as pd
 
-from src.analysis.cv import cross_validate_design
+from src.analysis.behavioral_models import (
+    fit_behavioral_model,
+    m0_weights_from_model,
+)
+from src.analysis.cv import _metric_bundle, cross_validate_design
 from src.analysis.diagnostics import evaluate_model, validate_b1_rationality, validate_b1_probes
 from src.analysis.features import aggregate_choices, load_responses, prepare_stageA_data
 from src.analysis.stageA import (
-    build_design_matrix,
-    compute_ames_and_weights,
-    fit_glm_clustered,
     fit_stageA_with_validation,
-    per_trial_contributions,
 )
 from src.utils.config import load_config
 from src.utils.io import ensure_dir, write_json
@@ -34,6 +36,7 @@ def main() -> None:
     parser.add_argument("--responses", default="data/runs/v1_short_openai_gpt5mini_high/responses.jsonl", help="Path to responses JSONL file")
     parser.add_argument("--out", default=None, help="Output directory for Stage A fit (auto-generated if not specified)")
     parser.add_argument("--interactions", action="store_true", help="Include pairwise interactions")
+    parser.add_argument("--behavioral-model", choices=["m0", "m1", "m2"], default="m0", help="Behavioral model variant to fit")
     parser.add_argument("--no-fit", action="store_true", help="Do not fit a model; just materialize stageA_design.parquet")
     args = parser.parse_args()
 
@@ -57,6 +60,8 @@ def main() -> None:
     # Construct output directory name if not specified
     if args.out is None:
         suffix = "_interactions" if args.interactions else ""
+        if args.behavioral_model != "m0":
+            suffix = f"{suffix}_{args.behavioral_model}"
         # Include reasoning effort if present
         if reasoning_effort:
             out_dirname = f"stage_A_{model_name}_{reasoning_effort}{suffix}"
@@ -68,6 +73,7 @@ def main() -> None:
     if reasoning_effort:
         print(f"Reasoning effort: {reasoning_effort}")
     print(f"Interactions: {'enabled' if args.interactions else 'disabled'}")
+    print(f"Behavioral model: {args.behavioral_model}")
     print(f"Output directory: {args.out}")
     
     # Perform B1 validation
@@ -99,49 +105,156 @@ def main() -> None:
         stageA_df.to_parquet(stageA_path, index=False)
         summary = {
             "model": model_name,
+            "behavioral_model": args.behavioral_model,
+            "behavioral_model_name": args.behavioral_model.upper(),
             "include_interactions": args.interactions,
             "b1_validation": b1_validation,
             "b1_probes": b1_probes,
             "note": "no_fit=True: stageA_design.parquet materialized without fitting.",
         }
     else:
-        stageA_result = fit_stageA_with_validation(trials_df, choice_agg, include_interactions=args.interactions)
+        if args.behavioral_model in {"m1", "m2"} and args.interactions:
+            raise SystemExit(f"{args.behavioral_model.upper()} does not support --interactions")
 
-        model = stageA_result["model"]
-        design = stageA_result["design_matrix"]
-        weights_info = stageA_result["ames_weights"]
-        contributions = stageA_result["contributions"]
-        stageA_df = stageA_result["stageA_data"]
+        if args.behavioral_model == "m0" and args.interactions:
+            stageA_result = fit_stageA_with_validation(trials_df, choice_agg, include_interactions=True)
 
-        cv_metrics = cross_validate_design(design)
-        eval_metrics = evaluate_model(model, design)
+            legacy_model = stageA_result["model"]
+            design = stageA_result["design_matrix"]
+            weights_info = stageA_result["ames_weights"]
+            contributions = stageA_result["contributions"].copy()
+            stageA_df = stageA_result["stageA_data"].copy()
 
-        contributions = contributions.reset_index().rename(columns={"index": "trial_id"})
-        predictions = model.predict(design.X)
-        stageA_df = stageA_df.copy()
-        stageA_df["predicted_prob"] = predictions
+            cv_metrics = cross_validate_design(design)
+            eval_metrics = evaluate_model(legacy_model, design)
 
-        contributions_path = out_dir / "stageA_contributions.parquet"
-        contributions.to_parquet(contributions_path, index=False)
-        stageA_df.to_parquet(stageA_path, index=False)
+            contributions.insert(0, "trial_id", stageA_df.loc[contributions.index, "trial_id"].astype(str).to_numpy())
+            predictions = legacy_model.predict(design.X)
+            stageA_df.loc[design.X.index, "predicted_prob"] = predictions
 
-        summary = {
-            "model": model_name,
-            "include_interactions": args.interactions,
-            "weights": weights_info["weights"],
-            "beta": weights_info["beta"],
-            "AME": weights_info["AME"],
-            "cv": cv_metrics,
-            "evaluation": eval_metrics,
-            "b1_validation": b1_validation,
-            "b1_probes": b1_probes,
-            # Persist model parameters so Stage B can evaluate on held-out splits without refitting.
-            "model_params": {k: float(v) for k, v in model.params.items()},
-            "model_bse": {k: float(v) for k, v in model.bse.items()},
-            "feature_columns": list(design.X.columns),
-            "feature_info": design.feature_info,
-        }
-    
+            contributions_path = out_dir / "stageA_contributions.parquet"
+            contributions.to_parquet(contributions_path, index=False)
+            stageA_df.to_parquet(stageA_path, index=False)
+
+            summary = {
+                "model": model_name,
+                "behavioral_model": "m0",
+                "behavioral_model_name": "M0",
+                "include_interactions": True,
+                "weights": weights_info["weights"],
+                "beta": weights_info["beta"],
+                "AME": weights_info["AME"],
+                "cv": cv_metrics,
+                "evaluation": eval_metrics,
+                "selected_ridge_lambda": 0.0,
+                "fit_mode": "unpenalized",
+                "convergence_status": "unpenalized_ok",
+                "train_nll": None,
+                "cv_mean_nll_by_lambda": {},
+                "coefficient_table": [
+                    {
+                        "feature": feature,
+                        "coefficient": float(legacy_model.params.get(feature, 0.0)),
+                        "standard_error": float(legacy_model.bse.get(feature, 0.0)),
+                    }
+                    for feature in design.X.columns
+                ],
+                "b1_validation": b1_validation,
+                "b1_probes": b1_probes,
+                "model_params": {k: float(v) for k, v in legacy_model.params.items()},
+                "model_bse": {k: float(v) for k, v in legacy_model.bse.items()},
+                "feature_columns": list(design.X.columns),
+                "feature_info": design.feature_info,
+            }
+        else:
+            stageA_df = prepare_stageA_data(trials_df, choice_agg)
+            behavioral_model, design, fit_summary = fit_behavioral_model(
+                stageA_df,
+                behavioral_model=args.behavioral_model,
+                exclude_b1=True,
+                group_col="family_id",
+            )
+            contributions = behavioral_model.attribute_contributions(stageA_df, exclude_b1=True).copy()
+            eta = behavioral_model.linear_predictor(stageA_df, exclude_b1=False)
+            predictions = behavioral_model.predict_proba(stageA_df, exclude_b1=False)
+            predicted_choice = behavioral_model.predict_choice(stageA_df, exclude_b1=False)
+
+            stageA_df = stageA_df.copy()
+            stageA_df.loc[eta.index, "eta"] = eta.to_numpy(dtype=float)
+            stageA_df.loc[predictions.index, "predicted_prob"] = predictions.to_numpy(dtype=float)
+            stageA_df.loc[predicted_choice.index, "predicted_choice"] = predicted_choice.to_numpy(dtype=object)
+
+            contributions.insert(0, "trial_id", stageA_df.loc[contributions.index, "trial_id"].astype(str).to_numpy())
+            contributions.insert(
+                1,
+                "family_id",
+                stageA_df.loc[contributions.index, "family_id"].astype(str).to_numpy()
+                if "family_id" in stageA_df.columns
+                else stageA_df.loc[contributions.index, "config_id"].astype(str).to_numpy(),
+            )
+
+            contributions_path = out_dir / "stageA_contributions.parquet"
+            contributions.to_parquet(contributions_path, index=False)
+            stageA_df.to_parquet(stageA_path, index=False)
+            lookup_table_path = None
+            if args.behavioral_model == "m2":
+                if behavioral_model.lookup_table is None:
+                    raise SystemExit("M2 fit succeeded but lookup_table is missing")
+                lookup_table_path = out_dir / "lookup_table.parquet"
+                behavioral_model.lookup_table.to_parquet(lookup_table_path, index=False)
+
+            evaluation = _metric_bundle(
+                predictions.to_numpy(dtype=float),
+                design.y.to_numpy(dtype=float),
+                design.weights.to_numpy(dtype=float),
+            )
+            summary = {
+                "model": model_name,
+                "behavioral_model": args.behavioral_model,
+                "behavioral_model_name": behavioral_model.model_name,
+                "include_interactions": False,
+                "evaluation": evaluation,
+                "b1_validation": b1_validation,
+                "b1_probes": b1_probes,
+                "selected_ridge_lambda": fit_summary["selected_ridge_lambda"],
+                "fit_mode": fit_summary["fit_mode"],
+                "convergence_status": fit_summary["convergence_status"],
+                "train_nll": fit_summary["train_nll"],
+                "cv_mean_nll_by_lambda": fit_summary["cv_mean_nll_by_lambda"],
+                "coefficient_table": fit_summary["coefficient_table"],
+                "model_params": (
+                    {}
+                    if behavioral_model.params is None
+                    else {k: float(v) for k, v in behavioral_model.params.items()}
+                ),
+                "model_bse": (
+                    {}
+                    if behavioral_model.params is None
+                    else {
+                        k: (
+                            None
+                            if behavioral_model.bse is None or pd.isna(behavioral_model.bse.get(k, np.nan))
+                            else float(behavioral_model.bse.get(k))
+                        )
+                        for k in behavioral_model.feature_columns
+                    }
+                ),
+                "feature_columns": list(behavioral_model.feature_columns),
+                "feature_info": behavioral_model.feature_info,
+            }
+            if args.behavioral_model == "m0":
+                summary.update(m0_weights_from_model(behavioral_model))
+            if args.behavioral_model == "m2":
+                summary.update(
+                    {
+                        "selected_shrinkage_lambda": fit_summary["selected_shrinkage_lambda"],
+                        "num_unique_observed_cells": fit_summary["num_unique_observed_cells"],
+                        "m1_selected_ridge_lambda": fit_summary["m1_selected_ridge_lambda"],
+                        "m1_convergence_status": fit_summary["m1_convergence_status"],
+                        "lookup_table_path": lookup_table_path.name if lookup_table_path is not None else None,
+                    }
+                )
+
     # Add reasoning_effort to summary if present
     if reasoning_effort:
         summary["reasoning_effort"] = reasoning_effort

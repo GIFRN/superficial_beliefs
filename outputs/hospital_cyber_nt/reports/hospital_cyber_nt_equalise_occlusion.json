@@ -1,0 +1,98 @@
+[
+  {
+    "attribute": "T",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.2375,
+    "model_tag": "mini_min",
+    "stated_factor_flip_n": 391,
+    "stated_factor_flip_rate": 0.4296675191815857
+  },
+  {
+    "attribute": "D",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.115,
+    "model_tag": "mini_min",
+    "stated_factor_flip_n": 394,
+    "stated_factor_flip_rate": 0.22842639593908629
+  },
+  {
+    "attribute": "M",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.1825,
+    "model_tag": "mini_min",
+    "stated_factor_flip_n": 396,
+    "stated_factor_flip_rate": 0.3383838383838384
+  },
+  {
+    "attribute": "C",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.185,
+    "model_tag": "mini_min",
+    "stated_factor_flip_n": 396,
+    "stated_factor_flip_rate": 0.3813131313131313
+  },
+  {
+    "attribute": "A",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.0975,
+    "model_tag": "mini_min",
+    "stated_factor_flip_n": 391,
+    "stated_factor_flip_rate": 0.21483375959079284
+  },
+  {
+    "attribute": "P",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.0925,
+    "model_tag": "mini_min",
+    "stated_factor_flip_n": 391,
+    "stated_factor_flip_rate": 0.16879795396419436
+  },
+  {
+    "attribute": "T",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.215,
+    "model_tag": "qwen_min_8030",
+    "stated_factor_flip_n": 398,
+    "stated_factor_flip_rate": 0.41959798994974873
+  },
+  {
+    "attribute": "D",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.1225,
+    "model_tag": "qwen_min_8030",
+    "stated_factor_flip_n": 400,
+    "stated_factor_flip_rate": 0.1975
+  },
+  {
+    "attribute": "M",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.17,
+    "model_tag": "qwen_min_8030",
+    "stated_factor_flip_n": 400,
+    "stated_factor_flip_rate": 0.335
+  },
+  {
+    "attribute": "C",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.2275,
+    "model_tag": "qwen_min_8030",
+    "stated_factor_flip_n": 400,
+    "stated_factor_flip_rate": 0.4075
+  },
+  {
+    "attribute": "A",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.155,
+    "model_tag": "qwen_min_8030",
+    "stated_factor_flip_n": 400,
+    "stated_factor_flip_rate": 0.2325
+  },
+  {
+    "attribute": "P",
+    "choice_flip_n": 400,
+    "choice_flip_rate": 0.1075,
+    "model_tag": "qwen_min_8030",
+    "stated_factor_flip_n": 400,
+    "stated_factor_flip_rate": 0.1825
+  }
+]

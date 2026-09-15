@@ -1,14 +1,14 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.7733333333333333,
-    "qe_vs_choice": 0.7833333333333333,
-    "tau_vs_choice": 0.785
+    "dfq_vs_choice": 0.7816666666666666,
+    "qe_vs_choice": 0.8108333333333333,
+    "tau_vs_choice": 0.8075
   },
   "alignment": {
-    "dfq_driver_vs_premise": 0.5366666666666666,
+    "dfq_driver_vs_premise": 0.5525,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.535,
-    "tau_driver_vs_premise": 0.5366666666666666
+    "qe_driver_vs_premise": 0.5516666666666666,
+    "tau_driver_vs_premise": 0.5525
   },
   "argllm_semantics": {
     "claim_base_score": 0.5,
@@ -18,32 +18,37 @@
   "dfq_weight_correlation": 1.0,
   "include_interactions": false,
   "model": "openai_gpt5mini",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
   "qe_weight_correlation": 1.0,
   "reasoning_effort": "minimal",
   "stageA_weights": {
-    "A": 0.15971538140831423,
-    "D": 0.25106353771185846,
-    "E": 0.24855833456020557,
-    "S": 0.3406627463196217
+    "A": 0.1661527710165384,
+    "D": 0.24415408235826075,
+    "E": 0.24748125923190953,
+    "S": 0.34221188739329134
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.08532507567811615,
-      "median_std": 0.05773502691896258
+      "mean_std": 0.10570184750068297,
+      "median_std": 0.07637626158259733
     },
     "D": {
-      "mean_std": 0.12732651190989716,
-      "median_std": 0.10196152422706634
+      "mean_std": 0.1405065707899287,
+      "median_std": 0.10000000000000006
     },
     "E": {
-      "mean_std": 0.10405202547156317,
-      "median_std": 0.07637626158259735
+      "mean_std": 0.1312695119998808,
+      "median_std": 0.10000000000000006
     },
     "S": {
-      "mean_std": 0.14863406573853877,
-      "median_std": 0.13708977162259067
+      "mean_std": 0.14864965665471586,
+      "median_std": 0.10408329997330668
     }
   },
   "tau_weight_correlation": 1.0

@@ -1,0 +1,119 @@
+{
+  "attributes": [
+    "T",
+    "D",
+    "M",
+    "C",
+    "A",
+    "P"
+  ],
+  "base_split": "test",
+  "full_variants": [
+    "p_at_oa_vs_q_at_oa",
+    "q_at_oa_vs_p_at_oa",
+    "p_at_ob_vs_q_at_ob",
+    "q_at_ob_vs_p_at_ob"
+  ],
+  "generated_by": "scripts/build_hospital_cyber_benchmark.py",
+  "levels": [
+    "Low",
+    "Medium",
+    "High"
+  ],
+  "n_baseline_trials": 400,
+  "n_configs": 100,
+  "n_occlusion_trials": 2400,
+  "n_source_families": 100,
+  "n_trials": 2800,
+  "order_library": [
+    [
+      "T",
+      "D",
+      "M",
+      "C",
+      "A",
+      "P"
+    ],
+    [
+      "P",
+      "A",
+      "C",
+      "M",
+      "D",
+      "T"
+    ],
+    [
+      "M",
+      "A",
+      "T",
+      "P",
+      "C",
+      "D"
+    ],
+    [
+      "D",
+      "C",
+      "P",
+      "T",
+      "A",
+      "M"
+    ],
+    [
+      "A",
+      "P",
+      "D",
+      "T",
+      "M",
+      "C"
+    ],
+    [
+      "C",
+      "M",
+      "T",
+      "D",
+      "P",
+      "A"
+    ]
+  ],
+  "seed": 13,
+  "source_configs_filename": "dataset_configs.parquet",
+  "source_families_filename": "source_families.parquet",
+  "source_trials_filename": "dataset_trials.parquet",
+  "split": "occlusion_test",
+  "theme": {
+    "attributes": {
+      "A": {
+        "label": "Audit readiness",
+        "name": "A"
+      },
+      "C": {
+        "label": "Service continuity",
+        "name": "C"
+      },
+      "D": {
+        "label": "Deployment speed",
+        "name": "D"
+      },
+      "M": {
+        "label": "Staff sustainability",
+        "name": "M"
+      },
+      "P": {
+        "label": "System portability",
+        "name": "P"
+      },
+      "T": {
+        "label": "Threat reduction",
+        "name": "T"
+      }
+    },
+    "entities": [
+      "Plan A",
+      "Plan B"
+    ],
+    "name": "hospital_cyber_response",
+    "objective": "the better 12-month cyber-resilience plan for a mid-sized hospital with a small IT team"
+  },
+  "theme_name": "hospital_cyber_response",
+  "theme_path": "<REPO_ROOT>/data/themes/hospital_cyber_response.yml"
+}

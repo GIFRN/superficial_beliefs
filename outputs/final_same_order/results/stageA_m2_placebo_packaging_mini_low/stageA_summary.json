@@ -1,0 +1,87 @@
+{
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "behavioral_model": "m2",
+  "behavioral_model_name": "M2",
+  "coefficient_table": [],
+  "convergence_status": "cell_lookup_ok",
+  "cv_mean_nll_by_lambda": {
+    "0.5": 0.764899859696022,
+    "1.0": 0.7436658857241647,
+    "10.0": 0.6962942678193016,
+    "100.0": 0.7079308539199356,
+    "2.0": 0.7242095340004191,
+    "20.0": 0.6950559173756735,
+    "5.0": 0.7043323481094216,
+    "50.0": 0.7011267326506476
+  },
+  "evaluation": {
+    "accuracy": 0.923125,
+    "brier": 0.03331294966337432,
+    "log_loss": 0.20256411076742528
+  },
+  "feature_columns": [
+    "delta_E",
+    "delta_A",
+    "delta_S",
+    "delta_D"
+  ],
+  "feature_info": {
+    "behavioral_model": "m2",
+    "canonical_attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "cell_columns": [
+      "delta_E",
+      "delta_A",
+      "delta_S",
+      "delta_D"
+    ],
+    "main": {
+      "A": {
+        "step1": "z_A_1",
+        "step2": "z_A_2"
+      },
+      "D": {
+        "step1": "z_D_1",
+        "step2": "z_D_2"
+      },
+      "E": {
+        "step1": "z_E_1",
+        "step2": "z_E_2"
+      },
+      "S": {
+        "step1": "z_S_1",
+        "step2": "z_S_2"
+      }
+    }
+  },
+  "fit_mode": "cell_lookup",
+  "include_interactions": false,
+  "lookup_table_path": "lookup_table.parquet",
+  "m1_convergence_status": "unpenalized_ok",
+  "m1_selected_ridge_lambda": 0.0,
+  "model": "openai_gpt5mini",
+  "model_bse": {},
+  "model_params": {},
+  "num_unique_observed_cells": 266,
+  "reasoning_effort": "low",
+  "selected_ridge_lambda": 0.0,
+  "selected_shrinkage_lambda": 20.0,
+  "train_nll": 0.6076923323022758
+}

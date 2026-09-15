@@ -28,6 +28,11 @@ def _providers_from_args(raw: str) -> set[str]:
     return {value.strip() for value in raw.split(",") if value.strip()}
 
 
+def _model_tags_from_args(raw: str) -> set[str] | None:
+    tags = {value.strip() for value in raw.split(",") if value.strip()}
+    return tags or None
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the final same-order benchmark.")
     parser.add_argument("--out-root", default=str(output_root()))
@@ -38,24 +43,42 @@ def main() -> None:
         default="openai,qwen,ministral",
         help="Comma-separated providers to run: openai,qwen,ministral",
     )
+    parser.add_argument(
+        "--model-tags",
+        default="",
+        help="Optional comma-separated subset of model tags to run.",
+    )
     parser.add_argument("--openai-concurrency", type=int, default=12)
     parser.add_argument("--qwen-concurrency", type=int, default=1)
     parser.add_argument("--ministral-concurrency", type=int, default=1)
     parser.add_argument("--resume", default="any", choices=["any", "strict"])
-    parser.add_argument("--build-datasets", action="store_true")
     parser.add_argument("--skip-train", action="store_true")
     parser.add_argument("--skip-test", action="store_true")
+    parser.add_argument("--run-pairwise-stepwise", action="store_true")
     args = parser.parse_args()
 
     out_root = output_root(args.out_root)
     selected_themes = [theme.strip() for theme in args.themes.split(",") if theme.strip()]
     selected_providers = _providers_from_args(args.providers)
+    selected_model_tags = _model_tags_from_args(args.model_tags)
 
-    if args.build_datasets or not all(dataset_dir(theme, "train", base=out_root).exists() for theme in selected_themes):
-        _run([sys.executable, "scripts/build_final_themed_datasets.py", "--out-root", str(out_root), "--themes", ",".join(selected_themes)])
+    missing_datasets = [
+        f"{theme}:{split}"
+        for theme in selected_themes
+        for split in ("train", "test")
+        if not dataset_dir(theme, split, base=out_root).exists()
+    ]
+    if missing_datasets:
+        joined = ", ".join(missing_datasets)
+        raise SystemExit(
+            "This COLM snapshot ships with prebuilt same-order datasets and does not include "
+            f"the old dataset builder chain. Missing dataset directories: {joined}"
+        )
 
     for spec in MODEL_SPECS:
         if spec.provider not in selected_providers:
+            continue
+        if selected_model_tags is not None and spec.tag not in selected_model_tags:
             continue
         if spec.provider == "openai":
             trial_concurrency = args.openai_concurrency
@@ -107,6 +130,27 @@ def main() -> None:
                         str(trial_concurrency),
                     ]
                 )
+                if args.run_pairwise_stepwise:
+                    _run(
+                        [
+                            sys.executable,
+                            "scripts/run_trials.py",
+                            "--config",
+                            args.config,
+                            "--models",
+                            str(spec.config_path),
+                            "--dataset",
+                            str(dataset_dir(theme, "test", base=out_root)),
+                            "--out",
+                            str(run_prefix(theme, "test", spec.tag, "pair", base=out_root)),
+                            "--variant-override",
+                            "short_reason__judge_pairwise_stepwise",
+                            "--resume",
+                            args.resume,
+                            "--trial-concurrency",
+                            str(trial_concurrency),
+                        ]
+                    )
 
 
 if __name__ == "__main__":

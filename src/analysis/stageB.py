@@ -42,8 +42,20 @@ def alignment_metrics(
     unique_trials = trial_features.drop_duplicates("trial_id").set_index("trial_id")
     contrib_df = per_trial_contributions(unique_trials, baseline_model)
     
-    # Extract both driver_A and driver_B for choice-conditional alignment
-    driver_map = contrib_df[["driver_A", "driver_B"]].reset_index().rename(columns={"index": "trial_id"})
+    # Extract both drivers and the model-predicted side for each trial.
+    # Stage B alignment is defined against the side implied by the Stage A
+    # contribution total, so compute it once here and merge it with the drivers.
+    contrib_cols = [col for col in contrib_df.columns if col.startswith("C_")]
+    driver_map = contrib_df[["driver_A", "driver_B"]].copy()
+    if contrib_cols:
+        driver_map["stageA_pred_choice"] = np.where(
+            contrib_df[contrib_cols].sum(axis=1) > 0,
+            "A",
+            "B",
+        )
+    else:
+        driver_map["stageA_pred_choice"] = np.nan
+    driver_map = driver_map.reset_index().rename(columns={"index": "trial_id"})
 
     # Use baseline model for weight computation as well
     weights_info = compute_ames_and_weights(baseline_model)
@@ -60,10 +72,10 @@ def alignment_metrics(
     valid = valid.merge(driver_map, on="trial_id", how="left")
     valid = valid.dropna(subset=["driver_A", "driver_B"])
     
-    # Select driver conditional on the model's actual choice:
-    # - If choice == A: driver is argmax(C_j) (strongest evidence for A)
-    # - If choice == B: driver is argmin(C_j) (strongest evidence for B)
-    valid["driver"] = np.where(valid["choice"] == "A", valid["driver_A"], valid["driver_B"])
+    # Match the reported benchmark: choose the top driver from the model's
+    # predicted side rather than the actor's observed side.
+    valid = valid.dropna(subset=["stageA_pred_choice"])
+    valid["driver"] = np.where(valid["stageA_pred_choice"] == "A", valid["driver_A"], valid["driver_B"])
     
     top1_driver = (valid["premise_attr"] == valid["driver"]).mean()
     top1_weights = (valid["premise_attr"] == top_attr).mean()

@@ -1,0 +1,54 @@
+seed_global: 13
+blocks:
+  B1:
+    enable: false
+    R: 0
+  B2:
+    enable: false
+    R: 0
+  B3:
+    enable: false
+    candidates_per_batch: 0
+    max_batches: 0
+orders:
+  balance_pairwise_precedence: true
+paraphrases:
+  n: 1
+manipulations:
+  share:
+    short_reason: 1.0
+    split_reason: 0.0
+    premise_first: 0.0
+    redact: 0.0
+    neutralize: 0.0
+    inject: 0.0
+    occlude_drop: 0.0
+    occlude_equalize: 0.0
+    occlude_swap: 0.0
+  injection:
+    attribute: T
+    offset: 1
+replicates:
+  S: 3
+  temperature: 1.0
+dominance_items:
+  n: 0
+profiles:
+  attributes: [T, D, M, C, A, P]
+  levels: [Low, Medium, High]
+  level_scores:
+    Low: -1
+    Medium: 0
+    High: 1
+orders_permutations:
+  - [T, D, M, C, A, P]
+  - [P, A, C, M, D, T]
+  - [M, A, T, P, C, D]
+  - [D, C, P, T, A, M]
+  - [A, P, D, T, M, C]
+  - [C, M, T, D, P, A]
+probe_targets: [T, D, M, C, A, P]
+paths:
+  generated_dir: data/generated
+  runs_dir: data/runs
+  reports_dir: data/reports

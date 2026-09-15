@@ -1,50 +1,55 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.6291666666666667,
-    "qe_vs_choice": 0.63,
-    "tau_vs_choice": 0.63
+    "dfq_vs_choice": 0.6708333333333333,
+    "qe_vs_choice": 0.6725,
+    "tau_vs_choice": 0.6758333333333333
   },
   "alignment": {
-    "dfq_driver_vs_premise": 0.4041666666666667,
+    "dfq_driver_vs_premise": 0.4575,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.4041666666666667,
-    "tau_driver_vs_premise": 0.4041666666666667
+    "qe_driver_vs_premise": 0.4575,
+    "tau_driver_vs_premise": 0.45666666666666667
   },
   "argllm_semantics": {
     "claim_base_score": 0.5,
     "conservativeness": 1.0
   },
   "behavioral_attribution": {},
-  "dfq_weight_correlation": 0.7999999999999999,
+  "dfq_weight_correlation": 1.0,
   "include_interactions": false,
-  "model": "local_ministral3_14b_reasoning_vllm_minimal",
+  "model": "local_ministral3_14b_instruct_vllm_minimal",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
-  "qe_weight_correlation": 0.7999999999999999,
+  "qe_weight_correlation": 1.0,
   "reasoning_effort": "minimal",
   "stageA_weights": {
-    "A": 0.23192262978666595,
-    "D": 0.14483829399167972,
-    "E": 0.40581789481405084,
-    "S": 0.21742118140760355
+    "A": 0.17635362961648363,
+    "D": 0.15648407088659358,
+    "E": 0.3935608081833779,
+    "S": 0.2736014913135449
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.14528188005133735,
-      "median_std": 0.11547005383792525
+      "mean_std": 0.1289246634354141,
+      "median_std": 0.10408329997330665
     },
     "D": {
-      "mean_std": 0.11741105919190882,
-      "median_std": 0.10000000000000002
+      "mean_std": 0.11096598631311724,
+      "median_std": 0.08660254037844387
     },
     "E": {
-      "mean_std": 0.1278311608814155,
-      "median_std": 0.10000000000000007
+      "mean_std": 0.10091881016488062,
+      "median_std": 0.07637626158259736
     },
     "S": {
-      "mean_std": 0.14979169403505252,
-      "median_std": 0.1154700538379252
+      "mean_std": 0.12380239994747928,
+      "median_std": 0.10408329997330665
     }
   },
-  "tau_weight_correlation": 0.7999999999999999
+  "tau_weight_correlation": 1.0
 }

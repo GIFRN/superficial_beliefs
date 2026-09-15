@@ -1,0 +1,7 @@
+attribute,choice_flip_rate,choice_flip_n,stated_factor_flip_rate,stated_factor_flip_n,model_tag
+T,0.215,400,0.41959798994974873,398,qwen_min_8030
+D,0.1225,400,0.1975,400,qwen_min_8030
+M,0.17,400,0.335,400,qwen_min_8030
+C,0.2275,400,0.4075,400,qwen_min_8030
+A,0.155,400,0.2325,400,qwen_min_8030
+P,0.1075,400,0.1825,400,qwen_min_8030

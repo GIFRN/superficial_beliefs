@@ -1,8 +1,8 @@
 [project]
 name = "superficial-beliefs"
 version = "0.1.0"
-description = "Implicit Superficial Beliefs and Enthymeme Use in LLMs"
-authors = [{name = "Research Team", email = "research@example.com"}]
+description = "Superficial Beliefs in LLM Decision-Making"
+authors = [{name = "Gabriel Freedman"}, {name = "Francesca Toni"}]
 requires-python = ">=3.10"
 dependencies = [
   "numpy",

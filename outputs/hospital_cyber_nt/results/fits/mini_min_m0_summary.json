@@ -1,0 +1,32 @@
+{
+  "attributes": [
+    "T",
+    "D",
+    "M",
+    "C",
+    "A",
+    "P"
+  ],
+  "behavioral_model": "m0",
+  "behavioral_model_name": "M0",
+  "feature_columns": [
+    "Intercept",
+    "diff_T",
+    "diff_D",
+    "diff_M",
+    "diff_C",
+    "diff_A",
+    "diff_P"
+  ],
+  "fit_mode": "unpenalized",
+  "model_params": {
+    "Intercept": 0.039776776852550544,
+    "diff_A": 0.7583707187792066,
+    "diff_C": 1.9546551001411123,
+    "diff_D": 0.6952509150145478,
+    "diff_M": 1.9834579231433174,
+    "diff_P": 0.36836373426529534,
+    "diff_T": 2.3797076786387144
+  },
+  "train_nll": 0.8569034577214473
+}

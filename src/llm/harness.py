@@ -344,8 +344,18 @@ def _extract_attr_from_tail(text: str, theme_config: ThemeConfig | None = None) 
     return None, ""
 
 
-def parse_choice_attr(text: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
+def _strip_hidden_reasoning(text: str) -> str:
     body = text.strip()
+    if not body:
+        return body
+    # Qwen thinking mode may emit a hidden reasoning block followed by the
+    # actual final answer line. Strip the hidden block before parsing.
+    body = re.sub(r"<think>.*?</think>", "", body, flags=re.I | re.S).strip()
+    return body
+
+
+def parse_choice_attr(text: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
+    body = _strip_hidden_reasoning(text)
     if not body:
         return {
             "ok": False,
@@ -368,7 +378,7 @@ def parse_choice_attr(text: str, theme_config: ThemeConfig | None = None) -> dic
     else:
         attr, attr_text = _extract_attr_from_tail(body, theme_config)
 
-    premise_ok = attr in {"E", "A", "S", "D"}
+    premise_ok = attr in _theme_attr_keys(theme_config)
     return {
         # Keep step success keyed to whether a choice was recovered, so judge
         # steps still run even if the attribute token is malformed.
@@ -399,7 +409,7 @@ def _normalize_attr_key(token: Any, theme_config: ThemeConfig | None = None) -> 
 
 
 def _visible_attr_keys_from_prompt(prompt: str, theme_config: ThemeConfig | None = None) -> list[str]:
-    keys = ["E", "A", "S", "D"]
+    keys = _theme_attr_keys(theme_config)
     if not prompt:
         return keys
     for raw_line in prompt.splitlines():
@@ -417,13 +427,14 @@ def _visible_attr_keys_from_prompt(prompt: str, theme_config: ThemeConfig | None
     return keys
 
 
-def parse_scores4(
+def parse_scores(
     text: str,
     theme_config: ThemeConfig | None = None,
     visible_attrs: Sequence[str] | None = None,
+    keys: Sequence[str] | None = None,
 ) -> dict[str, Any]:
-    """Parse four tau scores for E/A/S/D from JSON or key=value lines."""
-    keys = ["E", "A", "S", "D"]
+    """Parse per-attribute tau scores from JSON or key=value lines."""
+    keys = [key for key in (keys or _theme_attr_keys(theme_config)) if key]
     visible_keys = [key for key in (visible_attrs or keys) if key in keys]
     if not visible_keys:
         visible_keys = keys[:]
@@ -509,10 +520,12 @@ def parse_scores4(
     for segment in _split_top_level_segments(body):
         _consume_kv_segment(segment)
 
+    key_union = "|".join(re.escape(key) for key in keys)
+
     # Canonical compact forms, tolerant to quoted numeric values.
-    pattern = re.compile(r"\b([EASD])\s*[:=]\s*['\"]?\s*([0-9]*\.?[0-9]+)\s*['\"]?", re.I)
+    pattern = re.compile(rf"\b({key_union})\b\s*[:=]\s*['\"]?\s*([0-9]*\.?[0-9]+)\s*['\"]?", re.I)
     for match in pattern.finditer(body):
-        key = match.group(1).upper()
+        key = _normalize_attr_key(match.group(1), theme_config)
         if key in values:
             continue
         val = _coerce_tau_value(match.group(2))
@@ -552,11 +565,11 @@ def parse_scores4(
 
     # Narrative forms, e.g. "(E): Tau ≈ 0.8".
     narrative = re.compile(
-        r"(?:\b([EASD])\b|\(([EASD])\))\s*[:=]\s*(?:tau\s*(?:≈|~|:|=)\s*)?['\"]?\s*([0-9]*\.?[0-9]+)\s*['\"]?",
+        rf"(?:\b({key_union})\b|\(({key_union})\))\s*[:=]\s*(?:tau\s*(?:≈|~|:|=)\s*)?['\"]?\s*([0-9]*\.?[0-9]+)\s*['\"]?",
         re.I,
     )
     for match in narrative.finditer(body):
-        key = (match.group(1) or match.group(2) or "").upper()
+        key = _normalize_attr_key(match.group(1) or match.group(2) or "", theme_config)
         if key not in keys or key in values:
             continue
         val = _coerce_tau_value(match.group(3))
@@ -570,6 +583,20 @@ def parse_scores4(
     missing = [key for key in keys if key not in values]
     ok = len(values) == len(keys)
     return {"ok": ok, "tau": values, "missing": missing}
+
+
+def parse_scores4(
+    text: str,
+    theme_config: ThemeConfig | None = None,
+    visible_attrs: Sequence[str] | None = None,
+) -> dict[str, Any]:
+    """Backward-compatible wrapper for legacy four-attribute score parsing."""
+    return parse_scores(
+        text,
+        theme_config=theme_config,
+        visible_attrs=visible_attrs,
+        keys=["E", "A", "S", "D"],
+    )
 
 
 def parse_score1(text: str) -> dict[str, Any]:
@@ -592,7 +619,7 @@ def parse_score1(text: str) -> dict[str, Any]:
     return {"ok": False, "tau": None}
 
 
-def parse_pairwise6(text: str) -> dict[str, Any]:
+def parse_pairwise6(text: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
     """Parse six pairwise winners for EA, ES, ED, AS, AD, SD."""
     keys = ["EA", "ES", "ED", "AS", "AD", "SD"]
     order = {"E": 0, "A": 1, "S": 2, "D": 3}
@@ -601,22 +628,44 @@ def parse_pairwise6(text: str) -> dict[str, Any]:
     if not body:
         return {"ok": False, "pairs": {}, "missing": keys}
 
+    attr_map = _build_attr_map(theme_config)
+
+    def canonical_attr(token: str) -> str | None:
+        token = re.sub(r"[*_`]", "", token).strip()
+        token = re.sub(r"^[\[\](){}<>\"'=\s:.-]+", "", token)
+        token = re.sub(r"[\[\](){}<>\"'\s:.;,!?-]+$", "", token)
+        token_upper = token.upper()
+        if token_upper in attr_map:
+            return attr_map[token_upper]
+        token_no_space = token_upper.replace(" ", "")
+        if token_no_space in attr_map:
+            return attr_map[token_no_space]
+        return None
+
     def canonical_pair(pair: str) -> str | None:
-        pair = pair.upper()
-        if len(pair) != 2 or pair[0] == pair[1]:
+        pair = pair.strip().upper()
+        if len(pair) != 2:
             return None
-        if pair[0] not in order or pair[1] not in order:
+        left = canonical_attr(pair[0])
+        right = canonical_attr(pair[1])
+        if not left or not right or left == right:
             return None
-        ordered = sorted(pair, key=lambda k: order[k])
+        ordered = sorted([left, right], key=lambda k: order[k])
+        return "".join(ordered)
+
+    def canonical_pair_from_tokens(left_token: str, right_token: str) -> str | None:
+        left = canonical_attr(left_token)
+        right = canonical_attr(right_token)
+        if not left or not right or left == right:
+            return None
+        ordered = sorted([left, right], key=lambda k: order[k])
         return "".join(ordered)
 
     def normalize_winner(token: str) -> str | None:
-        token = token.strip().upper()
-        if token in order:
-            return token
-        if token == "TIE":
+        token = token.strip()
+        if token.upper() == "TIE":
             return "tie"
-        return None
+        return canonical_attr(token)
 
     json_match = re.search(r"\{.*\}", body, flags=re.S)
     if json_match:
@@ -628,6 +677,10 @@ def parse_pairwise6(text: str) -> dict[str, Any]:
         if isinstance(payload, dict):
             for key, value in payload.items():
                 pair = canonical_pair(str(key))
+                if not pair and "vs" in str(key).lower():
+                    parts = re.split(r"\bvs\b", str(key), maxsplit=1, flags=re.I)
+                    if len(parts) == 2:
+                        pair = canonical_pair_from_tokens(parts[0], parts[1])
                 winner = normalize_winner(str(value))
                 if pair in keys and winner:
                     winners[pair] = winner
@@ -641,24 +694,57 @@ def parse_pairwise6(text: str) -> dict[str, Any]:
         if winner:
             winners[pair] = winner
 
+    full_line_pattern = re.compile(r"^\s*(.+?)\s+vs\s+(.+?)\s*[:=]\s*(.+?)\s*$", re.I | re.M)
+    for match in full_line_pattern.finditer(body):
+        pair = canonical_pair_from_tokens(match.group(1), match.group(2))
+        if not pair or pair in winners or pair not in keys:
+            continue
+        winner = normalize_winner(match.group(3))
+        if winner:
+            winners[pair] = winner
+
     missing = [key for key in keys if key not in winners]
-    ok = len(winners) >= 2
+    ok = len(winners) == len(keys)
     return {"ok": ok, "pairs": winners, "missing": missing}
 
 
-def parse_pairwise1(text: str) -> dict[str, Any]:
+def parse_pairwise1(text: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
     """Parse a single pairwise winner token."""
     body = text.strip()
     if not body:
         return {"ok": False, "winner": None}
-    match = re.search(r"\b(?:winner|choice)\s*[:=]\s*(E|A|S|D|TIE)\b", body, re.I)
-    if not match:
-        match = re.search(r"\b(E|A|S|D|TIE)\b", body, re.I)
-    if not match:
-        return {"ok": False, "winner": None}
-    token = match.group(1).upper()
-    winner = "tie" if token == "TIE" else token
-    return {"ok": True, "winner": winner}
+    attr_map = _build_attr_map(theme_config)
+
+    def normalize_winner(token: str) -> str | None:
+        token = re.sub(r"[*_`]", "", token).strip()
+        token = re.sub(r"^[\[\](){}<>\"'=\s:.-]+", "", token)
+        token = re.sub(r"[\[\](){}<>\"'\s:.;,!?-]+$", "", token)
+        token_upper = token.upper()
+        if token_upper == "TIE":
+            return "tie"
+        if token_upper in attr_map:
+            return attr_map[token_upper]
+        token_no_space = token_upper.replace(" ", "")
+        if token_no_space in attr_map:
+            return attr_map[token_no_space]
+        return None
+
+    match = re.search(r"\b(?:winner|choice)\s*[:=]\s*(.+?)\s*$", body, re.I | re.M)
+    candidates: list[str] = []
+    if match:
+        candidates.append(match.group(1))
+    candidates.extend(re.findall(r"\b(?:E|A|S|D|TIE)\b", body, re.I))
+    if theme_config:
+        for mapping in theme_config.attributes.values():
+            if mapping.label:
+                candidates.extend(re.findall(rf"\b{re.escape(mapping.label)}\b", body, re.I))
+            if mapping.name:
+                candidates.extend(re.findall(rf"\b{re.escape(mapping.name)}\b", body, re.I))
+    for candidate in candidates:
+        winner = normalize_winner(candidate)
+        if winner:
+            return {"ok": True, "winner": winner}
+    return {"ok": False, "winner": None}
 
 
 def parse_structured_premise(text: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
@@ -766,25 +852,9 @@ def parse_structured_premise(text: str, theme_config: ThemeConfig | None = None)
 
 
 def _build_attr_map(theme_config: ThemeConfig | None) -> dict[str, str]:
-    """Build a mapping from theme labels/names to source attributes (E, A, S, D).
-    
-    This allows parsing of themed responses back to canonical attribute codes.
-    For example, with candidates theme:
-        "Experience" -> "E", "X" -> "E"
-        "Culture Fit" -> "A", "F" -> "A"
-    """
-    # Always include base attribute mappings
-    attr_map = {
-        "E": "E", "A": "A", "S": "S", "D": "D",
-    }
-    
-    # Add default drug theme labels as fallback
-    attr_map.update({
-        "EFFICACY": "E",
-        "ADHERENCE": "A",
-        "SAFETY": "S",
-        "DURABILITY": "D",
-    })
+    """Build a mapping from display labels/names back to canonical attribute codes."""
+    attr_map = {attr.upper(): attr for attr in ATTR_LABELS.keys()}
+    attr_map.update({label.upper(): attr for attr, label in ATTR_LABELS.items()})
     
     # If theme provided, add its specific mappings
     if theme_config:
@@ -807,6 +877,12 @@ def _build_attr_map(theme_config: ThemeConfig | None) -> dict[str, str]:
                 attr_map[name_upper.replace(" ", "")] = attr
     
     return attr_map
+
+
+def _theme_attr_keys(theme_config: ThemeConfig | None) -> list[str]:
+    if theme_config and theme_config.attributes:
+        return list(theme_config.attributes.keys())
+    return list(ATTR_LABELS.keys())
 
 
 def classify_premise_open_text(text: str, theme_config: ThemeConfig | None = None) -> dict[str, Any]:
@@ -892,13 +968,13 @@ def parse_step_response(step: ConversationStep, response: str, theme_config: The
         return {"ok": bool(response.strip()), "text": response.strip()}
     if step.expects == "scores4":
         visible_attrs = _visible_attr_keys_from_prompt(step.prompt, theme_config)
-        return parse_scores4(response, theme_config, visible_attrs=visible_attrs)
+        return parse_scores(response, theme_config, visible_attrs=visible_attrs)
     if step.expects == "score1":
         return parse_score1(response)
     if step.expects == "pairwise6":
-        return parse_pairwise6(response)
+        return parse_pairwise6(response, theme_config)
     if step.expects == "pairwise1":
-        return parse_pairwise1(response)
+        return parse_pairwise1(response, theme_config)
     return {"ok": False, "unknown_step": step.expects}
 
 

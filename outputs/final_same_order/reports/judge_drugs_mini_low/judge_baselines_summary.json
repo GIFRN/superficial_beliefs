@@ -1,14 +1,14 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.795,
-    "qe_vs_choice": 0.7875,
-    "tau_vs_choice": 0.7908333333333334
+    "dfq_vs_choice": 0.8141666666666667,
+    "qe_vs_choice": 0.795,
+    "tau_vs_choice": 0.7966666666666666
   },
   "alignment": {
-    "dfq_driver_vs_premise": 0.6683333333333333,
+    "dfq_driver_vs_premise": 0.6916666666666667,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.6683333333333333,
-    "tau_driver_vs_premise": 0.6683333333333333
+    "qe_driver_vs_premise": 0.6908333333333333,
+    "tau_driver_vs_premise": 0.69
   },
   "argllm_semantics": {
     "claim_base_score": 0.5,
@@ -18,32 +18,37 @@
   "dfq_weight_correlation": 1.0,
   "include_interactions": false,
   "model": "openai_gpt5mini",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
   "qe_weight_correlation": 1.0,
   "reasoning_effort": "low",
   "stageA_weights": {
-    "A": 0.22835355865271176,
-    "D": 0.17459378424103683,
-    "E": 0.3501973593684209,
-    "S": 0.24685529773783052
+    "A": 0.2131114332599565,
+    "D": 0.18204607012998852,
+    "E": 0.3545673618588408,
+    "S": 0.25027513475121416
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.05587667335799736,
+      "mean_std": 0.0443622806096042,
       "median_std": 0.05773502691896253
     },
     "D": {
-      "mean_std": 0.05668506876590227,
-      "median_std": 0.05773502691896256
+      "mean_std": 0.04816638231005257,
+      "median_std": 0.05773502691896255
     },
     "E": {
-      "mean_std": 0.03252459579771669,
-      "median_std": 0.028867513459481256
+      "mean_std": 0.03261221481738015,
+      "median_std": 0.028867513459481266
     },
     "S": {
-      "mean_std": 0.06940773954881216,
-      "median_std": 0.05773502691896258
+      "mean_std": 0.06109112820884986,
+      "median_std": 0.05773502691896256
     }
   },
   "tau_weight_correlation": 1.0

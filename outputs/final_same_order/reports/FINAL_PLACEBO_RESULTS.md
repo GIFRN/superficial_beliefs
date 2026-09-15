@@ -9,17 +9,17 @@
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Label Border Thickness | GPT-5-mini | low | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
 | Label Border Thickness | GPT-5-mini | minimal | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
-| Label Border Thickness | GPT-5-nano | low | 0.000 | 0.000 | 0.001 | 1200 | 1200 | 1200 |
-| Label Border Thickness | GPT-5-nano | minimal | 0.001 | 0.060 | 0.077 | 1200 | 1200 | 1200 |
-| Label Border Thickness | Ministral-3-14B | low | 0.008 | 0.044 | 0.000 | 1200 | 1200 | 1200 |
-| Label Border Thickness | Ministral-3-14B | minimal | 0.008 | 0.033 | 0.002 | 1200 | 1200 | 1200 |
-| Label Border Thickness | Qwen3.5-14B | low | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
-| Label Border Thickness | Qwen3.5-14B | minimal | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
+| Label Border Thickness | GPT-5-nano | low | 0.000 | 0.000 | 0.006 | 1200 | 1200 | 1200 |
+| Label Border Thickness | GPT-5-nano | minimal | 0.000 | 0.070 | 0.080 | 1200 | 1200 | 1200 |
+| Label Border Thickness | Ministral-3-14B | low | 0.008 | 0.000 | 0.003 | 1200 | 1200 | 1200 |
+| Label Border Thickness | Ministral-3-14B | minimal | 0.005 | 0.020 | 0.000 | 1200 | 1200 | 1200 |
+| Label Border Thickness | Qwen3-14B | low | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
+| Label Border Thickness | Qwen3-14B | minimal | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
 | Packaging Symmetry | GPT-5-mini | low | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
-| Packaging Symmetry | GPT-5-mini | minimal | 0.001 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
-| Packaging Symmetry | GPT-5-nano | low | 0.001 | 0.000 | 0.005 | 1200 | 1200 | 1200 |
-| Packaging Symmetry | GPT-5-nano | minimal | 0.011 | 0.122 | 0.072 | 1200 | 1200 | 1200 |
-| Packaging Symmetry | Ministral-3-14B | low | 0.014 | 0.043 | 0.000 | 1200 | 1200 | 1200 |
-| Packaging Symmetry | Ministral-3-14B | minimal | 0.015 | 0.042 | 0.000 | 1200 | 1200 | 1200 |
-| Packaging Symmetry | Qwen3.5-14B | low | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
-| Packaging Symmetry | Qwen3.5-14B | minimal | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
+| Packaging Symmetry | GPT-5-mini | minimal | 0.002 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
+| Packaging Symmetry | GPT-5-nano | low | 0.002 | 0.000 | 0.017 | 1200 | 1200 | 1200 |
+| Packaging Symmetry | GPT-5-nano | minimal | 0.008 | 0.130 | 0.087 | 1200 | 1200 | 1200 |
+| Packaging Symmetry | Ministral-3-14B | low | 0.010 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
+| Packaging Symmetry | Ministral-3-14B | minimal | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
+| Packaging Symmetry | Qwen3-14B | low | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |
+| Packaging Symmetry | Qwen3-14B | minimal | 0.000 | 0.000 | 0.000 | 1200 | 1200 | 1200 |

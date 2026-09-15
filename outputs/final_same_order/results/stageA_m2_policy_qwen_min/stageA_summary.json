@@ -1,0 +1,87 @@
+{
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "behavioral_model": "m2",
+  "behavioral_model_name": "M2",
+  "coefficient_table": [],
+  "convergence_status": "cell_lookup_ok",
+  "cv_mean_nll_by_lambda": {
+    "0.5": 0.8872096888296082,
+    "1.0": 0.842106450882033,
+    "10.0": 0.7304778301730211,
+    "100.0": 0.7177281090796557,
+    "2.0": 0.8002070790104364,
+    "20.0": 0.7175680828172301,
+    "5.0": 0.7542962460018636,
+    "50.0": 0.7144079376157855
+  },
+  "evaluation": {
+    "accuracy": 0.91,
+    "brier": 0.058812520646131905,
+    "log_loss": 0.21154944592253377
+  },
+  "feature_columns": [
+    "delta_E",
+    "delta_A",
+    "delta_S",
+    "delta_D"
+  ],
+  "feature_info": {
+    "behavioral_model": "m2",
+    "canonical_attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "cell_columns": [
+      "delta_E",
+      "delta_A",
+      "delta_S",
+      "delta_D"
+    ],
+    "main": {
+      "A": {
+        "step1": "z_A_1",
+        "step2": "z_A_2"
+      },
+      "D": {
+        "step1": "z_D_1",
+        "step2": "z_D_2"
+      },
+      "E": {
+        "step1": "z_E_1",
+        "step2": "z_E_2"
+      },
+      "S": {
+        "step1": "z_S_1",
+        "step2": "z_S_2"
+      }
+    }
+  },
+  "fit_mode": "cell_lookup",
+  "include_interactions": false,
+  "lookup_table_path": "lookup_table.parquet",
+  "m1_convergence_status": "unpenalized_ok",
+  "m1_selected_ridge_lambda": 0.0,
+  "model": "local_qwen3_14b_vllm_minimal",
+  "model_bse": {},
+  "model_params": {},
+  "num_unique_observed_cells": 266,
+  "reasoning_effort": "minimal",
+  "selected_ridge_lambda": 0.0,
+  "selected_shrinkage_lambda": 50.0,
+  "train_nll": 0.6346483377676013
+}

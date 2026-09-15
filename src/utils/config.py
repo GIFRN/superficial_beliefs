@@ -98,7 +98,7 @@ class DominanceConfig(BaseModel):
 
 
 class ProfilesConfig(BaseModel):
-    attributes: List[Literal["E", "A", "S", "D"]]
+    attributes: List[str]
     levels: List[Literal["Low", "Medium", "High"]]
     level_scores: Dict[str, int]
 
@@ -126,8 +126,8 @@ class Config(BaseModel):
     replicates: ReplicatesConfig
     dominance_items: DominanceConfig
     profiles: ProfilesConfig
-    orders_permutations: List[List[Literal["E", "A", "S", "D"]]]
-    probe_targets: List[Literal["E", "A", "S", "D"]]
+    orders_permutations: List[List[str]]
+    probe_targets: List[str]
     paths: PathsConfig
 
     @classmethod

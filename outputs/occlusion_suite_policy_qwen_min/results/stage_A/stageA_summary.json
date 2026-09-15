@@ -1,0 +1,112 @@
+{
+  "AME": {
+    "A": 2.463011413360919,
+    "D": 1.9960443115281086,
+    "E": 4.50574185561682,
+    "S": 2.7713044943442986
+  },
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "behavioral_model": "m0",
+  "behavioral_model_name": "M0",
+  "beta": {
+    "A": 2.463011413360919,
+    "D": 1.9960443115281086,
+    "E": 4.50574185561682,
+    "S": 2.7713044943442986
+  },
+  "coefficient_table": [
+    {
+      "coefficient": 1.023276776833428,
+      "feature": "Intercept",
+      "standard_error": 0.04007426434691843
+    },
+    {
+      "coefficient": 4.50574185561682,
+      "feature": "diff_E",
+      "standard_error": 0.09722489201467659
+    },
+    {
+      "coefficient": 2.463011413360919,
+      "feature": "diff_A",
+      "standard_error": 0.06036787773625927
+    },
+    {
+      "coefficient": 2.7713044943442986,
+      "feature": "diff_S",
+      "standard_error": 0.06644891573391991
+    },
+    {
+      "coefficient": 1.9960443115281086,
+      "feature": "diff_D",
+      "standard_error": 0.05256529031571687
+    }
+  ],
+  "convergence_status": "unpenalized_ok",
+  "cv_mean_nll_by_lambda": {},
+  "evaluation": {
+    "accuracy": 0.8888888888888888,
+    "brier": 0.06840801107116713,
+    "log_loss": 0.24276841392984475
+  },
+  "feature_columns": [
+    "Intercept",
+    "diff_E",
+    "diff_A",
+    "diff_S",
+    "diff_D"
+  ],
+  "feature_info": {
+    "behavioral_model": "m0",
+    "canonical_attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "main": {
+      "A": "diff_A",
+      "D": "diff_D",
+      "E": "diff_E",
+      "S": "diff_S"
+    }
+  },
+  "fit_mode": "unpenalized",
+  "include_interactions": false,
+  "model": "local_qwen3_14b_vllm_minimal",
+  "model_bse": {
+    "Intercept": 0.04007426434691843,
+    "diff_A": 0.06036787773625927,
+    "diff_D": 0.05256529031571687,
+    "diff_E": 0.09722489201467659,
+    "diff_S": 0.06644891573391991
+  },
+  "model_params": {
+    "Intercept": 1.023276776833428,
+    "diff_A": 2.463011413360919,
+    "diff_D": 1.9960443115281086,
+    "diff_E": 4.50574185561682,
+    "diff_S": 2.7713044943442986
+  },
+  "reasoning_effort": "minimal",
+  "selected_ridge_lambda": 0.0,
+  "train_nll": 0.7283052417895343,
+  "weights": {
+    "A": 0.20986622284404155,
+    "D": 0.17007727938951103,
+    "E": 0.3839214951335835,
+    "S": 0.23613500263286388
+  }
+}

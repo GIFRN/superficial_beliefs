@@ -1,0 +1,138 @@
+{
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "behavioral_model": "m1",
+  "behavioral_model_name": "M1",
+  "coefficient_table": [
+    {
+      "coefficient": -0.7576619109279326,
+      "feature": "Intercept",
+      "standard_error": 0.05521775451378132
+    },
+    {
+      "coefficient": 0.9564016263937709,
+      "feature": "z_E_1",
+      "standard_error": 0.08386821678007061
+    },
+    {
+      "coefficient": 1.2875913382754294,
+      "feature": "z_E_2",
+      "standard_error": 0.12055627197393004
+    },
+    {
+      "coefficient": 0.7971057231078018,
+      "feature": "z_A_1",
+      "standard_error": 0.08386891492125133
+    },
+    {
+      "coefficient": 2.2624544678455347,
+      "feature": "z_A_2",
+      "standard_error": 0.14178617331574864
+    },
+    {
+      "coefficient": 3.792230760845074,
+      "feature": "z_S_1",
+      "standard_error": 0.13797479240007374
+    },
+    {
+      "coefficient": 7.999783716455575,
+      "feature": "z_S_2",
+      "standard_error": 0.27911755603991756
+    },
+    {
+      "coefficient": 3.9994800427064523,
+      "feature": "z_D_1",
+      "standard_error": 0.14470132268835248
+    },
+    {
+      "coefficient": 6.5140205297343154,
+      "feature": "z_D_2",
+      "standard_error": 0.23885085849437238
+    }
+  ],
+  "convergence_status": "unpenalized_ok",
+  "cv_mean_nll_by_lambda": {},
+  "evaluation": {
+    "accuracy": 0.89625,
+    "brier": 0.047206607687953754,
+    "log_loss": 0.25354636073861103
+  },
+  "feature_columns": [
+    "Intercept",
+    "z_E_1",
+    "z_E_2",
+    "z_A_1",
+    "z_A_2",
+    "z_S_1",
+    "z_S_2",
+    "z_D_1",
+    "z_D_2"
+  ],
+  "feature_info": {
+    "behavioral_model": "m1",
+    "canonical_attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "main": {
+      "A": {
+        "step1": "z_A_1",
+        "step2": "z_A_2"
+      },
+      "D": {
+        "step1": "z_D_1",
+        "step2": "z_D_2"
+      },
+      "E": {
+        "step1": "z_E_1",
+        "step2": "z_E_2"
+      },
+      "S": {
+        "step1": "z_S_1",
+        "step2": "z_S_2"
+      }
+    }
+  },
+  "fit_mode": "unpenalized",
+  "include_interactions": false,
+  "model": "openai_gpt5mini",
+  "model_bse": {
+    "Intercept": 0.05521775451378132,
+    "z_A_1": 0.08386891492125133,
+    "z_A_2": 0.14178617331574864,
+    "z_D_1": 0.14470132268835248,
+    "z_D_2": 0.23885085849437238,
+    "z_E_1": 0.08386821678007061,
+    "z_E_2": 0.12055627197393004,
+    "z_S_1": 0.13797479240007374,
+    "z_S_2": 0.27911755603991756
+  },
+  "model_params": {
+    "Intercept": -0.7576619109279326,
+    "z_A_1": 0.7971057231078018,
+    "z_A_2": 2.2624544678455347,
+    "z_D_1": 3.9994800427064523,
+    "z_D_2": 6.5140205297343154,
+    "z_E_1": 0.9564016263937709,
+    "z_E_2": 1.2875913382754294,
+    "z_S_1": 3.792230760845074,
+    "z_S_2": 7.999783716455575
+  },
+  "reasoning_effort": "low",
+  "selected_ridge_lambda": 0.0,
+  "train_nll": 0.7606390822158331
+}

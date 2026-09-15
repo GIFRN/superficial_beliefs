@@ -1,14 +1,14 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.865,
-    "qe_vs_choice": 0.8008333333333333,
-    "tau_vs_choice": 0.8033333333333333
+    "dfq_vs_choice": 0.85,
+    "qe_vs_choice": 0.7908333333333334,
+    "tau_vs_choice": 0.7925
   },
   "alignment": {
-    "dfq_driver_vs_premise": 0.8241666666666667,
+    "dfq_driver_vs_premise": 0.81,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.8241666666666667,
-    "tau_driver_vs_premise": 0.8241666666666667
+    "qe_driver_vs_premise": 0.81,
+    "tau_driver_vs_premise": 0.81
   },
   "argllm_semantics": {
     "claim_base_score": 0.5,
@@ -18,32 +18,37 @@
   "dfq_weight_correlation": 1.0,
   "include_interactions": false,
   "model": "openai_gpt5mini",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
   "qe_weight_correlation": 1.0,
   "reasoning_effort": "low",
   "stageA_weights": {
-    "A": 0.22850286911090875,
-    "D": 0.07002314615956765,
-    "E": 0.44710762333053355,
-    "S": 0.25436636139899005
+    "A": 0.2294091688249563,
+    "D": 0.06681728438128091,
+    "E": 0.4542912072419762,
+    "S": 0.24948233955178653
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.07184359266752212,
-      "median_std": 0.05773502691896256
+      "mean_std": 0.052336757280668895,
+      "median_std": 0.05773502691896253
     },
     "D": {
-      "mean_std": 0.06141936621095846,
+      "mean_std": 0.05809623139037533,
       "median_std": 0.05773502691896256
     },
     "E": {
-      "mean_std": 0.04720168050287951,
-      "median_std": 0.028867513459481298
+      "mean_std": 0.03784241167521361,
+      "median_std": 0.028867513459481322
     },
     "S": {
-      "mean_std": 0.08519598215705006,
-      "median_std": 0.057735026918962644
+      "mean_std": 0.061123926256524255,
+      "median_std": 0.05773502691896256
     }
   },
   "tau_weight_correlation": 1.0

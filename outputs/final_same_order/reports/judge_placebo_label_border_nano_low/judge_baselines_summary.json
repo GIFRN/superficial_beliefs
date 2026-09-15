@@ -1,14 +1,14 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.7633333333333333,
-    "qe_vs_choice": 0.76,
-    "tau_vs_choice": 0.76
+    "dfq_vs_choice": 0.8008333333333333,
+    "qe_vs_choice": 0.7658333333333334,
+    "tau_vs_choice": 0.7725
   },
   "alignment": {
-    "dfq_driver_vs_premise": 0.6541666666666667,
+    "dfq_driver_vs_premise": 0.7116666666666667,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.6525,
-    "tau_driver_vs_premise": 0.6533333333333333
+    "qe_driver_vs_premise": 0.7075,
+    "tau_driver_vs_premise": 0.71
   },
   "argllm_semantics": {
     "claim_base_score": 0.5,
@@ -18,32 +18,37 @@
   "dfq_weight_correlation": 0.7999999999999999,
   "include_interactions": false,
   "model": "openai_gpt5nano",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
   "qe_weight_correlation": 0.7999999999999999,
   "reasoning_effort": "low",
   "stageA_weights": {
-    "A": 0.2507848175206162,
+    "A": 0.25645263865978835,
     "D": 0.0,
-    "E": 0.36660091388097654,
-    "S": 0.3826142685984073
+    "E": 0.37053223744096786,
+    "S": 0.3730151238992438
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.0745166794595341,
-      "median_std": 0.057735026918962595
-    },
-    "D": {
-      "mean_std": 0.07749951715800085,
+      "mean_std": 0.07204351526520181,
       "median_std": 0.05773502691896258
     },
+    "D": {
+      "mean_std": 0.10194907428200078,
+      "median_std": 0.09999999999999998
+    },
     "E": {
-      "mean_std": 0.05465895375706294,
+      "mean_std": 0.05390776373589588,
       "median_std": 0.05773502691896253
     },
     "S": {
-      "mean_std": 0.08863633975571573,
-      "median_std": 0.09999999999999998
+      "mean_std": 0.07543215446173351,
+      "median_std": 0.057735026918962595
     }
   },
   "tau_weight_correlation": 0.7999999999999999

@@ -1,0 +1,112 @@
+{
+  "AME": {
+    "A": 0.5683915652046965,
+    "D": 0.9042863328898025,
+    "E": 1.2744519778661827,
+    "S": 1.5106930236120462
+  },
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "behavioral_model": "m0",
+  "behavioral_model_name": "M0",
+  "beta": {
+    "A": 0.5683915652046965,
+    "D": 0.9042863328898025,
+    "E": 1.2744519778661827,
+    "S": 1.5106930236120462
+  },
+  "coefficient_table": [
+    {
+      "coefficient": -1.0401249879547674,
+      "feature": "Intercept",
+      "standard_error": 0.027455678189002183
+    },
+    {
+      "coefficient": 1.2744519778661827,
+      "feature": "diff_E",
+      "standard_error": 0.031185342977257578
+    },
+    {
+      "coefficient": 0.5683915652046965,
+      "feature": "diff_A",
+      "standard_error": 0.029030016294312976
+    },
+    {
+      "coefficient": 1.5106930236120462,
+      "feature": "diff_S",
+      "standard_error": 0.03561898393304541
+    },
+    {
+      "coefficient": 0.9042863328898025,
+      "feature": "diff_D",
+      "standard_error": 0.028493269409670962
+    }
+  ],
+  "convergence_status": "unpenalized_ok",
+  "cv_mean_nll_by_lambda": {},
+  "evaluation": {
+    "accuracy": 0.8203537364570793,
+    "brier": 0.06373418893395212,
+    "log_loss": 0.45478974787131904
+  },
+  "feature_columns": [
+    "Intercept",
+    "diff_E",
+    "diff_A",
+    "diff_S",
+    "diff_D"
+  ],
+  "feature_info": {
+    "behavioral_model": "m0",
+    "canonical_attributes": [
+      "E",
+      "A",
+      "S",
+      "D"
+    ],
+    "main": {
+      "A": "diff_A",
+      "D": "diff_D",
+      "E": "diff_E",
+      "S": "diff_S"
+    }
+  },
+  "fit_mode": "unpenalized",
+  "include_interactions": false,
+  "model": "local_ministral3_14b_instruct_vllm_minimal",
+  "model_bse": {
+    "Intercept": 0.027455678189002183,
+    "diff_A": 0.029030016294312976,
+    "diff_D": 0.028493269409670962,
+    "diff_E": 0.031185342977257578,
+    "diff_S": 0.03561898393304541
+  },
+  "model_params": {
+    "Intercept": -1.0401249879547674,
+    "diff_A": 0.5683915652046965,
+    "diff_D": 0.9042863328898025,
+    "diff_E": 1.2744519778661827,
+    "diff_S": 1.5106930236120462
+  },
+  "reasoning_effort": "minimal",
+  "selected_ridge_lambda": 0.0,
+  "train_nll": 1.3642429131284373,
+  "weights": {
+    "A": 0.13349347274677265,
+    "D": 0.21238232641863697,
+    "E": 0.2993201004189427,
+    "S": 0.3548041004156476
+  }
+}

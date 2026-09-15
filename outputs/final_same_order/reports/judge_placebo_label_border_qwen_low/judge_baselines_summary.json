@@ -1,14 +1,14 @@
 {
   "agreement": {
-    "dfq_vs_choice": 0.8275,
-    "qe_vs_choice": 0.8383333333333334,
-    "tau_vs_choice": 0.8358333333333333
+    "dfq_vs_choice": 0.8416666666666667,
+    "qe_vs_choice": 0.8066666666666666,
+    "tau_vs_choice": 0.8116666666666666
   },
   "alignment": {
-    "dfq_driver_vs_premise": 0.6691666666666667,
+    "dfq_driver_vs_premise": 0.7291666666666666,
     "pair_driver_vs_premise": NaN,
-    "qe_driver_vs_premise": 0.67,
-    "tau_driver_vs_premise": 0.6683333333333333
+    "qe_driver_vs_premise": 0.73,
+    "tau_driver_vs_premise": 0.7308333333333333
   },
   "argllm_semantics": {
     "claim_base_score": 0.5,
@@ -17,33 +17,38 @@
   "behavioral_attribution": {},
   "dfq_weight_correlation": 1.0,
   "include_interactions": false,
-  "model": "local_qwen35_14b_vllm_low",
+  "model": "local_qwen3_14b_vllm_low",
+  "pairwise_consistency_rate": NaN,
+  "pairwise_cycle_rate": NaN,
+  "pairwise_mirror_complete_rate": 0.0,
+  "pairwise_mirror_consistency_rate": NaN,
+  "pairwise_mirror_inconsistency_rate": NaN,
   "pairwise_ok_rate": 0.0,
   "qe_weight_correlation": 1.0,
   "reasoning_effort": "low",
   "stageA_weights": {
-    "A": 0.2699633708047022,
+    "A": 0.3146154608370769,
     "D": 0.0,
-    "E": 0.43749124730574773,
-    "S": 0.2925453818895501
+    "E": 0.3673146975351609,
+    "S": 0.31806984162776214
   },
   "tau_ok_rate": 1.0,
   "tau_stability": {
     "A": {
-      "mean_std": 0.03307993587229907,
-      "median_std": 0.0
+      "mean_std": 0.05547770648966873,
+      "median_std": 0.05773502691896256
     },
     "D": {
-      "mean_std": 0.01053664241271067,
+      "mean_std": 0.023183393547019353,
       "median_std": 0.0
     },
     "E": {
-      "mean_std": 0.03460154182992876,
-      "median_std": 0.0
+      "mean_std": 0.04841163330202962,
+      "median_std": 0.05773502691896256
     },
     "S": {
-      "mean_std": 0.04300908369487626,
-      "median_std": 0.0
+      "mean_std": 0.06842445221064705,
+      "median_std": 0.057735026918962595
     }
   },
   "tau_weight_correlation": 1.0

@@ -1,24 +1,29 @@
 # Judge Baselines Summary (openai_gpt5nano)
 
-- Tau/choice agreement: 0.725
-- DFQ/choice agreement: 0.698
-- QE/choice agreement: 0.723
-- Tau driver vs premise alignment: 0.512
-- DFQ driver vs premise alignment: 0.515
-- QE driver vs premise alignment: 0.512
+- Tau/choice agreement: 0.743
+- DFQ/choice agreement: 0.727
+- QE/choice agreement: 0.743
+- Tau driver vs premise alignment: 0.566
+- DFQ driver vs premise alignment: 0.565
+- QE driver vs premise alignment: 0.564
 - Pairwise driver vs premise alignment: n/a
 - Tau OK rate: 1.000
 - Pairwise OK rate: 0.000
+- Pairwise consistency rate: n/a
+- Pairwise cycle rate: n/a
+- Pairwise mirror-complete rate: 0.000
+- Pairwise mirror-consistency rate: n/a
+- Pairwise mirror-inconsistency rate: n/a
 - Tau/weights rank correlation: 0.400
 - DFQ/weights rank correlation: 0.400
 - QE/weights rank correlation: 0.400
 
 ## Stage A Weights
 {
-  "E": 0.2667314333772871,
-  "A": 0.27148944499349614,
-  "S": 0.2337914091345236,
-  "D": 0.22798771249469313
+  "E": 0.2717344196486553,
+  "A": 0.24732058018360664,
+  "S": 0.24291848323558116,
+  "D": 0.23802651693215696
 }
 
 ## Behavioral Attribution

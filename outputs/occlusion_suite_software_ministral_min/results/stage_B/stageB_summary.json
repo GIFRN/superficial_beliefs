@@ -1,0 +1,14 @@
+{
+  "alignment": {
+    "ECRB_top1_driver": 0.5376851851851852,
+    "ECRB_top1_weights": 0.43416666666666665,
+    "rank_corr": 1.0
+  },
+  "eval_dataset": "data/occlusion_suite/themes/software/test",
+  "include_interactions": false,
+  "model": "local_ministral3_14b_instruct_vllm_minimal",
+  "probes": {
+    "note": "Skipped probe refits to avoid test-set leakage; run on train split for probes."
+  },
+  "reasoning_effort": "minimal"
+}

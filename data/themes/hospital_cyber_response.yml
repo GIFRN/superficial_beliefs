@@ -1,0 +1,24 @@
+name: "hospital_cyber_response"
+entities:
+  - "Plan A"
+  - "Plan B"
+objective: "the better 12-month cyber-resilience plan for a mid-sized hospital with a small IT team"
+attributes:
+  T:
+    name: "T"
+    label: "Threat reduction"
+  D:
+    name: "D"
+    label: "Deployment speed"
+  M:
+    name: "M"
+    label: "Staff sustainability"
+  C:
+    name: "C"
+    label: "Service continuity"
+  A:
+    name: "A"
+    label: "Audit readiness"
+  P:
+    name: "P"
+    label: "System portability"

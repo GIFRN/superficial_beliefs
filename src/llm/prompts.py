@@ -10,7 +10,7 @@ from src.data.themes import ThemeConfig, DRUGS_THEME
 from .types import ConversationPlan, ConversationStep, TrialSpec
 
 
-ATTR_ORDER = tuple(ATTR_LABELS.keys())
+LEGACY_ATTR_ORDER = tuple(ATTR_LABELS.keys())
 PAIRWISE_PAIRS = (
     ("E", "A"),
     ("E", "S"),
@@ -178,7 +178,7 @@ def _judge_scores_joint_step(trial: TrialSpec) -> ConversationStep:
 
 def _judge_scores_per_feature_steps(trial: TrialSpec) -> list[ConversationStep]:
     steps: list[ConversationStep] = []
-    for attr in ATTR_ORDER:
+    for attr in _theme_attrs(trial):
         if trial.manipulation == "occlude_drop" and trial.attribute_target == attr:
             continue
         steps.append(
@@ -208,8 +208,17 @@ def _judge_pairwise_stepwise_steps(trial: TrialSpec) -> list[ConversationStep]:
     for attr_a, attr_b in PAIRWISE_PAIRS:
         steps.append(
             ConversationStep(
-                name=f"judge_pair_{attr_a}{attr_b}",
-                prompt=_judge_pairwise_step_prompt(trial, attr_a, attr_b),
+                name=f"judge_pair_{attr_a}{attr_b}_forward",
+                prompt=_judge_pairwise_step_prompt(trial, attr_a, attr_b, reverse=False),
+                expects="pairwise1",
+                reset_context=True,
+                stop_on_fail=False,
+            )
+        )
+        steps.append(
+            ConversationStep(
+                name=f"judge_pair_{attr_a}{attr_b}_reverse",
+                prompt=_judge_pairwise_step_prompt(trial, attr_a, attr_b, reverse=True),
                 expects="pairwise1",
                 reset_context=True,
                 stop_on_fail=False,
@@ -222,17 +231,17 @@ def _judge_scores_joint_prompt(trial: TrialSpec) -> str:
     theme = trial.theme_config or DRUGS_THEME
     labels = _attribute_label_string(trial)
     return_lines = _attribute_return_template_lines(trial)
+    n_lines = len(return_lines)
     lines = [
         f"You are an evaluator. Score how decisive each attribute difference is for {theme.objective}.",
         "Return a number between 0 and 1, where 0 = no impact and 1 = fully decisive.",
-        "For each attribute, imagine all other attributes equal and only that attribute differs as shown.",
         f"Attributes: {labels}.",
         "If an attribute is not shown, set its score to 0.",
         "",
         _profile_text(trial, label=theme.entity_a),
         _profile_text(trial, label=theme.entity_b),
         "",
-        "Return exactly 4 lines and nothing else.",
+        f"Return exactly {n_lines} lines and nothing else.",
         "Each line must be:",
         "<attribute>=<score>",
         "",
@@ -272,35 +281,44 @@ def _judge_score_prompt(trial: TrialSpec, attr: str) -> str:
 
 def _judge_pairwise_joint_prompt(trial: TrialSpec) -> str:
     theme = trial.theme_config or DRUGS_THEME
-    labels = _attribute_code_label_string(trial)
+    attrs = _ordered_prompt_attrs(trial)
+    labels = [theme.get_attribute_label(attr) for attr in attrs]
+    pair_lines = []
+    for i, attr_a in enumerate(attrs):
+        for attr_b in attrs[i + 1:]:
+            label_a = theme.get_attribute_label(attr_a)
+            label_b = theme.get_attribute_label(attr_b)
+            pair_lines.append(f"{label_a} vs {label_b} = {label_a}|{label_b}|tie")
     lines = [
         "You are an evaluator. Do NOT choose A/B.",
         f"For each attribute pair, decide which attribute difference is more decisive for {theme.objective} (in either direction), or tie.",
-        f"Attributes: {labels}.",
+        f"Attributes: {', '.join(labels)}.",
         "If an attribute is not shown, treat it as neutral and answer tie for pairs involving it.",
         "",
         _profile_text(trial, label=theme.entity_a),
         _profile_text(trial, label=theme.entity_b),
         "",
-        "Return 6 lines:",
-        "EA=E|A|tie, ES=E|S|tie, ED=E|D|tie, AS=A|S|tie, AD=A|D|tie, SD=S|D|tie",
+        "Return exactly 6 lines and nothing else:",
+        *pair_lines,
     ]
     return "\n".join(lines)
 
 
-def _judge_pairwise_step_prompt(trial: TrialSpec, attr_a: str, attr_b: str) -> str:
+def _judge_pairwise_step_prompt(trial: TrialSpec, attr_a: str, attr_b: str, *, reverse: bool = False) -> str:
     theme = trial.theme_config or DRUGS_THEME
-    label_a = theme.get_attribute_label(attr_a)
-    label_b = theme.get_attribute_label(attr_b)
+    left_attr, right_attr = (attr_b, attr_a) if reverse else (attr_a, attr_b)
+    label_a = theme.get_attribute_label(left_attr)
+    label_b = theme.get_attribute_label(right_attr)
     lines = [
         "You are an evaluator. Do NOT choose A/B.",
-        f"Between {label_a} (code {attr_a}) and {label_b} (code {attr_b}), which attribute difference is more decisive for {theme.objective} (in either direction), or tie?",
+        f"Between {label_a} and {label_b}, which attribute difference is more decisive for {theme.objective} (in either direction), or tie?",
         "If either attribute is not shown, answer tie.",
         "",
         _profile_text(trial, label=theme.entity_a),
         _profile_text(trial, label=theme.entity_b),
         "",
-        f"Return: winner={attr_a}|{attr_b}|tie",
+        "Return exactly one line and nothing else:",
+        f"winner={label_a}|{label_b}|tie",
     ]
     return "\n".join(lines)
 
@@ -336,6 +354,14 @@ def _ordered_prompt_attrs(trial: TrialSpec) -> list[str]:
         trial.attribute_target,
     )
     return [attr for attr in order_a if attr in theme.get_mapped_attributes()]
+
+
+def _theme_attrs(trial: TrialSpec) -> list[str]:
+    theme = trial.theme_config or DRUGS_THEME
+    attrs = theme.get_mapped_attributes()
+    if attrs:
+        return attrs
+    return list(LEGACY_ATTR_ORDER)
 
 
 def apply_probe(message: str, trial: TrialSpec) -> str:
@@ -401,7 +427,7 @@ def _probe_instruction(trial: TrialSpec) -> str:
 def _get_attribute_labels_list(trial: TrialSpec) -> str:
     """Get pipe-separated list of attribute labels for the theme."""
     theme = trial.theme_config or DRUGS_THEME
-    attrs = theme.get_mapped_attributes()
+    attrs = _theme_attrs(trial)
     if trial.manipulation == "occlude_drop" and trial.attribute_target in attrs:
         attrs = [attr for attr in attrs if attr != trial.attribute_target]
     labels = [theme.get_attribute_label(attr) for attr in attrs]

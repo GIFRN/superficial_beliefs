@@ -1,0 +1,38 @@
+[
+  {
+    "delta_direct_attribute_agreement": -0.015000000000000013,
+    "delta_direct_choice_agreement": 0.0033333333333332993,
+    "delta_heldout_direct_choice_nll": 0.023522018148815604,
+    "delta_judge_attribute_agreement": -0.0024999999999999467,
+    "delta_judge_choice_agreement_with_latent_choice": -0.0033333333333332993,
+    "m0_direct_attribute_agreement": 0.6441666666666667,
+    "m0_direct_choice_agreement": 0.8466666666666667,
+    "m0_heldout_direct_choice_nll": 0.9577457315686917,
+    "m0_judge_attribute_agreement": 0.6,
+    "m0_judge_choice_agreement_with_latent_choice": 0.8416666666666667,
+    "m1_direct_attribute_agreement": 0.6291666666666667,
+    "m1_direct_choice_agreement": 0.85,
+    "m1_heldout_direct_choice_nll": 0.9812677497175073,
+    "m1_judge_attribute_agreement": 0.5975,
+    "m1_judge_choice_agreement_with_latent_choice": 0.8383333333333334,
+    "model_tag": "mini_min"
+  },
+  {
+    "delta_direct_attribute_agreement": 0.013333333333333308,
+    "delta_direct_choice_agreement": -0.0016666666666667052,
+    "delta_heldout_direct_choice_nll": -0.0038843844305090913,
+    "delta_judge_attribute_agreement": 0.007500000000000007,
+    "delta_judge_choice_agreement_with_latent_choice": 0.01666666666666672,
+    "m0_direct_attribute_agreement": 0.56,
+    "m0_direct_choice_agreement": 0.89,
+    "m0_heldout_direct_choice_nll": 0.7039258290024512,
+    "m0_judge_attribute_agreement": 0.4325,
+    "m0_judge_choice_agreement_with_latent_choice": 0.7775,
+    "m1_direct_attribute_agreement": 0.5733333333333334,
+    "m1_direct_choice_agreement": 0.8883333333333333,
+    "m1_heldout_direct_choice_nll": 0.7000414445719421,
+    "m1_judge_attribute_agreement": 0.44,
+    "m1_judge_choice_agreement_with_latent_choice": 0.7941666666666667,
+    "model_tag": "qwen_min_8030"
+  }
+]

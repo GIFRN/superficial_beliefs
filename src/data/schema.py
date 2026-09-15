@@ -3,7 +3,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, Iterable, Literal, Tuple
 
-Attribute = Literal["E", "A", "S", "D"]
+Attribute = str
 LevelName = Literal["Low", "Medium", "High"]
 
 LEVEL_SCORES: dict[LevelName, int] = {"Low": -1, "Medium": 0, "High": 1}

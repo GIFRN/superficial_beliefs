@@ -35,6 +35,9 @@ def add_pairwise_drivers(responses_df: pd.DataFrame) -> pd.DataFrame:
     """Add pairwise driver derived from pairwise winners."""
     df = responses_df.copy()
     df["pair_driver"] = df.apply(_pairwise_driver, axis=1)
+    diagnostics = df.apply(_pairwise_diagnostics, axis=1, result_type="expand")
+    for col in diagnostics.columns:
+        df[col] = diagnostics[col]
     return df
 
 
@@ -171,3 +174,58 @@ def _pairwise_driver(row: pd.Series) -> str | None:
         if wins[attr] == max_val:
             return attr
     return ATTRIBUTES[0]
+
+
+def _pairwise_diagnostics(row: pd.Series) -> pd.Series:
+    wins = {attr: 0 for attr in ATTRIBUTES}
+    edges: dict[str, set[str]] = {attr: set() for attr in ATTRIBUTES}
+    parsed_pairs = 0
+    tie_pairs = 0
+    for pair in PAIRS:
+        winner = row.get(f"pair_{pair}")
+        left, right = pair[0], pair[1]
+        if winner == "tie":
+            tie_pairs += 1
+            parsed_pairs += 1
+            continue
+        if winner == left:
+            wins[left] += 1
+            edges[left].add(right)
+            parsed_pairs += 1
+            continue
+        if winner == right:
+            wins[right] += 1
+            edges[right].add(left)
+            parsed_pairs += 1
+
+    has_cycle = _has_directed_cycle(edges)
+    strict_pairs = sum(1 for pair in PAIRS if row.get(f"pair_{pair}") in {pair[0], pair[1], "tie"})
+    return pd.Series(
+        {
+            "pairwise_parsed_pairs": parsed_pairs,
+            "pairwise_tie_pairs": tie_pairs,
+            "pairwise_has_cycle": has_cycle,
+            "pairwise_consistent": (parsed_pairs > 0) and (not has_cycle),
+            "pairwise_complete_strict": strict_pairs == len(PAIRS),
+        }
+    )
+
+
+def _has_directed_cycle(edges: dict[str, set[str]]) -> bool:
+    visited: set[str] = set()
+    visiting: set[str] = set()
+
+    def visit(node: str) -> bool:
+        if node in visiting:
+            return True
+        if node in visited:
+            return False
+        visiting.add(node)
+        for nxt in edges.get(node, set()):
+            if visit(nxt):
+                return True
+        visiting.remove(node)
+        visited.add(node)
+        return False
+
+    return any(visit(node) for node in edges)

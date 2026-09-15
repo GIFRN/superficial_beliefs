@@ -6,7 +6,7 @@
   "n_configs": 73,
   "n_trials": 3600,
   "source_configs_filename": "dataset_configs.parquet",
-  "source_dataset": "/vol/bitbucket/gif22/superficial_beliefs/data/occlusion_suite/test",
+  "source_dataset": "<REPO_ROOT>/data/occlusion_suite/test",
   "source_theme": {
     "attributes": {
       "A": {

@@ -1,0 +1,113 @@
+{
+  "AME": {
+    "A": 0.8283367488397061,
+    "D": 0.6905459072840826,
+    "E": 1.872570383560769,
+    "S": 0.9524404295498379
+  },
+  "b1_probes": {
+    "baseline_accuracy": 1.0,
+    "manipulated_accuracy": 1.0,
+    "message": "No B1 trials found",
+    "probe_effect_size": 0.0,
+    "probe_effectiveness": true
+  },
+  "b1_validation": {
+    "accuracy": 1.0,
+    "failed_trials": [],
+    "failure_rate": 0.0,
+    "message": "No B1 trials found",
+    "rationality_check_passed": true
+  },
+  "beta": {
+    "A": 0.8283367488397061,
+    "D": 0.6905459072840826,
+    "E": 1.872570383560769,
+    "S": 0.9524404295498379
+  },
+  "cv": {
+    "accuracy": 0.8875398827053285,
+    "brier": 0.053359950784810185,
+    "log_loss": 0.29821740690739357
+  },
+  "evaluation": {
+    "accuracy": 0.88875,
+    "brier": 0.052194772876966604,
+    "log_loss": 0.2941986786518932
+  },
+  "feature_columns": [
+    "Intercept",
+    "diff_E",
+    "diff_A",
+    "diff_S",
+    "diff_D",
+    "order_E",
+    "order_x_E",
+    "order_A",
+    "order_x_A",
+    "order_S",
+    "order_x_S",
+    "order_D",
+    "order_x_D"
+  ],
+  "feature_info": {
+    "interactions": {},
+    "main": {
+      "A": "diff_A",
+      "D": "diff_D",
+      "E": "diff_E",
+      "S": "diff_S"
+    },
+    "order_bias": {
+      "A": "order_A",
+      "D": "order_D",
+      "E": "order_E",
+      "S": "order_S"
+    },
+    "order_interactions": {
+      "A": "order_x_A",
+      "D": "order_x_D",
+      "E": "order_x_E",
+      "S": "order_x_S"
+    }
+  },
+  "include_interactions": false,
+  "model": "openai_gpt5nano",
+  "model_bse": {
+    "Intercept": 0.07261931069339174,
+    "diff_A": 0.055015699253825205,
+    "diff_D": 0.05270673948071462,
+    "diff_E": 0.06752520191977734,
+    "diff_S": 0.057466586010923686,
+    "order_A": 0.0,
+    "order_D": 0.0,
+    "order_E": 0.0,
+    "order_S": 0.0,
+    "order_x_A": 0.0,
+    "order_x_D": 0.0,
+    "order_x_E": 0.0,
+    "order_x_S": 0.0
+  },
+  "model_params": {
+    "Intercept": 2.6476800824224123,
+    "diff_A": 0.8283367488397061,
+    "diff_D": 0.6905459072840826,
+    "diff_E": 1.872570383560769,
+    "diff_S": 0.9524404295498379,
+    "order_A": 0.0,
+    "order_D": 0.0,
+    "order_E": 0.0,
+    "order_S": 0.0,
+    "order_x_A": 0.0,
+    "order_x_D": 0.0,
+    "order_x_E": 0.0,
+    "order_x_S": 0.0
+  },
+  "reasoning_effort": "minimal",
+  "weights": {
+    "A": 0.19068993167221918,
+    "D": 0.1589693467795356,
+    "E": 0.43108110197067206,
+    "S": 0.21925961957757312
+  }
+}

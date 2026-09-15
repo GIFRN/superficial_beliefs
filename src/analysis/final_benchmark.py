@@ -27,8 +27,8 @@ MODEL_SPECS = [
     ModelSpec("mini_low", "GPT-5-mini", "low", "openai", DATA_ROOT / "models/mini_low.yml"),
     ModelSpec("nano_min", "GPT-5-nano", "minimal", "openai", DATA_ROOT / "models/nano_min.yml"),
     ModelSpec("nano_low", "GPT-5-nano", "low", "openai", DATA_ROOT / "models/nano_low.yml"),
-    ModelSpec("qwen_min", "Qwen3.5-14B", "minimal", "qwen", DATA_ROOT / "models/qwen_min.yml"),
-    ModelSpec("qwen_low", "Qwen3.5-14B", "low", "qwen", DATA_ROOT / "models/qwen_low.yml"),
+    ModelSpec("qwen_min", "Qwen3-14B", "minimal", "qwen", DATA_ROOT / "models/qwen_min.yml"),
+    ModelSpec("qwen_low", "Qwen3-14B", "low", "qwen", DATA_ROOT / "models/qwen_low.yml"),
     ModelSpec("ministral_min", "Ministral-3-14B", "minimal", "ministral", DATA_ROOT / "models/ministral_min.yml"),
     ModelSpec("ministral_low", "Ministral-3-14B", "low", "ministral", DATA_ROOT / "models/ministral_low.yml"),
 ]
@@ -83,6 +83,10 @@ def stagea_dir(theme: str, model_tag: str, *, base: str | Path | None = None) ->
 
 def judge_dir(theme: str, model_tag: str, *, base: str | Path | None = None) -> Path:
     return reports_root(base) / f"judge_{theme}_{model_tag}"
+
+
+def pairwise_dir(theme: str, model_tag: str, *, base: str | Path | None = None) -> Path:
+    return reports_root(base) / f"judgepair_{theme}_{model_tag}"
 
 
 def resolve_run_dir(prefix: str | Path) -> Path | None:
